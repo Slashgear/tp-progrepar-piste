@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <base href="/">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+    <script src="https://code.angularjs.org/1.2.28/angular-route.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-sanitize.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/roboto.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/material.min.css"
+          rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.css"
+          rel="stylesheet">
+    <title>Simulateur de Piste</title>
+</head>
+<body>
+
+
+<div class="header">
+    <div class="navbar navbar-inverse">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/">Simulateur de Piste</a>
+        </div>
+        <div class="navbar-collapse collapse navbar-inverse-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#/">Lorem</a></li>
+                <li><a href="#/">Ipsum</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <form class="form-horizontal">
+            <fieldset>
+                <legend>Modification d'un Apprenant</legend>
+                <div class="form-group">
+                    <label for="idApprenant" class="col-lg-2 control-label">Numéro</label>
+                    <div class="col-lg-10">
+                        <input type="number" class="form-control" id="idApprenant" placeholder="Numéro de l'apprenant">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="nomApprenant" class="col-lg-2 control-label">Nom</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="nomApprenant" placeholder="Nom de l'apprenant">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="prenomApprenant" class="col-lg-2 control-label">Prénom</label>
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" id="prenomApprenant" placeholder="Prénom de l'apprenant">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <button class="btn btn-default">Annuler</button>
+                        <button type="submit" class="btn btn-primary">Modifier</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/ripples.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/js/material.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $.material.init();
+    });
+</script>
+
+</body>
+</html>
