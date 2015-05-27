@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence" version="2.1">
+
+    <persistence-unit name="NewPersistenceUnit">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>dao.Action</class>
+        <class>dao.Appartient</class>
+        <class>dao.Apprenant</class>
+        <class>dao.Calendrier</class>
+        <class>dao.EstAssocie</class>
+        <class>dao.Fixe</class>
+        <class>dao.Indicateur</class>
+        <class>dao.Jeu</class>
+        <class>dao.Mission</class>
+        <class>dao.Objectif</class>
+        <class>dao.Obtient</class>
+        <class>dao.Possede</class>
+        <class>dao.Regle</class>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/permispiste"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.username"/>
+            <property name="hibernate.connection.password"/>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+</persistence>
