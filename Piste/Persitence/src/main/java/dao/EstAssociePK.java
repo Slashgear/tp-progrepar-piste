@@ -12,7 +12,7 @@ public class EstAssociePK implements Serializable {
     private int numaction;
     private int numobjectif;
 
-    @Column(name = "NUMACTION")
+    @Column(name = "NUMACTION", nullable = false, insertable = true, updatable = true)
     @Id
     public int getNumaction() {
         return numaction;
@@ -22,7 +22,7 @@ public class EstAssociePK implements Serializable {
         this.numaction = numaction;
     }
 
-    @Column(name = "NUMOBJECTIF")
+    @Column(name = "NUMOBJECTIF", nullable = false, insertable = true, updatable = true)
     @Id
     public int getNumobjectif() {
         return numobjectif;
@@ -40,9 +40,8 @@ public class EstAssociePK implements Serializable {
         EstAssociePK that = (EstAssociePK) o;
 
         if (numaction != that.numaction) return false;
-        if (numobjectif != that.numobjectif) return false;
+        return numobjectif == that.numobjectif;
 
-        return true;
     }
 
     @Override

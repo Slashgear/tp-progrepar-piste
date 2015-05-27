@@ -1,9 +1,7 @@
 package dao;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * @author Alexandre
@@ -13,9 +11,11 @@ import javax.persistence.Id;
 public class Jeu {
     private int numjeu;
     private String libellejeu;
+    private Collection<Appartient> appartientsByNumjeu;
+    private Collection<Mission> missionsByNumjeu;
 
     @Id
-    @Column(name = "NUMJEU")
+    @Column(name = "NUMJEU", nullable = false, insertable = true, updatable = true)
     public int getNumjeu() {
         return numjeu;
     }
@@ -25,7 +25,7 @@ public class Jeu {
     }
 
     @Basic
-    @Column(name = "LIBELLEJEU")
+    @Column(name = "LIBELLEJEU", nullable = true, insertable = true, updatable = true, length = 25)
     public String getLibellejeu() {
         return libellejeu;
     }
@@ -42,9 +42,8 @@ public class Jeu {
         Jeu jeu = (Jeu) o;
 
         if (numjeu != jeu.numjeu) return false;
-        if (libellejeu != null ? !libellejeu.equals(jeu.libellejeu) : jeu.libellejeu != null) return false;
+        return !(libellejeu != null ? !libellejeu.equals(jeu.libellejeu) : jeu.libellejeu != null);
 
-        return true;
     }
 
     @Override
@@ -52,5 +51,23 @@ public class Jeu {
         int result = numjeu;
         result = 31 * result + (libellejeu != null ? libellejeu.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "jeuByNumjeu")
+    public Collection<Appartient> getAppartientsByNumjeu() {
+        return appartientsByNumjeu;
+    }
+
+    public void setAppartientsByNumjeu(Collection<Appartient> appartientsByNumjeu) {
+        this.appartientsByNumjeu = appartientsByNumjeu;
+    }
+
+    @OneToMany(mappedBy = "jeuByNumjeu")
+    public Collection<Mission> getMissionsByNumjeu() {
+        return missionsByNumjeu;
+    }
+
+    public void setMissionsByNumjeu(Collection<Mission> missionsByNumjeu) {
+        this.missionsByNumjeu = missionsByNumjeu;
     }
 }

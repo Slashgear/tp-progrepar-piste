@@ -1,9 +1,6 @@
 package dao;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 
 /**
  * @author Alexandre
@@ -14,9 +11,11 @@ import javax.persistence.IdClass;
 public class Fixe {
     private int nummission;
     private int numobjectif;
+    private Objectif objectifByNumobjectif;
+    private Mission missionByNummission;
 
     @Id
-    @Column(name = "NUMMISSION")
+    @Column(name = "NUMMISSION", nullable = false, insertable = true, updatable = true)
     public int getNummission() {
         return nummission;
     }
@@ -26,7 +25,7 @@ public class Fixe {
     }
 
     @Id
-    @Column(name = "NUMOBJECTIF")
+    @Column(name = "NUMOBJECTIF", nullable = false, insertable = true, updatable = true)
     public int getNumobjectif() {
         return numobjectif;
     }
@@ -43,9 +42,8 @@ public class Fixe {
         Fixe fixe = (Fixe) o;
 
         if (nummission != fixe.nummission) return false;
-        if (numobjectif != fixe.numobjectif) return false;
+        return numobjectif == fixe.numobjectif;
 
-        return true;
     }
 
     @Override
@@ -53,5 +51,25 @@ public class Fixe {
         int result = nummission;
         result = 31 * result + numobjectif;
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "NUMOBJECTIF", referencedColumnName = "NUMOBJECTIF", nullable = false)
+    public Objectif getObjectifByNumobjectif() {
+        return objectifByNumobjectif;
+    }
+
+    public void setObjectifByNumobjectif(Objectif objectifByNumobjectif) {
+        this.objectifByNumobjectif = objectifByNumobjectif;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "NUMMISSION", referencedColumnName = "NUMMISSION", nullable = false)
+    public Mission getMissionByNummission() {
+        return missionByNummission;
+    }
+
+    public void setMissionByNummission(Mission missionByNummission) {
+        this.missionByNummission = missionByNummission;
     }
 }

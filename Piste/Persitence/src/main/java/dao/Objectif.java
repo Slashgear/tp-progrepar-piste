@@ -1,9 +1,7 @@
 package dao;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * @author Alexandre
@@ -13,9 +11,11 @@ import javax.persistence.Id;
 public class Objectif {
     private int numobjectif;
     private String libobectif;
+    private Collection<EstAssocie> estAssociesByNumobjectif;
+    private Collection<Fixe> fixesByNumobjectif;
 
     @Id
-    @Column(name = "NUMOBJECTIF")
+    @Column(name = "NUMOBJECTIF", nullable = false, insertable = true, updatable = true)
     public int getNumobjectif() {
         return numobjectif;
     }
@@ -25,7 +25,7 @@ public class Objectif {
     }
 
     @Basic
-    @Column(name = "LIBOBECTIF")
+    @Column(name = "LIBOBECTIF", nullable = true, insertable = true, updatable = true, length = 25)
     public String getLibobectif() {
         return libobectif;
     }
@@ -42,9 +42,8 @@ public class Objectif {
         Objectif objectif = (Objectif) o;
 
         if (numobjectif != objectif.numobjectif) return false;
-        if (libobectif != null ? !libobectif.equals(objectif.libobectif) : objectif.libobectif != null) return false;
+        return !(libobectif != null ? !libobectif.equals(objectif.libobectif) : objectif.libobectif != null);
 
-        return true;
     }
 
     @Override
@@ -52,5 +51,23 @@ public class Objectif {
         int result = numobjectif;
         result = 31 * result + (libobectif != null ? libobectif.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "objectifByNumobjectif")
+    public Collection<EstAssocie> getEstAssociesByNumobjectif() {
+        return estAssociesByNumobjectif;
+    }
+
+    public void setEstAssociesByNumobjectif(Collection<EstAssocie> estAssociesByNumobjectif) {
+        this.estAssociesByNumobjectif = estAssociesByNumobjectif;
+    }
+
+    @OneToMany(mappedBy = "objectifByNumobjectif")
+    public Collection<Fixe> getFixesByNumobjectif() {
+        return fixesByNumobjectif;
+    }
+
+    public void setFixesByNumobjectif(Collection<Fixe> fixesByNumobjectif) {
+        this.fixesByNumobjectif = fixesByNumobjectif;
     }
 }

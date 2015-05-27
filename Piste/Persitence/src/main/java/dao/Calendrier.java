@@ -3,7 +3,9 @@ package dao;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.sql.Date;
+import java.util.Collection;
 
 /**
  * @author Alexandre
@@ -12,9 +14,10 @@ import java.sql.Date;
 @Entity
 public class Calendrier {
     private Date datejour;
+    private Collection<Obtient> obtientsByDatejour;
 
     @Id
-    @Column(name = "DATEJOUR")
+    @Column(name = "DATEJOUR", nullable = false, insertable = true, updatable = true)
     public Date getDatejour() {
         return datejour;
     }
@@ -30,13 +33,21 @@ public class Calendrier {
 
         Calendrier that = (Calendrier) o;
 
-        if (datejour != null ? !datejour.equals(that.datejour) : that.datejour != null) return false;
+        return !(datejour != null ? !datejour.equals(that.datejour) : that.datejour != null);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
         return datejour != null ? datejour.hashCode() : 0;
+    }
+
+    @OneToMany(mappedBy = "calendrierByDatejour")
+    public Collection<Obtient> getObtientsByDatejour() {
+        return obtientsByDatejour;
+    }
+
+    public void setObtientsByDatejour(Collection<Obtient> obtientsByDatejour) {
+        this.obtientsByDatejour = obtientsByDatejour;
     }
 }

@@ -12,7 +12,7 @@ public class AppartientPK implements Serializable {
     private int numjeu;
     private int numaction;
 
-    @Column(name = "NUMJEU")
+    @Column(name = "NUMJEU", nullable = false, insertable = true, updatable = true)
     @Id
     public int getNumjeu() {
         return numjeu;
@@ -22,7 +22,7 @@ public class AppartientPK implements Serializable {
         this.numjeu = numjeu;
     }
 
-    @Column(name = "NUMACTION")
+    @Column(name = "NUMACTION", nullable = false, insertable = true, updatable = true)
     @Id
     public int getNumaction() {
         return numaction;
@@ -40,9 +40,8 @@ public class AppartientPK implements Serializable {
         AppartientPK that = (AppartientPK) o;
 
         if (numjeu != that.numjeu) return false;
-        if (numaction != that.numaction) return false;
+        return numaction == that.numaction;
 
-        return true;
     }
 
     @Override

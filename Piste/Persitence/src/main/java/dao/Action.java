@@ -1,9 +1,7 @@
 package dao;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * @author Alexandre
@@ -15,9 +13,16 @@ public class Action {
     private Integer actNumaction;
     private String libaction;
     private Integer scoremin;
+    private Action actionByActNumaction;
+    private Collection<Action> actionsByNumaction;
+    private Collection<Appartient> appartientsByNumaction;
+    private Collection<EstAssocie> estAssociesByNumaction;
+    private Collection<Indicateur> indicateursByNumaction;
+    private Collection<Obtient> obtientsByNumaction;
+    private Collection<Possede> possedesByNumaction;
 
     @Id
-    @Column(name = "NUMACTION")
+    @Column(name = "NUMACTION", nullable = false, insertable = true, updatable = true)
     public int getNumaction() {
         return numaction;
     }
@@ -27,7 +32,7 @@ public class Action {
     }
 
     @Basic
-    @Column(name = "ACT_NUMACTION")
+    @Column(name = "ACT_NUMACTION", nullable = true, insertable = true, updatable = true)
     public Integer getActNumaction() {
         return actNumaction;
     }
@@ -37,7 +42,7 @@ public class Action {
     }
 
     @Basic
-    @Column(name = "LIBACTION")
+    @Column(name = "LIBACTION", nullable = true, insertable = true, updatable = true, length = 25)
     public String getLibaction() {
         return libaction;
     }
@@ -47,7 +52,7 @@ public class Action {
     }
 
     @Basic
-    @Column(name = "SCOREMIN")
+    @Column(name = "SCOREMIN", nullable = true, insertable = true, updatable = true)
     public Integer getScoremin() {
         return scoremin;
     }
@@ -67,9 +72,8 @@ public class Action {
         if (actNumaction != null ? !actNumaction.equals(action.actNumaction) : action.actNumaction != null)
             return false;
         if (libaction != null ? !libaction.equals(action.libaction) : action.libaction != null) return false;
-        if (scoremin != null ? !scoremin.equals(action.scoremin) : action.scoremin != null) return false;
+        return !(scoremin != null ? !scoremin.equals(action.scoremin) : action.scoremin != null);
 
-        return true;
     }
 
     @Override
@@ -79,5 +83,69 @@ public class Action {
         result = 31 * result + (libaction != null ? libaction.hashCode() : 0);
         result = 31 * result + (scoremin != null ? scoremin.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ACT_NUMACTION", referencedColumnName = "NUMACTION")
+    public Action getActionByActNumaction() {
+        return actionByActNumaction;
+    }
+
+    public void setActionByActNumaction(Action actionByActNumaction) {
+        this.actionByActNumaction = actionByActNumaction;
+    }
+
+    @OneToMany(mappedBy = "actionByActNumaction")
+    public Collection<Action> getActionsByNumaction() {
+        return actionsByNumaction;
+    }
+
+    public void setActionsByNumaction(Collection<Action> actionsByNumaction) {
+        this.actionsByNumaction = actionsByNumaction;
+    }
+
+    @OneToMany(mappedBy = "actionByNumaction")
+    public Collection<Appartient> getAppartientsByNumaction() {
+        return appartientsByNumaction;
+    }
+
+    public void setAppartientsByNumaction(Collection<Appartient> appartientsByNumaction) {
+        this.appartientsByNumaction = appartientsByNumaction;
+    }
+
+    @OneToMany(mappedBy = "actionByNumaction")
+    public Collection<EstAssocie> getEstAssociesByNumaction() {
+        return estAssociesByNumaction;
+    }
+
+    public void setEstAssociesByNumaction(Collection<EstAssocie> estAssociesByNumaction) {
+        this.estAssociesByNumaction = estAssociesByNumaction;
+    }
+
+    @OneToMany(mappedBy = "actionByNumaction")
+    public Collection<Indicateur> getIndicateursByNumaction() {
+        return indicateursByNumaction;
+    }
+
+    public void setIndicateursByNumaction(Collection<Indicateur> indicateursByNumaction) {
+        this.indicateursByNumaction = indicateursByNumaction;
+    }
+
+    @OneToMany(mappedBy = "actionByNumaction")
+    public Collection<Obtient> getObtientsByNumaction() {
+        return obtientsByNumaction;
+    }
+
+    public void setObtientsByNumaction(Collection<Obtient> obtientsByNumaction) {
+        this.obtientsByNumaction = obtientsByNumaction;
+    }
+
+    @OneToMany(mappedBy = "actionByNumaction")
+    public Collection<Possede> getPossedesByNumaction() {
+        return possedesByNumaction;
+    }
+
+    public void setPossedesByNumaction(Collection<Possede> possedesByNumaction) {
+        this.possedesByNumaction = possedesByNumaction;
     }
 }

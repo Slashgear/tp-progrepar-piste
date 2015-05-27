@@ -15,9 +15,12 @@ public class Obtient {
     private int numaction;
     private Integer valeurdebut;
     private Integer valeurfin;
+    private Action actionByNumaction;
+    private Calendrier calendrierByDatejour;
+    private Apprenant apprenantByNumapprenant;
 
     @Id
-    @Column(name = "NUMAPPRENANT")
+    @Column(name = "NUMAPPRENANT", nullable = false, insertable = true, updatable = true)
     public int getNumapprenant() {
         return numapprenant;
     }
@@ -27,7 +30,7 @@ public class Obtient {
     }
 
     @Id
-    @Column(name = "DATEJOUR")
+    @Column(name = "DATEJOUR", nullable = false, insertable = true, updatable = true)
     public Date getDatejour() {
         return datejour;
     }
@@ -37,7 +40,7 @@ public class Obtient {
     }
 
     @Id
-    @Column(name = "NUMACTION")
+    @Column(name = "NUMACTION", nullable = false, insertable = true, updatable = true)
     public int getNumaction() {
         return numaction;
     }
@@ -47,7 +50,7 @@ public class Obtient {
     }
 
     @Basic
-    @Column(name = "VALEURDEBUT")
+    @Column(name = "VALEURDEBUT", nullable = true, insertable = true, updatable = true)
     public Integer getValeurdebut() {
         return valeurdebut;
     }
@@ -57,7 +60,7 @@ public class Obtient {
     }
 
     @Basic
-    @Column(name = "VALEURFIN")
+    @Column(name = "VALEURFIN", nullable = true, insertable = true, updatable = true)
     public Integer getValeurfin() {
         return valeurfin;
     }
@@ -77,9 +80,8 @@ public class Obtient {
         if (numaction != obtient.numaction) return false;
         if (datejour != null ? !datejour.equals(obtient.datejour) : obtient.datejour != null) return false;
         if (valeurdebut != null ? !valeurdebut.equals(obtient.valeurdebut) : obtient.valeurdebut != null) return false;
-        if (valeurfin != null ? !valeurfin.equals(obtient.valeurfin) : obtient.valeurfin != null) return false;
+        return !(valeurfin != null ? !valeurfin.equals(obtient.valeurfin) : obtient.valeurfin != null);
 
-        return true;
     }
 
     @Override
@@ -90,5 +92,35 @@ public class Obtient {
         result = 31 * result + (valeurdebut != null ? valeurdebut.hashCode() : 0);
         result = 31 * result + (valeurfin != null ? valeurfin.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "NUMACTION", referencedColumnName = "NUMACTION", nullable = false)
+    public Action getActionByNumaction() {
+        return actionByNumaction;
+    }
+
+    public void setActionByNumaction(Action actionByNumaction) {
+        this.actionByNumaction = actionByNumaction;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "DATEJOUR", referencedColumnName = "DATEJOUR", nullable = false)
+    public Calendrier getCalendrierByDatejour() {
+        return calendrierByDatejour;
+    }
+
+    public void setCalendrierByDatejour(Calendrier calendrierByDatejour) {
+        this.calendrierByDatejour = calendrierByDatejour;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "NUMAPPRENANT", referencedColumnName = "NUMAPPRENANT", nullable = false)
+    public Apprenant getApprenantByNumapprenant() {
+        return apprenantByNumapprenant;
+    }
+
+    public void setApprenantByNumapprenant(Apprenant apprenantByNumapprenant) {
+        this.apprenantByNumapprenant = apprenantByNumapprenant;
     }
 }

@@ -12,7 +12,7 @@ public class PossedePK implements Serializable {
     private int numaction;
     private int numregle;
 
-    @Column(name = "NUMACTION")
+    @Column(name = "NUMACTION", nullable = false, insertable = true, updatable = true)
     @Id
     public int getNumaction() {
         return numaction;
@@ -22,7 +22,7 @@ public class PossedePK implements Serializable {
         this.numaction = numaction;
     }
 
-    @Column(name = "NUMREGLE")
+    @Column(name = "NUMREGLE", nullable = false, insertable = true, updatable = true)
     @Id
     public int getNumregle() {
         return numregle;
@@ -40,9 +40,8 @@ public class PossedePK implements Serializable {
         PossedePK possedePK = (PossedePK) o;
 
         if (numaction != possedePK.numaction) return false;
-        if (numregle != possedePK.numregle) return false;
+        return numregle == possedePK.numregle;
 
-        return true;
     }
 
     @Override

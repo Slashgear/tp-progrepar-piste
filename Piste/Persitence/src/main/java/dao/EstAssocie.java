@@ -12,9 +12,11 @@ import javax.persistence.*;
 public class EstAssocie {
     private int numaction;
     private int numobjectif;
+    private Objectif objectifByNumobjectif;
+    private Action actionByNumaction;
 
     @Id
-    @Column(name = "NUMACTION")
+    @Column(name = "NUMACTION", nullable = false, insertable = true, updatable = true)
     public int getNumaction() {
         return numaction;
     }
@@ -24,7 +26,7 @@ public class EstAssocie {
     }
 
     @Id
-    @Column(name = "NUMOBJECTIF")
+    @Column(name = "NUMOBJECTIF", nullable = false, insertable = true, updatable = true)
     public int getNumobjectif() {
         return numobjectif;
     }
@@ -41,9 +43,8 @@ public class EstAssocie {
         EstAssocie that = (EstAssocie) o;
 
         if (numaction != that.numaction) return false;
-        if (numobjectif != that.numobjectif) return false;
+        return numobjectif == that.numobjectif;
 
-        return true;
     }
 
     @Override
@@ -51,5 +52,25 @@ public class EstAssocie {
         int result = numaction;
         result = 31 * result + numobjectif;
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "NUMOBJECTIF", referencedColumnName = "NUMOBJECTIF", nullable = false)
+    public Objectif getObjectifByNumobjectif() {
+        return objectifByNumobjectif;
+    }
+
+    public void setObjectifByNumobjectif(Objectif objectifByNumobjectif) {
+        this.objectifByNumobjectif = objectifByNumobjectif;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "NUMACTION", referencedColumnName = "NUMACTION", nullable = false)
+    public Action getActionByNumaction() {
+        return actionByNumaction;
+    }
+
+    public void setActionByNumaction(Action actionByNumaction) {
+        this.actionByNumaction = actionByNumaction;
     }
 }

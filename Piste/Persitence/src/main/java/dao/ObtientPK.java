@@ -14,7 +14,7 @@ public class ObtientPK implements Serializable {
     private Date datejour;
     private int numaction;
 
-    @Column(name = "NUMAPPRENANT")
+    @Column(name = "NUMAPPRENANT", nullable = false, insertable = true, updatable = true)
     @Id
     public int getNumapprenant() {
         return numapprenant;
@@ -24,7 +24,7 @@ public class ObtientPK implements Serializable {
         this.numapprenant = numapprenant;
     }
 
-    @Column(name = "DATEJOUR")
+    @Column(name = "DATEJOUR", nullable = false, insertable = true, updatable = true)
     @Id
     public Date getDatejour() {
         return datejour;
@@ -34,7 +34,7 @@ public class ObtientPK implements Serializable {
         this.datejour = datejour;
     }
 
-    @Column(name = "NUMACTION")
+    @Column(name = "NUMACTION", nullable = false, insertable = true, updatable = true)
     @Id
     public int getNumaction() {
         return numaction;
@@ -53,9 +53,8 @@ public class ObtientPK implements Serializable {
 
         if (numapprenant != obtientPK.numapprenant) return false;
         if (numaction != obtientPK.numaction) return false;
-        if (datejour != null ? !datejour.equals(obtientPK.datejour) : obtientPK.datejour != null) return false;
+        return !(datejour != null ? !datejour.equals(obtientPK.datejour) : obtientPK.datejour != null);
 
-        return true;
     }
 
     @Override

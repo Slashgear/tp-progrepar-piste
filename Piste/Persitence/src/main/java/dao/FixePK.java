@@ -12,7 +12,7 @@ public class FixePK implements Serializable {
     private int nummission;
     private int numobjectif;
 
-    @Column(name = "NUMMISSION")
+    @Column(name = "NUMMISSION", nullable = false, insertable = true, updatable = true)
     @Id
     public int getNummission() {
         return nummission;
@@ -22,7 +22,7 @@ public class FixePK implements Serializable {
         this.nummission = nummission;
     }
 
-    @Column(name = "NUMOBJECTIF")
+    @Column(name = "NUMOBJECTIF", nullable = false, insertable = true, updatable = true)
     @Id
     public int getNumobjectif() {
         return numobjectif;
@@ -40,9 +40,8 @@ public class FixePK implements Serializable {
         FixePK fixePK = (FixePK) o;
 
         if (nummission != fixePK.nummission) return false;
-        if (numobjectif != fixePK.numobjectif) return false;
+        return numobjectif == fixePK.numobjectif;
 
-        return true;
     }
 
     @Override

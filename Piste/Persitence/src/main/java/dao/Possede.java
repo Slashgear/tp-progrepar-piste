@@ -1,9 +1,6 @@
 package dao;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 
 /**
  * @author Alexandre
@@ -14,9 +11,11 @@ import javax.persistence.IdClass;
 public class Possede {
     private int numaction;
     private int numregle;
+    private Regle regleByNumregle;
+    private Action actionByNumaction;
 
     @Id
-    @Column(name = "NUMACTION")
+    @Column(name = "NUMACTION", nullable = false, insertable = true, updatable = true)
     public int getNumaction() {
         return numaction;
     }
@@ -26,7 +25,7 @@ public class Possede {
     }
 
     @Id
-    @Column(name = "NUMREGLE")
+    @Column(name = "NUMREGLE", nullable = false, insertable = true, updatable = true)
     public int getNumregle() {
         return numregle;
     }
@@ -43,9 +42,8 @@ public class Possede {
         Possede possede = (Possede) o;
 
         if (numaction != possede.numaction) return false;
-        if (numregle != possede.numregle) return false;
+        return numregle == possede.numregle;
 
-        return true;
     }
 
     @Override
@@ -53,5 +51,25 @@ public class Possede {
         int result = numaction;
         result = 31 * result + numregle;
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "NUMREGLE", referencedColumnName = "NUMREGLE", nullable = false)
+    public Regle getRegleByNumregle() {
+        return regleByNumregle;
+    }
+
+    public void setRegleByNumregle(Regle regleByNumregle) {
+        this.regleByNumregle = regleByNumregle;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "NUMACTION", referencedColumnName = "NUMACTION", nullable = false)
+    public Action getActionByNumaction() {
+        return actionByNumaction;
+    }
+
+    public void setActionByNumaction(Action actionByNumaction) {
+        this.actionByNumaction = actionByNumaction;
     }
 }

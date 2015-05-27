@@ -1,9 +1,7 @@
 package dao;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * @author Alexandre
@@ -14,9 +12,10 @@ public class Regle {
     private int numregle;
     private String libregle;
     private Integer scoremin;
+    private Collection<Possede> possedesByNumregle;
 
     @Id
-    @Column(name = "NUMREGLE")
+    @Column(name = "NUMREGLE", nullable = false, insertable = true, updatable = true)
     public int getNumregle() {
         return numregle;
     }
@@ -26,7 +25,7 @@ public class Regle {
     }
 
     @Basic
-    @Column(name = "LIBREGLE")
+    @Column(name = "LIBREGLE", nullable = true, insertable = true, updatable = true, length = 25)
     public String getLibregle() {
         return libregle;
     }
@@ -36,7 +35,7 @@ public class Regle {
     }
 
     @Basic
-    @Column(name = "SCOREMIN")
+    @Column(name = "SCOREMIN", nullable = true, insertable = true, updatable = true)
     public Integer getScoremin() {
         return scoremin;
     }
@@ -54,9 +53,8 @@ public class Regle {
 
         if (numregle != regle.numregle) return false;
         if (libregle != null ? !libregle.equals(regle.libregle) : regle.libregle != null) return false;
-        if (scoremin != null ? !scoremin.equals(regle.scoremin) : regle.scoremin != null) return false;
+        return !(scoremin != null ? !scoremin.equals(regle.scoremin) : regle.scoremin != null);
 
-        return true;
     }
 
     @Override
@@ -65,5 +63,14 @@ public class Regle {
         result = 31 * result + (libregle != null ? libregle.hashCode() : 0);
         result = 31 * result + (scoremin != null ? scoremin.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "regleByNumregle")
+    public Collection<Possede> getPossedesByNumregle() {
+        return possedesByNumregle;
+    }
+
+    public void setPossedesByNumregle(Collection<Possede> possedesByNumregle) {
+        this.possedesByNumregle = possedesByNumregle;
     }
 }

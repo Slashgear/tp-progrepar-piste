@@ -1,9 +1,7 @@
 package dao;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 /**
  * @author Alexandre
@@ -14,9 +12,11 @@ public class Mission {
     private int nummission;
     private int numjeu;
     private String libmission;
+    private Collection<Fixe> fixesByNummission;
+    private Jeu jeuByNumjeu;
 
     @Id
-    @Column(name = "NUMMISSION")
+    @Column(name = "NUMMISSION", nullable = false, insertable = true, updatable = true)
     public int getNummission() {
         return nummission;
     }
@@ -26,7 +26,7 @@ public class Mission {
     }
 
     @Basic
-    @Column(name = "NUMJEU")
+    @Column(name = "NUMJEU", nullable = false, insertable = true, updatable = true)
     public int getNumjeu() {
         return numjeu;
     }
@@ -36,7 +36,7 @@ public class Mission {
     }
 
     @Basic
-    @Column(name = "LIBMISSION")
+    @Column(name = "LIBMISSION", nullable = true, insertable = true, updatable = true, length = 25)
     public String getLibmission() {
         return libmission;
     }
@@ -54,9 +54,8 @@ public class Mission {
 
         if (nummission != mission.nummission) return false;
         if (numjeu != mission.numjeu) return false;
-        if (libmission != null ? !libmission.equals(mission.libmission) : mission.libmission != null) return false;
+        return !(libmission != null ? !libmission.equals(mission.libmission) : mission.libmission != null);
 
-        return true;
     }
 
     @Override
@@ -65,5 +64,24 @@ public class Mission {
         result = 31 * result + numjeu;
         result = 31 * result + (libmission != null ? libmission.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "missionByNummission")
+    public Collection<Fixe> getFixesByNummission() {
+        return fixesByNummission;
+    }
+
+    public void setFixesByNummission(Collection<Fixe> fixesByNummission) {
+        this.fixesByNummission = fixesByNummission;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "NUMJEU", referencedColumnName = "NUMJEU", nullable = false)
+    public Jeu getJeuByNumjeu() {
+        return jeuByNumjeu;
+    }
+
+    public void setJeuByNumjeu(Jeu jeuByNumjeu) {
+        this.jeuByNumjeu = jeuByNumjeu;
     }
 }
