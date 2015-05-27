@@ -3,301 +3,301 @@
 /* Date de création :  11/05/2015 17:20:14                      */
 /*==============================================================*/
 
-create database if not exists permispiste 
-   DEFAULT CHARACTER SET utf8
+CREATE DATABASE IF NOT EXISTS permispiste
+  DEFAULT CHARACTER SET utf8
   DEFAULT COLLATE utf8_general_ci;
 
-use permispiste;
+USE permispiste;
 
 /*==============================================================*/
 /* Table : ACTION                                               */
 /*==============================================================*/
-create table ACTION 
+CREATE TABLE ACTION
 (
-   NUMACTION            INTEGER              not null,
-   ACT_NUMACTION        INTEGER,
-   LIBACTION            CHAR(25),
-   SCOREMIN             INTEGER,
-   constraint PK_ACTION primary key (NUMACTION)
+  NUMACTION     INTEGER NOT NULL AUTO_INCREMENT,
+  ACT_NUMACTION INTEGER,
+  LIBACTION     CHAR(25),
+  SCOREMIN      INTEGER,
+  CONSTRAINT PK_ACTION PRIMARY KEY (NUMACTION)
 );
 
 /*==============================================================*/
 /* Index : A_POUR_SUCCESSEUR_FK                                 */
 /*==============================================================*/
-create index A_POUR_SUCCESSEUR_FK on ACTION (
-   ACT_NUMACTION ASC
+CREATE INDEX A_POUR_SUCCESSEUR_FK ON ACTION (
+  ACT_NUMACTION ASC
 );
 
 /*==============================================================*/
 /* Table : APPARTIENT                                           */
 /*==============================================================*/
-create table APPARTIENT 
+CREATE TABLE APPARTIENT
 (
-   NUMJEU               INTEGER              not null,
-   NUMACTION            INTEGER              not null,
-   constraint PK_APPARTIENT primary key (NUMJEU, NUMACTION)
+  NUMJEU    INTEGER NOT NULL,
+  NUMACTION INTEGER NOT NULL,
+  CONSTRAINT PK_APPARTIENT PRIMARY KEY (NUMJEU, NUMACTION)
 );
 
 /*==============================================================*/
 /* Index : APPARTIENT_FK                                        */
 /*==============================================================*/
-create index APPARTIENT_FK on APPARTIENT (
-   NUMJEU ASC
+CREATE INDEX APPARTIENT_FK ON APPARTIENT (
+  NUMJEU ASC
 );
 
 /*==============================================================*/
 /* Index : APPARTIENT2_FK                                       */
 /*==============================================================*/
-create index APPARTIENT2_FK on APPARTIENT (
-   NUMACTION ASC
+CREATE INDEX APPARTIENT2_FK ON APPARTIENT (
+  NUMACTION ASC
 );
 
 /*==============================================================*/
 /* Table : APPRENANT                                            */
 /*==============================================================*/
-create table APPRENANT 
+CREATE TABLE APPRENANT
 (
-   NUMAPPRENANT         INTEGER              not null,
-   NOMAPPRENANT         CHAR(25),
-   PRENOMAPPRENANT      CHAR(25),
-   constraint PK_APPRENANT primary key (NUMAPPRENANT)
+  NUMAPPRENANT    INTEGER NOT NULL AUTO_INCREMENT,
+  NOMAPPRENANT    CHAR(25),
+  PRENOMAPPRENANT CHAR(25),
+  CONSTRAINT PK_APPRENANT PRIMARY KEY (NUMAPPRENANT)
 );
 
 /*==============================================================*/
 /* Table : CALENDRIER                                           */
 /*==============================================================*/
-create table CALENDRIER 
+CREATE TABLE CALENDRIER
 (
-   DATEJOUR             DATE                 not null,
-   constraint PK_CALENDRIER primary key (DATEJOUR)
+  DATEJOUR DATE NOT NULL,
+  CONSTRAINT PK_CALENDRIER PRIMARY KEY (DATEJOUR)
 );
 
 /*==============================================================*/
 /* Table : EST_ASSOCIE                                          */
 /*==============================================================*/
-create table EST_ASSOCIE 
+CREATE TABLE EST_ASSOCIE
 (
-   NUMACTION            INTEGER              not null,
-   NUMOBJECTIF          INTEGER              not null,
-   constraint PK_EST_ASSOCIE primary key (NUMACTION, NUMOBJECTIF)
+  NUMACTION   INTEGER NOT NULL,
+  NUMOBJECTIF INTEGER NOT NULL,
+  CONSTRAINT PK_EST_ASSOCIE PRIMARY KEY (NUMACTION, NUMOBJECTIF)
 );
 
 /*==============================================================*/
 /* Index : EST_ASSOCIE_FK                                       */
 /*==============================================================*/
-create index EST_ASSOCIE_FK on EST_ASSOCIE (
-   NUMACTION ASC
+CREATE INDEX EST_ASSOCIE_FK ON EST_ASSOCIE (
+  NUMACTION ASC
 );
 
 /*==============================================================*/
 /* Index : EST_ASSOCIE2_FK                                      */
 /*==============================================================*/
-create index EST_ASSOCIE2_FK on EST_ASSOCIE (
-   NUMOBJECTIF ASC
+CREATE INDEX EST_ASSOCIE2_FK ON EST_ASSOCIE (
+  NUMOBJECTIF ASC
 );
 
 /*==============================================================*/
 /* Table : FIXE                                                 */
 /*==============================================================*/
-create table FIXE 
+CREATE TABLE FIXE
 (
-   NUMMISSION           INTEGER              not null,
-   NUMOBJECTIF          INTEGER              not null,
-   constraint PK_FIXE primary key (NUMMISSION, NUMOBJECTIF)
+  NUMMISSION  INTEGER NOT NULL,
+  NUMOBJECTIF INTEGER NOT NULL,
+  CONSTRAINT PK_FIXE PRIMARY KEY (NUMMISSION, NUMOBJECTIF)
 );
 
 /*==============================================================*/
 /* Index : FIXE_FK                                              */
 /*==============================================================*/
-create index FIXE_FK on FIXE (
-   NUMMISSION ASC
+CREATE INDEX FIXE_FK ON FIXE (
+  NUMMISSION ASC
 );
 
 /*==============================================================*/
 /* Index : FIXE2_FK                                             */
 /*==============================================================*/
-create index FIXE2_FK on FIXE (
-   NUMOBJECTIF ASC
+CREATE INDEX FIXE2_FK ON FIXE (
+  NUMOBJECTIF ASC
 );
 
 /*==============================================================*/
 /* Table : INDICATEUR                                           */
 /*==============================================================*/
-create table INDICATEUR 
+CREATE TABLE INDICATEUR
 (
-   NUMINDIC             INTEGER              not null,
-   NUMACTION            INTEGER              not null,
-   LIBINDIC             CHAR(20),
-   POIDS                INTEGER,
-   constraint PK_INDICATEUR primary key (NUMINDIC)
+  NUMINDIC  INTEGER NOT NULL AUTO_INCREMENT,
+  NUMACTION INTEGER NOT NULL,
+  LIBINDIC  CHAR(20),
+  POIDS     INTEGER,
+  CONSTRAINT PK_INDICATEUR PRIMARY KEY (NUMINDIC)
 );
 
 /*==============================================================*/
 /* Index : EST_VALORISE_FK                                      */
 /*==============================================================*/
-create index EST_VALORISE_FK on INDICATEUR (
-   NUMACTION ASC
+CREATE INDEX EST_VALORISE_FK ON INDICATEUR (
+  NUMACTION ASC
 );
 
 /*==============================================================*/
 /* Table : JEU                                                  */
 /*==============================================================*/
-create table JEU 
+CREATE TABLE JEU
 (
-   NUMJEU               INTEGER              not null,
-   LIBELLEJEU           CHAR(25),
-   constraint PK_JEU primary key (NUMJEU)
+  NUMJEU     INTEGER NOT NULL AUTO_INCREMENT,
+  LIBELLEJEU CHAR(25),
+  CONSTRAINT PK_JEU PRIMARY KEY (NUMJEU)
 );
 
 /*==============================================================*/
 /* Table : MISSION                                              */
 /*==============================================================*/
-create table MISSION 
+CREATE TABLE MISSION
 (
-   NUMMISSION           INTEGER              not null,
-   NUMJEU               INTEGER              not null,
-   LIBMISSION           CHAR(25),
-   constraint PK_MISSION primary key (NUMMISSION)
+  NUMMISSION INTEGER NOT NULL AUTO_INCREMENT,
+  NUMJEU     INTEGER NOT NULL,
+  LIBMISSION CHAR(25),
+  CONSTRAINT PK_MISSION PRIMARY KEY (NUMMISSION)
 );
 
 /*==============================================================*/
 /* Index : SE_COMPOSE_FK                                        */
 /*==============================================================*/
-create index SE_COMPOSE_FK on MISSION (
-   NUMJEU ASC
+CREATE INDEX SE_COMPOSE_FK ON MISSION (
+  NUMJEU ASC
 );
 
 /*==============================================================*/
 /* Table : OBJECTIF                                             */
 /*==============================================================*/
-create table OBJECTIF 
+CREATE TABLE OBJECTIF
 (
-   NUMOBJECTIF          INTEGER              not null,
-   LIBOBECTIF           CHAR(25),
-   constraint PK_OBJECTIF primary key (NUMOBJECTIF)
+  NUMOBJECTIF INTEGER NOT NULL AUTO_INCREMENT,
+  LIBOBECTIF  CHAR(25),
+  CONSTRAINT PK_OBJECTIF PRIMARY KEY (NUMOBJECTIF)
 );
 
 /*==============================================================*/
 /* Table : OBTIENT                                              */
 /*==============================================================*/
-create table OBTIENT 
+CREATE TABLE OBTIENT
 (
-   NUMAPPRENANT         INTEGER              not null,
-   DATEJOUR             DATE                 not null,
-   NUMACTION            INTEGER              not null,
-   VALEURDEBUT          INTEGER,
-   VALEURFIN            INTEGER,
-   constraint PK_OBTIENT primary key (NUMAPPRENANT, DATEJOUR, NUMACTION)
+  NUMAPPRENANT INTEGER NOT NULL,
+  DATEJOUR     DATE    NOT NULL,
+  NUMACTION    INTEGER NOT NULL,
+  VALEURDEBUT  INTEGER,
+  VALEURFIN    INTEGER,
+  CONSTRAINT PK_OBTIENT PRIMARY KEY (NUMAPPRENANT, DATEJOUR, NUMACTION)
 );
 
 /*==============================================================*/
 /* Index : OBTIENT_FK                                           */
 /*==============================================================*/
-create index OBTIENT_FK on OBTIENT (
-   NUMAPPRENANT ASC
+CREATE INDEX OBTIENT_FK ON OBTIENT (
+  NUMAPPRENANT ASC
 );
 
 /*==============================================================*/
 /* Index : OBTIENT3_FK                                          */
 /*==============================================================*/
-create index OBTIENT3_FK on OBTIENT (
-   DATEJOUR ASC
+CREATE INDEX OBTIENT3_FK ON OBTIENT (
+  DATEJOUR ASC
 );
 
 /*==============================================================*/
 /* Index : OBTIENT3_FK2                                         */
 /*==============================================================*/
-create index OBTIENT3_FK2 on OBTIENT (
-   NUMACTION ASC
+CREATE INDEX OBTIENT3_FK2 ON OBTIENT (
+  NUMACTION ASC
 );
 
 /*==============================================================*/
 /* Table : POSSEDE                                              */
 /*==============================================================*/
-create table POSSEDE 
+CREATE TABLE POSSEDE
 (
-   NUMACTION            INTEGER              not null,
-   NUMREGLE             INTEGER              not null,
-   constraint PK_POSSEDE primary key (NUMACTION, NUMREGLE)
+  NUMACTION INTEGER NOT NULL,
+  NUMREGLE  INTEGER NOT NULL,
+  CONSTRAINT PK_POSSEDE PRIMARY KEY (NUMACTION, NUMREGLE)
 );
 
 /*==============================================================*/
 /* Index : POSSEDE_FK                                           */
 /*==============================================================*/
-create index POSSEDE_FK on POSSEDE (
-   NUMACTION ASC
+CREATE INDEX POSSEDE_FK ON POSSEDE (
+  NUMACTION ASC
 );
 
 /*==============================================================*/
 /* Index : POSSEDE2_FK                                          */
 /*==============================================================*/
-create index POSSEDE2_FK on POSSEDE (
-   NUMREGLE ASC
+CREATE INDEX POSSEDE2_FK ON POSSEDE (
+  NUMREGLE ASC
 );
 
 /*==============================================================*/
 /* Table : REGLE                                                */
 /*==============================================================*/
-create table REGLE 
+CREATE TABLE REGLE
 (
-   NUMREGLE             INTEGER              not null,
-   LIBREGLE             CHAR(25),
-   SCOREMIN             INTEGER,
-   constraint PK_REGLE primary key (NUMREGLE)
+  NUMREGLE INTEGER NOT NULL AUTO_INCREMENT,
+  LIBREGLE CHAR(25),
+  SCOREMIN INTEGER,
+  CONSTRAINT PK_REGLE PRIMARY KEY (NUMREGLE)
 );
 
-alter table ACTION
-   add constraint FK_ACTION_A_POUR_SU_ACTION foreign key (ACT_NUMACTION)
-      references ACTION (NUMACTION);
+ALTER TABLE ACTION
+ADD CONSTRAINT FK_ACTION_A_POUR_SU_ACTION FOREIGN KEY (ACT_NUMACTION)
+REFERENCES ACTION (NUMACTION);
 
-alter table APPARTIENT
-   add constraint FK_APPARTIE_APPARTIEN_JEU foreign key (NUMJEU)
-      references JEU (NUMJEU);
+ALTER TABLE APPARTIENT
+ADD CONSTRAINT FK_APPARTIE_APPARTIEN_JEU FOREIGN KEY (NUMJEU)
+REFERENCES JEU (NUMJEU);
 
-alter table APPARTIENT
-   add constraint FK_APPARTIE_APPARTIEN_ACTION foreign key (NUMACTION)
-      references ACTION (NUMACTION);
+ALTER TABLE APPARTIENT
+ADD CONSTRAINT FK_APPARTIE_APPARTIEN_ACTION FOREIGN KEY (NUMACTION)
+REFERENCES ACTION (NUMACTION);
 
-alter table EST_ASSOCIE
-   add constraint FK_EST_ASSO_EST_ASSOC_ACTION foreign key (NUMACTION)
-      references ACTION (NUMACTION);
+ALTER TABLE EST_ASSOCIE
+ADD CONSTRAINT FK_EST_ASSO_EST_ASSOC_ACTION FOREIGN KEY (NUMACTION)
+REFERENCES ACTION (NUMACTION);
 
-alter table EST_ASSOCIE
-   add constraint FK_EST_ASSO_EST_ASSOC_OBJECTIF foreign key (NUMOBJECTIF)
-      references OBJECTIF (NUMOBJECTIF);
+ALTER TABLE EST_ASSOCIE
+ADD CONSTRAINT FK_EST_ASSO_EST_ASSOC_OBJECTIF FOREIGN KEY (NUMOBJECTIF)
+REFERENCES OBJECTIF (NUMOBJECTIF);
 
-alter table FIXE
-   add constraint FK_FIXE_FIXE_MISSION foreign key (NUMMISSION)
-      references MISSION (NUMMISSION);
+ALTER TABLE FIXE
+ADD CONSTRAINT FK_FIXE_FIXE_MISSION FOREIGN KEY (NUMMISSION)
+REFERENCES MISSION (NUMMISSION);
 
-alter table FIXE
-   add constraint FK_FIXE_FIXE2_OBJECTIF foreign key (NUMOBJECTIF)
-      references OBJECTIF (NUMOBJECTIF);
+ALTER TABLE FIXE
+ADD CONSTRAINT FK_FIXE_FIXE2_OBJECTIF FOREIGN KEY (NUMOBJECTIF)
+REFERENCES OBJECTIF (NUMOBJECTIF);
 
-alter table INDICATEUR
-   add constraint FK_INDICATE_EST_VALOR_ACTION foreign key (NUMACTION)
-      references ACTION (NUMACTION);
+ALTER TABLE INDICATEUR
+ADD CONSTRAINT FK_INDICATE_EST_VALOR_ACTION FOREIGN KEY (NUMACTION)
+REFERENCES ACTION (NUMACTION);
 
-alter table MISSION
-   add constraint FK_MISSION_SE_COMPOS_JEU foreign key (NUMJEU)
-      references JEU (NUMJEU);
+ALTER TABLE MISSION
+ADD CONSTRAINT FK_MISSION_SE_COMPOS_JEU FOREIGN KEY (NUMJEU)
+REFERENCES JEU (NUMJEU);
 
-alter table OBTIENT
-   add constraint FK_OBTIENT_OBTIENT_APPRENAN foreign key (NUMAPPRENANT)
-      references APPRENANT (NUMAPPRENANT);
+ALTER TABLE OBTIENT
+ADD CONSTRAINT FK_OBTIENT_OBTIENT_APPRENAN FOREIGN KEY (NUMAPPRENANT)
+REFERENCES APPRENANT (NUMAPPRENANT);
 
-alter table OBTIENT
-   add constraint FK_OBTIENT_OBTIENT2_CALENDRI foreign key (DATEJOUR)
-      references CALENDRIER (DATEJOUR);
+ALTER TABLE OBTIENT
+ADD CONSTRAINT FK_OBTIENT_OBTIENT2_CALENDRI FOREIGN KEY (DATEJOUR)
+REFERENCES CALENDRIER (DATEJOUR);
 
-alter table OBTIENT
-   add constraint FK_OBTIENT_OBTIENT3_ACTION foreign key (NUMACTION)
-      references ACTION (NUMACTION);
+ALTER TABLE OBTIENT
+ADD CONSTRAINT FK_OBTIENT_OBTIENT3_ACTION FOREIGN KEY (NUMACTION)
+REFERENCES ACTION (NUMACTION);
 
-alter table POSSEDE
-   add constraint FK_POSSEDE_POSSEDE_ACTION foreign key (NUMACTION)
-      references ACTION (NUMACTION);
+ALTER TABLE POSSEDE
+ADD CONSTRAINT FK_POSSEDE_POSSEDE_ACTION FOREIGN KEY (NUMACTION)
+REFERENCES ACTION (NUMACTION);
 
-alter table POSSEDE
-   add constraint FK_POSSEDE_POSSEDE2_REGLE foreign key (NUMREGLE)
-      references REGLE (NUMREGLE);
+ALTER TABLE POSSEDE
+ADD CONSTRAINT FK_POSSEDE_POSSEDE2_REGLE FOREIGN KEY (NUMREGLE)
+REFERENCES REGLE (NUMREGLE);
