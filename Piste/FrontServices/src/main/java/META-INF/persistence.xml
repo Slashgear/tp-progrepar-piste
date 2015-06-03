@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="2.0">
+
+    <persistence-unit name="NewPersistenceUnit">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>com.polytech4a.persistence.dao.Appartient</class>
+        <class>com.polytech4a.persistence.dao.Apprenant</class>
+        <class>com.polytech4a.persistence.dao.Calendrier</class>
+        <class>com.polytech4a.persistence.dao.EstAssocie</class>
+        <class>com.polytech4a.persistence.dao.Fixe</class>
+        <class>com.polytech4a.persistence.dao.Indicateur</class>
+        <class>com.polytech4a.persistence.dao.Jeu</class>
+        <class>com.polytech4a.persistence.dao.Mission</class>
+        <class>com.polytech4a.persistence.dao.Objectif</class>
+        <class>com.polytech4a.persistence.dao.Obtient</class>
+        <class>com.polytech4a.persistence.dao.Possede</class>
+        <class>com.polytech4a.persistence.dao.Regle</class>
+        <class>com.polytech4a.persistence.dao.Action</class>
+        <properties>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/permispiste"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.username"/>
+            <property name="hibernate.connection.password"/>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hbm2ddl.auto" value="update"/>
+        </properties>
+    </persistence-unit>
+</persistence>

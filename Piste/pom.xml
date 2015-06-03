@@ -17,9 +17,7 @@
     </properties>
 
     <modules>
-        <module>WebServices</module>
         <module>FrontServices</module>
-        <module>Persitence</module>
     </modules>
 
     <dependencies>
@@ -32,11 +30,6 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
-            <version>${bind.version}</version>
         </dependency>
     </dependencies>
 
