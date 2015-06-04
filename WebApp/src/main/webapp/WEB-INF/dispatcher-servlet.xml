@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:tx="http://www.springframework.org/schema/mvc" xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+       <context:component-scan base-package="com.polytech4a.piste"/>
 
        <bean
                class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -12,12 +16,7 @@
                      <value>.jsp</value>
               </property>
        </bean>
-
-       <tx:annotation-driven/>
-
-       <bean name="/multiaction/*.htm" class="com.polytech4a.piste.webapp.HomeController">
-
-       </bean>
+       <mvc:annotation-driven/>
 
        <bean id="myEmf" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
               <property name="persistenceUnitName" value="PistePersistenceUnit"/>

@@ -1,12 +1,6 @@
 package com.polytech4a.piste.webapp.service;
 
-import com.polytech4a.piste.persistence.dao.Indicateur;
-import com.polytech4a.piste.persistence.job.IndicateurRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 /**
  * @author Alexandre
@@ -14,7 +8,7 @@ import java.util.List;
  */
 @Service
 public class IndicateurService {
-    @Autowired
+    /*@Autowired
     private IndicateurRepository indicateurRepository;
 
     @Transactional
@@ -36,5 +30,5 @@ public class IndicateurService {
     @Transactional
     public Indicateur getByNumAction(Long numAction) {
         return indicateurRepository.findByNumAction(numAction);
-    }
+    }*/
 }
