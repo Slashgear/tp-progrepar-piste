@@ -1,6 +1,7 @@
 package com.polytech4a.piste.webapp;
 
-import com.polytech4a.piste.persistence.dao.Action;
+import com.polytech4a.piste.beans.Action;
+import com.polytech4a.piste.services.IServiceListAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;

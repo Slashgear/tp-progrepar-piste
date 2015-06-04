@@ -3,19 +3,19 @@
 
     <persistence-unit name="PistePersistenceUnit">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
-        <class>com.polytech4a.piste.persistence.dao.Action</class>
-        <class>com.polytech4a.piste.persistence.dao.Appartient</class>
-        <class>com.polytech4a.piste.persistence.dao.Apprenant</class>
-        <class>com.polytech4a.piste.persistence.dao.Calendrier</class>
-        <class>com.polytech4a.piste.persistence.dao.EstAssocie</class>
-        <class>com.polytech4a.piste.persistence.dao.Fixe</class>
-        <class>com.polytech4a.piste.persistence.dao.Indicateur</class>
-        <class>com.polytech4a.piste.persistence.dao.Jeu</class>
-        <class>com.polytech4a.piste.persistence.dao.Mission</class>
-        <class>com.polytech4a.piste.persistence.dao.Objectif</class>
-        <class>com.polytech4a.piste.persistence.dao.Obtient</class>
-        <class>com.polytech4a.piste.persistence.dao.Possede</class>
-        <class>com.polytech4a.piste.persistence.dao.Regle</class>
+        <class>com.polytech4a.piste.beans.Action</class>
+        <class>com.polytech4a.piste.beans.Appartient</class>
+        <class>com.polytech4a.piste.beans.Apprenant</class>
+        <class>com.polytech4a.piste.beans.Calendrier</class>
+        <class>com.polytech4a.piste.beans.EstAssocie</class>
+        <class>com.polytech4a.piste.beans.Fixe</class>
+        <class>com.polytech4a.piste.beans.Indicateur</class>
+        <class>com.polytech4a.piste.beans.Jeu</class>
+        <class>com.polytech4a.piste.beans.Mission</class>
+        <class>com.polytech4a.piste.beans.Objectif</class>
+        <class>com.polytech4a.piste.beans.Obtient</class>
+        <class>com.polytech4a.piste.beans.Possede</class>
+        <class>com.polytech4a.piste.beans.Regle</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/permispiste"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
