@@ -1,7 +1,7 @@
 package com.polytech4a.piste.webapp;
 
 import com.polytech4a.piste.beans.Action;
-import com.polytech4a.piste.services.IServiceListAction;
+import com.polytech4a.piste.services.IServiceAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -23,12 +23,12 @@ import java.util.List;
 public class HomeController {
 
     @Autowired
-    private IServiceListAction serviceListAction;
+    private IServiceAction serviceListAction;
 
     @RequestMapping(method = RequestMethod.GET)
     public String afficherBonjour(final ModelMap pModel) {
         pModel.addAttribute("personne", "Regis");
-        List<Action> indicateurList = serviceListAction.rechercherAction();
+        List<Action> indicateurList = serviceListAction.findAll();
         pModel.addAttribute("ListeIndicateur", indicateurList);
         return "bonjour";
     }

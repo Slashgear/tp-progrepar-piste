@@ -1,8 +1,8 @@
 package com.polytech4a.piste.services.impl;
 
 import com.polytech4a.piste.beans.Action;
-import com.polytech4a.piste.repository.impl.ListActionDAO;
-import com.polytech4a.piste.services.IServiceListAction;
+import com.polytech4a.piste.repository.impl.ActionDAO;
+import com.polytech4a.piste.services.IServiceAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +15,13 @@ import java.util.List;
  * @version 1.0
  */
 @Service
-public class ServiceListCourses implements IServiceListAction {
+public class ServiceAction implements IServiceAction {
 
     @Autowired
-    private ListActionDAO dao;
+    private ActionDAO dao;
 
     @Override
-    public List<Action> rechercherAction() {
-        return dao.rechercher();
+    public List<Action> findAll() {
+        return dao.findAll();
     }
 }

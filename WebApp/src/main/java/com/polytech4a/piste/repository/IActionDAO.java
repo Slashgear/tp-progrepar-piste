@@ -10,6 +10,11 @@ import java.util.List;
  * @author Antoine CARON
  * @version 1.0
  */
-public interface IListActionDAO {
-    List<Action> rechercher();
+public interface IActionDAO {
+    /**
+     * Returns All Actions.
+     *
+     * @return Actions.
+     */
+    List<Action> findAll();
 }

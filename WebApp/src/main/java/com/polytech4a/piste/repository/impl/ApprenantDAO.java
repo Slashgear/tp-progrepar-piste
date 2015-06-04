@@ -1,7 +1,7 @@
 package com.polytech4a.piste.repository.impl;
 
-import com.polytech4a.piste.beans.Action;
-import com.polytech4a.piste.repository.IListActionDAO;
+import com.polytech4a.piste.beans.Apprenant;
+import com.polytech4a.piste.repository.IApprenantDAO;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -19,21 +19,28 @@ import java.util.List;
  * @version 1.0
  */
 @Repository
-public class ListActionDAO implements IListActionDAO {
+public class ApprenantDAO implements IApprenantDAO {
 
     @PersistenceContext
     private EntityManager entityManager;
 
     @Override
-    public List<Action> rechercher() {
-
+    public List<Apprenant> findAll() {
         final CriteriaBuilder lCriteriaBuilder = entityManager.getCriteriaBuilder();
-
-        final CriteriaQuery<Action> lCriteriaQuery = lCriteriaBuilder.createQuery(Action.class);
-        final Root<Action> lRoot = lCriteriaQuery.from(Action.class);
+        final CriteriaQuery<Apprenant> lCriteriaQuery = lCriteriaBuilder.createQuery(Apprenant.class);
+        final Root<Apprenant> lRoot = lCriteriaQuery.from(Apprenant.class);
         lCriteriaQuery.select(lRoot);
-        final TypedQuery<Action> lTypedQuery = entityManager.createQuery(lCriteriaQuery);
-
+        final TypedQuery<Apprenant> lTypedQuery = entityManager.createQuery(lCriteriaQuery);
         return lTypedQuery.getResultList();
+    }
+
+    /**
+     * Persist an Apprenant.
+     *
+     * @param apprenant
+     */
+    @Override
+    public void createApprenant(Apprenant apprenant) {
+        entityManager.persist(apprenant);
     }
 }

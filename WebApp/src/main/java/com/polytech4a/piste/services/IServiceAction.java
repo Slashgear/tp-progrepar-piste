@@ -10,8 +10,8 @@ import java.util.List;
  * @author Antoine CARON
  * @version 1.0
  */
-public interface IServiceListAction {
+public interface IServiceAction {
 
-    List<Action> rechercherAction();
+    List<Action> findAll();
 
 }
