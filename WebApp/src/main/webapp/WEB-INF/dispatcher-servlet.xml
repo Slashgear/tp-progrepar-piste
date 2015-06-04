@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/mvc"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/mvc" xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
        <bean
@@ -14,6 +14,10 @@
        </bean>
 
        <tx:annotation-driven/>
+
+       <bean name="/multiaction/*.htm" class="com.polytech4a.piste.webapp.HomeController">
+
+       </bean>
 
        <bean id="myEmf" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
               <property name="persistenceUnitName" value="PistePersistenceUnit"/>
