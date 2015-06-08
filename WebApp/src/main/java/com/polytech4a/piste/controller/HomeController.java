@@ -1,5 +1,7 @@
 package com.polytech4a.piste.controller;
 
+import com.polytech4a.piste.repository.IIndicateurDAO;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,15 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/bonjour")
 @Component
 public class HomeController {
-
-    //@Autowired
-    //private IActionDAO serviceListAction;
+    @Autowired
+    private IIndicateurDAO indicateurDAO;
 
     @RequestMapping(method = RequestMethod.GET)
     public String afficherBonjour(final ModelMap pModel) {
         pModel.addAttribute("personne", "Regis");
-        //List<Action> indicateurList = serviceListAction.findAll();
-        //pModel.addAttribute("ListeIndicateur", indicateurList);
+        pModel.addAttribute("listeIndicateur", indicateurDAO.findAll());
         return "bonjour";
     }
 }
