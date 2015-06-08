@@ -26,7 +26,7 @@
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
     </bean>
     <tx:annotation-driven transaction-manager="transactionManager"/>
-    <jpa:repositories base-package="com.polytech4a.piste.repository"/>
+    <jpa:repositories base-package="com.polytech4a.piste.dao"/>
     <context:component-scan base-package="com.polytech4a.piste.controller"/>
 
 

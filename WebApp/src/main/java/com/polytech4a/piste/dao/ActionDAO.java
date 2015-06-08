@@ -1,4 +1,4 @@
-package com.polytech4a.piste.repository;
+package com.polytech4a.piste.dao;
 
 import com.polytech4a.piste.beans.Action;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Antoine CARON
  * @version 1.0
  */
-public interface IActionDAO extends JpaRepository<Action, Integer> {
+public interface ActionDAO extends JpaRepository<Action, Integer> {
 }

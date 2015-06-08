@@ -1,4 +1,4 @@
-package com.polytech4a.piste.repository;
+package com.polytech4a.piste.dao;
 
 import com.polytech4a.piste.beans.Apprenant;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,5 +9,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @author Antoine CARON
  * @version 1.0
  */
-public interface IApprenantDAO extends JpaRepository<Apprenant, Integer> {
+public interface ApprenantDAO extends JpaRepository<Apprenant, Integer> {
 }

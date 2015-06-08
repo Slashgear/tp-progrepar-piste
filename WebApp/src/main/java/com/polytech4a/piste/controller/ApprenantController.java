@@ -1,7 +1,7 @@
 package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Apprenant;
-import com.polytech4a.piste.repository.IApprenantDAO;
+import com.polytech4a.piste.dao.ApprenantDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -24,7 +24,7 @@ import java.util.List;
 public class ApprenantController {
 
     @Autowired
-    private IApprenantDAO apprenantDAO;
+    private ApprenantDAO apprenantDAO;
 
     @RequestMapping(method = RequestMethod.GET)
     public String displayList(final ModelMap pModel) {

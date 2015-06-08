@@ -4,7 +4,7 @@
 <jsp:include page="header.jsp"/>
 <div class="container">
     <div class="row">
-        <table>
+        <table class="table table-striped table-hover ">
             <thead>
             <tr>
                 <th>Numaction</th>
@@ -16,8 +16,10 @@
             <tbody>
             <c:forEach items="${listeActions}" var="action">
                 <tr>
-                    <td><c:out value="${action.numaction}"/></td>
-                    <td><c:out value="${action.actNumaction}"/></td>
+                    <td><a href=<c:out value="action/${action.numaction}"/>><c:out value="${action.numaction}"/></a>
+                    </td>
+                    <td><a href=<c:out value="action/${action.actNumaction}"/>><c:out
+                            value="${action.actNumaction}"/></a></td>
                     <td><c:out value="${action.libaction}"/></td>
                     <td><c:out value="${action.scoremin}"/></td>
                 </tr>
