@@ -1,15 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" isELIgnored="false"
-         pageEncoding="ISO-8859-1" %>
+         pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="header.jsp"/>
 <div class="container">
     <div class="row">
+        <c:if test="${not empty isDeleted}">
+            <div class="alert alert-dismissable alert-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>${isDeleted}</strong>
+            </div>
+        </c:if>
         <table class="table table-striped table-hover ">
             <thead>
             <tr>
                 <th>#</th>
                 <th>Nom</th>
-                <th>Pr�nom</th>
+                <th>Prénom</th>
                 <th>Action</th>
             </thead>
             <tbody>

@@ -1,6 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" isELIgnored="false"
-         pageEncoding="ISO-8859-1" %>
+         pageEncoding="UTF-8" %>
 <jsp:include page="header.jsp"/>
 <div class="container">
     <div class="row">
@@ -8,8 +8,8 @@
             <thead>
             <tr>
                 <th>Numaction</th>
-                <th>Action précédente</th>
-                <th>Libellé</th>
+                <th>Action prÃ©cÃ©dente</th>
+                <th>LibellÃ©</th>
                 <th>Score minimum</th>
             </tr>
             </thead>

@@ -50,4 +50,17 @@ public class ApprenantController {
         pModel.addAttribute("confirmButtonLabel", "Modifier");
         return "formapprenant";
     }
+
+    @RequestMapping(value = "/suppr/{id}", method = RequestMethod.GET)
+    public String supprApprenant(final ModelMap pModel, @PathVariable(value = "id") int id) {
+        Apprenant apprenant = apprenantDAO.findOne(id);
+        if (apprenant != null) {
+            //TODO Check suppression clef étrangère
+            apprenantDAO.delete(id);
+            pModel.addAttribute("isDeleted", "Apprenant n°" + id + " a été supprimé avec succès");
+        } else {
+            //TODO Call AGO Error Handling
+        }
+        return displayList(pModel);
+    }
 }
