@@ -26,6 +26,13 @@ public class ApprenantController {
     @Autowired
     private IServiceApprenant serviceApprenant;
 
+    @RequestMapping(method = RequestMethod.GET)
+    public String displayList(final ModelMap pModel) {
+        List<Apprenant> listApprenants = serviceApprenant.findAll();
+        pModel.addAttribute("listeApprenants", listApprenants);
+        return "listeapprenant";
+    }
+
     @RequestMapping(value = "/ajout", method = RequestMethod.GET)
     public String displayAddForm(final ModelMap pModel) {
         pModel.addAttribute("legend", "Ajout d'un apprenant");

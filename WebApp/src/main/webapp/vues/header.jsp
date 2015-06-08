@@ -29,7 +29,7 @@
     </div>
     <div class="navbar-collapse collapse navbar-inverse-collapse">
       <ul class="nav navbar-nav">
-        <li><a href="#/">Apprenants</a></li>
+        <li><a href="/apprenant">Apprenants</a></li>
         <li><a href="#/">Bilan</a></li>
       </ul>
     </div>
