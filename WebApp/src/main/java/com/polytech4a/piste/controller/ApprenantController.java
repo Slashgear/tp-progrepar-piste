@@ -50,12 +50,4 @@ public class ApprenantController {
         pModel.addAttribute("confirmButtonLabel", "Modifier");
         return "formapprenant";
     }
-
-
-    @RequestMapping(value = "/suppr", method = RequestMethod.GET)
-    public String displayDeleteForm(final ModelMap pModel) {
-        List<Apprenant> listApprenants = apprenantDAO.findAll();
-        pModel.addAttribute("listeApprenants", listApprenants);
-        return "suppressionapprenant";
-    }
 }
