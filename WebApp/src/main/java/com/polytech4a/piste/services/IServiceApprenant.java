@@ -15,4 +15,6 @@ public interface IServiceApprenant {
     List<Apprenant> findAll();
 
     void createApprenant(final Apprenant apprenant);
+
+    Apprenant findById(int id);
 }

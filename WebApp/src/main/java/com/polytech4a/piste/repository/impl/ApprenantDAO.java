@@ -43,4 +43,15 @@ public class ApprenantDAO implements IApprenantDAO {
     public void createApprenant(Apprenant apprenant) {
         entityManager.persist(apprenant);
     }
+
+    @Override
+    public Apprenant findById(int id) {
+        final CriteriaBuilder lCriteriaBuilder = entityManager.getCriteriaBuilder();
+        final CriteriaQuery<Apprenant> lCriteriaQuery = lCriteriaBuilder.createQuery(Apprenant.class);
+        final Root<Apprenant> lRoot = lCriteriaQuery.from(Apprenant.class);
+        lCriteriaQuery.select(lRoot).where(lCriteriaBuilder.equal(lRoot.get("numapprenant"), id));
+        final TypedQuery<Apprenant> lTypedQuery = entityManager.createQuery(lCriteriaQuery);
+        List<Apprenant> resultList = lTypedQuery.getResultList();
+        return resultList.size() > 0 ? resultList.get(0) : null;
+    }
 }

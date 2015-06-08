@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" isELIgnored="false"
+         pageEncoding="ISO-8859-1" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="header.jsp"/>
 <div class="container">
@@ -11,8 +12,8 @@
 
                     <div class="col-lg-10">
                         <select class="form-control" id="select">
-                            <c:forEach items="${listeApprenants}" var="appenant">
-                                <option>NÂ° ${apprenant.numapprenant} - ${apprenant.prenomapprenant} ${apprenant.nomapprenant}</option>
+                            <c:forEach items="${listeApprenants}" var="apprenant">
+                                <option>N° ${apprenant.numapprenant} - ${apprenant.prenomapprenant} ${apprenant.nomapprenant}</option>
                             </c:forEach>
                         </select>
                     </div>

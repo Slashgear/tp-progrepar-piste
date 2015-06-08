@@ -25,4 +25,11 @@ public interface IApprenantDAO {
      * @param apprenant
      */
     void createApprenant(final Apprenant apprenant);
+
+    /**
+     * Returns one Apprenant found by his ID.
+     * @param id id of the Apprenant.
+     * @return Apprenant.
+     */
+    Apprenant findById(int id);
 }

@@ -29,4 +29,9 @@ public class ServiceApprenant implements IServiceApprenant {
     public void createApprenant(final Apprenant apprenant) {
         dao.createApprenant(apprenant);
     }
+
+    @Override
+    public Apprenant findById(int id) {
+        return dao.findById(id);
+    }
 }
