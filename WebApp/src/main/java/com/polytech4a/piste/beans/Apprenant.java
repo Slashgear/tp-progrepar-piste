@@ -1,9 +1,6 @@
 package com.polytech4a.piste.beans;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Antoine CARON on 04/06/2015.
@@ -13,18 +10,16 @@ import javax.persistence.Id;
  */
 @Entity
 public class Apprenant {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int numapprenant;
     private String nomapprenant;
     private String prenomapprenant;
 
-    @Id
+
     @Column(name = "NUMAPPRENANT")
     public int getNumapprenant() {
         return numapprenant;
-    }
-
-    public void setNumapprenant(int numapprenant) {
-        this.numapprenant = numapprenant;
     }
 
     @Basic

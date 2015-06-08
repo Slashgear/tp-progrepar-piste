@@ -29,7 +29,11 @@ public class ApprenantController {
     @RequestMapping(method = RequestMethod.GET)
     public String displayList(final ModelMap pModel) {
         List<Apprenant> listApprenants = apprenantDAO.findAll();
-        pModel.addAttribute("listeApprenants", listApprenants);
+        if (!listApprenants.isEmpty()) {
+            pModel.addAttribute("listeApprenants", listApprenants);
+        } else {
+            //TODO Call AGO Error Handling
+        }
         return "listeApprenant";
     }
 
@@ -43,7 +47,7 @@ public class ApprenantController {
     @RequestMapping(value = "/modifier/{id}", method = RequestMethod.GET)
     public String displayAddForm(final ModelMap pModel, @PathVariable(value = "id") int id) {
         Apprenant apprenant = apprenantDAO.findOne(id);
-        pModel.addAttribute("idApprenant", apprenant.getNumapprenant());
+        //pModel.addAttribute("idApprenant", apprenant.getNumapprenant());
         pModel.addAttribute("nomApprenant", apprenant.getNomapprenant());
         pModel.addAttribute("prenomApprenant", apprenant.getPrenomapprenant());
         pModel.addAttribute("legend", "Modification d'un apprenant");

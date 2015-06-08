@@ -7,14 +7,6 @@
             <fieldset>
                 <legend>${legend}</legend>
                 <div class="form-group">
-                    <label for="idApprenant" class="col-lg-2 control-label">Numéro</label>
-
-                    <div class="col-lg-10">
-                        <input type="number" class="form-control" id="idApprenant" placeholder="Numéro de l'apprenant"
-                               value="${idApprenant}">
-                    </div>
-                </div>
-                <div class="form-group">
                     <label for="nomApprenant" class="col-lg-2 control-label">Nom</label>
 
                     <div class="col-lg-10">
