@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" isELIgnored="false"
+         pageEncoding="ISO-8859-1" %>
 <jsp:include page="header.jsp"/>
 <div class="container">
     <div class="row">
@@ -6,9 +7,9 @@
             <fieldset>
                 <legend>${legend}</legend>
                 <div class="form-group">
-                    <label for="idApprenant" class="col-lg-2 control-label">NumÃ©ro</label>
+                    <label for="idApprenant" class="col-lg-2 control-label">Numéro</label>
                     <div class="col-lg-10">
-                        <input type="number" class="form-control" id="idApprenant" placeholder="NumÃ©ro de l'apprenant" value="${idApprenant}">
+                        <input type="number" class="form-control" id="idApprenant" placeholder="Numéro de l'apprenant" value="${idApprenant}">
                     </div>
                 </div>
                 <div class="form-group">
@@ -19,10 +20,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="prenomApprenant" class="col-lg-2 control-label">PrÃ©nom</label>
+                    <label for="prenomApprenant" class="col-lg-2 control-label">Prénom</label>
 
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" id="prenomApprenant" placeholder="PrÃ©nom de l'apprenant" value="${prenomApprenant}">
+                        <input type="text" class="form-control" id="prenomApprenant" placeholder="Prénom de l'apprenant" value="${prenomApprenant}">
                     </div>
                 </div>
                 <div class="form-group">

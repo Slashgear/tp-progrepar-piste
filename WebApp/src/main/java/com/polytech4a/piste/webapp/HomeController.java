@@ -18,7 +18,7 @@ import java.util.List;
  * @version 1.0
  */
 @Controller
-@RequestMapping("/bonjour")
+@RequestMapping("/")
 @Component
 public class HomeController {
 
@@ -26,10 +26,7 @@ public class HomeController {
     private IServiceAction serviceListAction;
 
     @RequestMapping(method = RequestMethod.GET)
-    public String afficherBonjour(final ModelMap pModel) {
-        pModel.addAttribute("personne", "Regis");
-        List<Action> indicateurList = serviceListAction.findAll();
-        pModel.addAttribute("ListeIndicateur", indicateurList);
-        return "bonjour";
+    public String displayIndex(final ModelMap pModel) {
+        return "index";
     }
 }
