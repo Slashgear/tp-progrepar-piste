@@ -1,8 +1,7 @@
 package com.polytech4a.piste.repository;
 
 import com.polytech4a.piste.beans.Apprenant;
-
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * Created by Antoine CARON on 04/06/2015.
@@ -10,26 +9,5 @@ import java.util.List;
  * @author Antoine CARON
  * @version 1.0
  */
-public interface IApprenantDAO {
-
-    /**
-     * Returns all Apprenants.
-     *
-     * @return Apprenants.
-     */
-    List<Apprenant> findAll();
-
-    /**
-     * Persist an Apprenant.
-     *
-     * @param apprenant
-     */
-    void createApprenant(final Apprenant apprenant);
-
-    /**
-     * Returns one Apprenant found by his ID.
-     * @param id id of the Apprenant.
-     * @return Apprenant.
-     */
-    Apprenant findById(int id);
+public interface IApprenantDAO extends JpaRepository<Apprenant, Integer> {
 }
