@@ -28,6 +28,6 @@ public class ActionController {
     @RequestMapping(method = RequestMethod.GET)
     public String getAll(final ModelMap pModel) {
         pModel.addAttribute("listeActions", actionDAO.findAll());
-        return "listeActions";
+        return "listeactions";
     }
 }
