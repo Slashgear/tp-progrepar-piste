@@ -30,7 +30,7 @@ public class ApprenantController {
     public String displayList(final ModelMap pModel) {
         List<Apprenant> listApprenants = apprenantDAO.findAll();
         pModel.addAttribute("listeApprenants", listApprenants);
-        return "listeapprenant";
+        return "listeApprenant";
     }
 
     @RequestMapping(value = "/ajout", method = RequestMethod.GET)
