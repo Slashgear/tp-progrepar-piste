@@ -9,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ import java.util.List;
  *
  * @author Adrien CHAUSSENDE
  * @version 1.0
+ *          <p>
+ *          Controller of Apprenant related views.
  */
 @Controller
 @RequestMapping("/apprenant")
@@ -45,14 +48,36 @@ public class ApprenantController {
     }
 
     @RequestMapping(value = "/modifier/{id}", method = RequestMethod.GET)
-    public String displayAddForm(final ModelMap pModel, @PathVariable(value = "id") int id) {
+    public String displayModifyForm(final ModelMap pModel, @PathVariable(value = "id") int id) {
         Apprenant apprenant = apprenantDAO.findOne(id);
-        //pModel.addAttribute("idApprenant", apprenant.getNumapprenant());
+        pModel.addAttribute("idApprenant", apprenant.getNumapprenant());
         pModel.addAttribute("nomApprenant", apprenant.getNomapprenant());
         pModel.addAttribute("prenomApprenant", apprenant.getPrenomapprenant());
         pModel.addAttribute("legend", "Modification d'un apprenant");
         pModel.addAttribute("confirmButtonLabel", "Modifier");
         return "formapprenant";
+    }
+
+    @RequestMapping(value = "/ajout", method = RequestMethod.POST)
+    public String submitAddForm(@RequestParam(value = "idApprenant") int id,
+                                @RequestParam("nomApprenant") String nom,
+                                @RequestParam("prenomApprenant") String prenom) {
+        Apprenant apprenant = apprenantDAO.findOne(id);
+        apprenant.setNomapprenant(nom);
+        apprenant.setPrenomapprenant(prenom);
+        apprenantDAO.save(apprenant);
+        return "listeapprenant";
+    }
+
+    @RequestMapping(value = "/modifier/{id}", method = RequestMethod.POST)
+    public String submitModifyForm(@PathVariable(value = "id") int id,
+                                   @RequestParam("nomApprenant") String nom,
+                                   @RequestParam("prenomApprenant") String prenom) {
+        Apprenant apprenant = apprenantDAO.findOne(id);
+        apprenant.setNomapprenant(nom);
+        apprenant.setPrenomapprenant(prenom);
+        apprenantDAO.save(apprenant);
+        return "listeapprenant";
     }
 
     @RequestMapping(value = "/suppr/{id}", method = RequestMethod.GET)
