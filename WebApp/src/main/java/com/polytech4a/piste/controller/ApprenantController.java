@@ -25,6 +25,11 @@ import java.util.List;
 @RequestMapping("/apprenant")
 @Component
 public class ApprenantController {
+    private static final String DIR_VIEW = "apprenant";
+
+
+    private static final String LIST_VIEW = "listeApprenant";
+    private static final String FORM_VIEW = "formapprenant";
 
     @Autowired
     private ApprenantDAO apprenantDAO;
@@ -37,14 +42,14 @@ public class ApprenantController {
         } else {
             //TODO Call AGO Error Handling
         }
-        return "listeapprenant";
+        return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
 
     @RequestMapping(value = "/ajout", method = RequestMethod.GET)
     public String displayAddForm(final ModelMap pModel) {
         pModel.addAttribute("legend", "Ajout d'un apprenant");
         pModel.addAttribute("confirmButtonLabel", "Ajouter");
-        return "formapprenant";
+        return String.format("%s/%s", DIR_VIEW, FORM_VIEW);
     }
 
     @RequestMapping(value = "/modifier/{id}", method = RequestMethod.GET)
@@ -55,7 +60,7 @@ public class ApprenantController {
         pModel.addAttribute("prenomApprenant", apprenant.getPrenomapprenant());
         pModel.addAttribute("legend", "Modification d'un apprenant");
         pModel.addAttribute("confirmButtonLabel", "Modifier");
-        return "formapprenant";
+        return String.format("%s/%s", DIR_VIEW, FORM_VIEW);
     }
 
     @RequestMapping(value = "/ajout", method = RequestMethod.POST)
@@ -66,7 +71,7 @@ public class ApprenantController {
         apprenant.setNomapprenant(nom);
         apprenant.setPrenomapprenant(prenom);
         apprenantDAO.save(apprenant);
-        return "listeapprenant";
+        return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
 
     @RequestMapping(value = "/modifier/{id}", method = RequestMethod.POST)
@@ -77,7 +82,7 @@ public class ApprenantController {
         apprenant.setNomapprenant(nom);
         apprenant.setPrenomapprenant(prenom);
         apprenantDAO.save(apprenant);
-        return "listeapprenant";
+        return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
 
     @RequestMapping(value = "/suppr/{id}", method = RequestMethod.GET)
