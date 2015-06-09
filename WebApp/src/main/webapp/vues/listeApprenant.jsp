@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" isELIgnored="false"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<jsp:include page="header.jsp"/>
+<jsp:include page="common/header.jsp"/>
 <div class="container">
     <div class="row">
         <c:if test="${not empty isDeleted}">

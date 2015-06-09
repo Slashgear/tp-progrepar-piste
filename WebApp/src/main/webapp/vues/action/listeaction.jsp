@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" isELIgnored="false"
+<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
          pageEncoding="UTF-8" %>
-<jsp:include page="header.jsp"/>
+<jsp:include page="../common/header.jsp"/>
 <div class="container">
     <div class="row">
         <table class="table table-striped table-hover ">
@@ -28,4 +28,4 @@
         </table>
     </div>
 </div>
-<jsp:include page="footer.jsp"/>
+<jsp:include page="../common/footer.jsp"/>

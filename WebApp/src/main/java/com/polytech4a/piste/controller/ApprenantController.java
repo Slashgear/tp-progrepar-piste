@@ -37,7 +37,7 @@ public class ApprenantController {
         } else {
             //TODO Call AGO Error Handling
         }
-        return "listeApprenant";
+        return "listeapprenant";
     }
 
     @RequestMapping(value = "/ajout", method = RequestMethod.GET)

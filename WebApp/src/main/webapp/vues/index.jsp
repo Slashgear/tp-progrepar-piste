@@ -1,5 +1,6 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<jsp:include page="header.jsp"/>
+<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
+         pageEncoding="UTF-8" %>
+<jsp:include page="common/header.jsp"/>
 <div class="container">
     <div class="row">
         <div class="jumbotron">
@@ -28,5 +29,5 @@
         </div>
     </div>
 </div>
-<jsp:include page="footer.jsp"/>
+<jsp:include page="common/footer.jsp"/>
 

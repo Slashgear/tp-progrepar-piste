@@ -1,5 +1,6 @@
 package com.polytech4a.piste.controller;
 
+import com.polytech4a.piste.Error;
 import com.polytech4a.piste.beans.Action;
 import com.polytech4a.piste.dao.ActionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,21 +20,29 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/action")
 public class ActionController {
+    private static final String DIR_VIEW = "action";
+
+    private static final String LIST_VIEW = "listeaction";
 
     @Autowired
     private ActionDAO actionDAO;
 
     @RequestMapping(value = "/{actionId}", method = RequestMethod.GET)
-    public String getById(final ModelMap pModel, @PathVariable(value = "actionId") Integer actionID) {
+    public String display(final ModelMap pModel, @PathVariable(value = "actionId") Integer actionID) {
         List<Action> actionList = new ArrayList<>();
+        Action action = actionDAO.findOne(actionID);
+        if (action == null) return Error.newError(pModel, String.format("Action n°%s non trouvée !", actionID));
+
         actionList.add(actionDAO.findOne(actionID));
         pModel.addAttribute("listeActions", actionList);
-        return "listeaction";
+        return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public String getAll(final ModelMap pModel) {
-        pModel.addAttribute("listeActions", actionDAO.findAll());
-        return "listeaction";
+    public String displayList(final ModelMap pModel) {
+        List<Action> actionList = new ArrayList<>();
+        actionList.addAll(actionDAO.findAll());
+        pModel.addAttribute("listeActions", actionList);
+        return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
 }
