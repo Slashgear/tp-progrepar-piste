@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" isELIgnored="false"
+<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
          pageEncoding="UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="../common/header.jsp"/>
@@ -8,6 +8,12 @@
             <div class="alert alert-dismissable alert-success">
                 <button type="button" class="close" data-dismiss="alert">×</button>
                 <strong>${isDeleted}</strong>
+            </div>
+        </c:if>
+        <c:if test="${not empty success}">
+            <div class="alert alert-dismissable alert-success">
+                <button type="button" class="close" data-dismiss="alert">×</button>
+                <strong>${success}</strong>
             </div>
         </c:if>
         <table class="table table-striped table-hover ">
