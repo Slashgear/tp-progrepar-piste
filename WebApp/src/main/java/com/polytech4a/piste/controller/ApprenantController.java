@@ -2,6 +2,8 @@ package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Apprenant;
 import com.polytech4a.piste.controller.components.ErrorPage;
+import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
+import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
 import com.polytech4a.piste.dao.ApprenantDAO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,15 +43,29 @@ public class ApprenantController {
     public String displayList(final ModelMap pModel) {
         List<Apprenant> listApprenants = apprenantDAO.findAll();
         if (!listApprenants.isEmpty()) {
+
+            // Breadcrumb set up
+            Breadcrumb breadcrumbList = new Breadcrumb(
+                    new BreadcrumbItem("Accueil", "/"),
+                    new BreadcrumbItem("Apprenants"));
+            Breadcrumb.addToModel(pModel, breadcrumbList);
+
             pModel.addAttribute("listeApprenants", listApprenants);
         } else {
-            //TODO Call AGO ErrorPage Handling
+            return ErrorPage.newError(pModel, "Aucun Apprenant trouvé!", DIR_VIEW);
         }
         return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
 
     @RequestMapping(value = "/ajout", method = RequestMethod.GET)
     public String displayAddForm(final ModelMap pModel) {
+        // Breadcrumb set up
+        Breadcrumb breadcrumbList = new Breadcrumb(
+                new BreadcrumbItem("Accueil", "/"),
+                new BreadcrumbItem("Apprenants", "/apprenant"),
+                new BreadcrumbItem("Ajout"));
+        Breadcrumb.addToModel(pModel, breadcrumbList);
+
         pModel.addAttribute("legend", "Ajout d'un apprenant");
         pModel.addAttribute("confirmButtonLabel", "Ajouter");
         pModel.addAttribute("action", "/apprenant/ajout");
@@ -58,6 +74,14 @@ public class ApprenantController {
 
     @RequestMapping(value = "/modifier/{id}", method = RequestMethod.GET)
     public String displayModifyForm(final ModelMap pModel, @PathVariable(value = "id") int id) {
+
+        // Breadcrumb set up
+        Breadcrumb breadcrumbList = new Breadcrumb(
+                new BreadcrumbItem("Accueil", "/"),
+                new BreadcrumbItem("Apprenants", "/apprenant"),
+                new BreadcrumbItem("Modifier"));
+        Breadcrumb.addToModel(pModel, breadcrumbList);
+
         Apprenant apprenant = apprenantDAO.findOne(id);
         pModel.addAttribute("idApprenant", apprenant.getNumapprenant());
         pModel.addAttribute("nomApprenant", apprenant.getNomapprenant());
@@ -103,7 +127,6 @@ public class ApprenantController {
     public String supprApprenant(final ModelMap pModel, @PathVariable(value = "id") int id) {
         Apprenant apprenant = apprenantDAO.findOne(id);
         if (apprenant != null) {
-            //TODO Check suppression clef étrangère
             apprenantDAO.delete(id);
             pModel.addAttribute("isDeleted", "Apprenant n°" + id + " a été supprimé avec succès.");
             return displayList(pModel);
@@ -117,6 +140,13 @@ public class ApprenantController {
                                  @PathVariable(value = "id") int id) {
         Apprenant apprenant = apprenantDAO.findOne(id);
         if (apprenant != null) {
+            // Breadcrumb set up
+            Breadcrumb breadcrumbList = new Breadcrumb(
+                    new BreadcrumbItem("Accueil", "/"),
+                    new BreadcrumbItem("Apprenants", "/apprenant"),
+                    new BreadcrumbItem(String.format("#%s", id)));
+            Breadcrumb.addToModel(pModel, breadcrumbList);
+
             pModel.addAttribute("apprenant", apprenant);
             return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
         } else {
