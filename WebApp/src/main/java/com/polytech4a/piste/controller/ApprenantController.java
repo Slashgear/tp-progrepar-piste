@@ -2,6 +2,7 @@ package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Apprenant;
 import com.polytech4a.piste.dao.ApprenantDAO;
+import com.sun.javafx.sg.prism.NGShape;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -49,6 +50,7 @@ public class ApprenantController {
     public String displayAddForm(final ModelMap pModel) {
         pModel.addAttribute("legend", "Ajout d'un apprenant");
         pModel.addAttribute("confirmButtonLabel", "Ajouter");
+        pModel.addAttribute("action", "/apprenant/ajout");
         return String.format("%s/%s", DIR_VIEW, FORM_VIEW);
     }
 
@@ -60,29 +62,39 @@ public class ApprenantController {
         pModel.addAttribute("prenomApprenant", apprenant.getPrenomapprenant());
         pModel.addAttribute("legend", "Modification d'un apprenant");
         pModel.addAttribute("confirmButtonLabel", "Modifier");
+        pModel.addAttribute("action", "/apprenant/modifier/" + id);
         return String.format("%s/%s", DIR_VIEW, FORM_VIEW);
     }
 
     @RequestMapping(value = "/ajout", method = RequestMethod.POST)
-    public String submitAddForm(@RequestParam(value = "idApprenant") int id,
+    public String submitAddForm(final ModelMap pModel,
                                 @RequestParam("nomApprenant") String nom,
                                 @RequestParam("prenomApprenant") String prenom) {
-        Apprenant apprenant = apprenantDAO.findOne(id);
+        Apprenant apprenant = new Apprenant();
         apprenant.setNomapprenant(nom);
         apprenant.setPrenomapprenant(prenom);
-        apprenantDAO.save(apprenant);
-        return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
+        if(apprenantDAO.save(apprenant) != null) {
+            pModel.addAttribute("success", "Apprenant a été créé avec succès.");
+        } else {
+            pModel.addAttribute("error", "Echec lors de la création de l'apprenant.");
+        }
+        return displayList(pModel);
     }
 
     @RequestMapping(value = "/modifier/{id}", method = RequestMethod.POST)
-    public String submitModifyForm(@PathVariable(value = "id") int id,
+    public String submitModifyForm(final ModelMap pModel,
+                                   @PathVariable(value = "id") int id,
                                    @RequestParam("nomApprenant") String nom,
                                    @RequestParam("prenomApprenant") String prenom) {
         Apprenant apprenant = apprenantDAO.findOne(id);
         apprenant.setNomapprenant(nom);
         apprenant.setPrenomapprenant(prenom);
-        apprenantDAO.save(apprenant);
-        return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
+        if(apprenantDAO.save(apprenant) != null) {
+            pModel.addAttribute("success", "Apprenant n°" + id + " a été modfié avec succès.");
+        } else {
+            pModel.addAttribute("error", "Echec lors de la modification de l'apprenant.");
+        }
+        return displayList(pModel);
     }
 
     @RequestMapping(value = "/suppr/{id}", method = RequestMethod.GET)
@@ -91,7 +103,7 @@ public class ApprenantController {
         if (apprenant != null) {
             //TODO Check suppression clef étrangère
             apprenantDAO.delete(id);
-            pModel.addAttribute("isDeleted", "Apprenant n°" + id + " a été supprimé avec succès");
+            pModel.addAttribute("isDeleted", "Apprenant n°" + id + " a été supprimé avec succès.");
         } else {
             //TODO Call AGO Error Handling
         }
