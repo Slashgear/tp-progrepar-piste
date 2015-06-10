@@ -5,32 +5,32 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by Antoine CARON on 04/06/2015.
+ * Created by Antoine CARON on 10/06/2015.
  *
  * @author Antoine CARON
  * @version 1.0
  */
 public class EstAssociePK implements Serializable {
-    private int numaction;
-    private int numobjectif;
+    private Integer numaction;
+    private Integer numobjectif;
 
     @Column(name = "NUMACTION")
     @Id
-    public int getNumaction() {
+    public Integer getNumaction() {
         return numaction;
     }
 
-    public void setNumaction(int numaction) {
+    public void setNumaction(Integer numaction) {
         this.numaction = numaction;
     }
 
     @Column(name = "NUMOBJECTIF")
     @Id
-    public int getNumobjectif() {
+    public Integer getNumobjectif() {
         return numobjectif;
     }
 
-    public void setNumobjectif(int numobjectif) {
+    public void setNumobjectif(Integer numobjectif) {
         this.numobjectif = numobjectif;
     }
 
@@ -41,16 +41,16 @@ public class EstAssociePK implements Serializable {
 
         EstAssociePK that = (EstAssociePK) o;
 
-        if (numaction != that.numaction) return false;
-        if (numobjectif != that.numobjectif) return false;
+        if (numaction != null ? !numaction.equals(that.numaction) : that.numaction != null) return false;
+        if (numobjectif != null ? !numobjectif.equals(that.numobjectif) : that.numobjectif != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = numaction;
-        result = 31 * result + numobjectif;
+        int result = numaction != null ? numaction.hashCode() : 0;
+        result = 31 * result + (numobjectif != null ? numobjectif.hashCode() : 0);
         return result;
     }
 }

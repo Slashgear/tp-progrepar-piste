@@ -9,11 +9,9 @@ import javax.persistence.*;
  * @version 1.0
  */
 @Entity
-@IdClass(AppartientPK.class)
-public class Appartient {
+public class Inscription {
     private Integer numjeu;
-    private Integer numaction;
-    private Action actionByNumaction;
+    private Apprenant apprenantByNumapprenant;
     private Jeu jeuByNumjeu;
 
     @Id
@@ -26,44 +24,31 @@ public class Appartient {
         this.numjeu = numjeu;
     }
 
-    @Id
-    @Column(name = "NUMACTION")
-    public Integer getNumaction() {
-        return numaction;
-    }
-
-    public void setNumaction(Integer numaction) {
-        this.numaction = numaction;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Appartient that = (Appartient) o;
+        Inscription that = (Inscription) o;
 
         if (numjeu != null ? !numjeu.equals(that.numjeu) : that.numjeu != null) return false;
-        if (numaction != null ? !numaction.equals(that.numaction) : that.numaction != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = numjeu != null ? numjeu.hashCode() : 0;
-        result = 31 * result + (numaction != null ? numaction.hashCode() : 0);
-        return result;
+        return numjeu != null ? numjeu.hashCode() : 0;
     }
 
     @ManyToOne
-    @JoinColumn(name = "NUMACTION", referencedColumnName = "NUMACTION", nullable = false, insertable = false, updatable = false)
-    public Action getActionByNumaction() {
-        return actionByNumaction;
+    @JoinColumn(name = "NUMAPPRENANT", referencedColumnName = "NUMAPPRENANT", nullable = false, insertable = false, updatable = false)
+    public Apprenant getApprenantByNumapprenant() {
+        return apprenantByNumapprenant;
     }
 
-    public void setActionByNumaction(Action actionByNumaction) {
-        this.actionByNumaction = actionByNumaction;
+    public void setApprenantByNumapprenant(Apprenant apprenantByNumapprenant) {
+        this.apprenantByNumapprenant = apprenantByNumapprenant;
     }
 
     @ManyToOne

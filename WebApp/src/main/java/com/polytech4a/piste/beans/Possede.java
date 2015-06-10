@@ -1,12 +1,9 @@
 package com.polytech4a.piste.beans;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 
 /**
- * Created by Antoine CARON on 04/06/2015.
+ * Created by Antoine CARON on 10/06/2015.
  *
  * @author Antoine CARON
  * @version 1.0
@@ -14,26 +11,28 @@ import javax.persistence.IdClass;
 @Entity
 @IdClass(PossedePK.class)
 public class Possede {
-    private int numaction;
-    private int numregle;
+    private Integer numaction;
+    private Integer numregle;
+    private Regle regleByNumregle;
+    private Action actionByNumaction;
 
     @Id
     @Column(name = "NUMACTION")
-    public int getNumaction() {
+    public Integer getNumaction() {
         return numaction;
     }
 
-    public void setNumaction(int numaction) {
+    public void setNumaction(Integer numaction) {
         this.numaction = numaction;
     }
 
     @Id
     @Column(name = "NUMREGLE")
-    public int getNumregle() {
+    public Integer getNumregle() {
         return numregle;
     }
 
-    public void setNumregle(int numregle) {
+    public void setNumregle(Integer numregle) {
         this.numregle = numregle;
     }
 
@@ -44,16 +43,36 @@ public class Possede {
 
         Possede possede = (Possede) o;
 
-        if (numaction != possede.numaction) return false;
-        if (numregle != possede.numregle) return false;
+        if (numaction != null ? !numaction.equals(possede.numaction) : possede.numaction != null) return false;
+        if (numregle != null ? !numregle.equals(possede.numregle) : possede.numregle != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = numaction;
-        result = 31 * result + numregle;
+        int result = numaction != null ? numaction.hashCode() : 0;
+        result = 31 * result + (numregle != null ? numregle.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "NUMREGLE", referencedColumnName = "NUMREGLE", nullable = false, insertable = false, updatable = false)
+    public Regle getRegleByNumregle() {
+        return regleByNumregle;
+    }
+
+    public void setRegleByNumregle(Regle regleByNumregle) {
+        this.regleByNumregle = regleByNumregle;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "NUMACTION", referencedColumnName = "NUMACTION", nullable = false, insertable = false, updatable = false)
+    public Action getActionByNumaction() {
+        return actionByNumaction;
+    }
+
+    public void setActionByNumaction(Action actionByNumaction) {
+        this.actionByNumaction = actionByNumaction;
     }
 }

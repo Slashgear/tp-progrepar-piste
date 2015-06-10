@@ -16,6 +16,7 @@
         <class>com.polytech4a.piste.beans.Obtient</class>
         <class>com.polytech4a.piste.beans.Possede</class>
         <class>com.polytech4a.piste.beans.Regle</class>
+        <class>com.polytech4a.piste.beans.Inscription</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/permispiste"/>
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>

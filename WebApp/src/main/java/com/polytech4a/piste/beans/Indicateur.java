@@ -1,40 +1,38 @@
 package com.polytech4a.piste.beans;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
- * Created by Antoine CARON on 04/06/2015.
+ * Created by Antoine CARON on 10/06/2015.
  *
  * @author Antoine CARON
  * @version 1.0
  */
 @Entity
 public class Indicateur {
-    private int numindic;
-    private int numaction;
+    private Integer numindic;
+    private Integer numaction;
     private String libindic;
     private Integer poids;
+    private Action actionByNumaction;
 
     @Id
     @Column(name = "NUMINDIC")
-    public int getNumindic() {
+    public Integer getNumindic() {
         return numindic;
     }
 
-    public void setNumindic(int numindic) {
+    public void setNumindic(Integer numindic) {
         this.numindic = numindic;
     }
 
     @Basic
     @Column(name = "NUMACTION")
-    public int getNumaction() {
+    public Integer getNumaction() {
         return numaction;
     }
 
-    public void setNumaction(int numaction) {
+    public void setNumaction(Integer numaction) {
         this.numaction = numaction;
     }
 
@@ -65,8 +63,8 @@ public class Indicateur {
 
         Indicateur that = (Indicateur) o;
 
-        if (numindic != that.numindic) return false;
-        if (numaction != that.numaction) return false;
+        if (numindic != null ? !numindic.equals(that.numindic) : that.numindic != null) return false;
+        if (numaction != null ? !numaction.equals(that.numaction) : that.numaction != null) return false;
         if (libindic != null ? !libindic.equals(that.libindic) : that.libindic != null) return false;
         if (poids != null ? !poids.equals(that.poids) : that.poids != null) return false;
 
@@ -75,10 +73,20 @@ public class Indicateur {
 
     @Override
     public int hashCode() {
-        int result = numindic;
-        result = 31 * result + numaction;
+        int result = numindic != null ? numindic.hashCode() : 0;
+        result = 31 * result + (numaction != null ? numaction.hashCode() : 0);
         result = 31 * result + (libindic != null ? libindic.hashCode() : 0);
         result = 31 * result + (poids != null ? poids.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "NUMACTION", referencedColumnName = "NUMACTION", nullable = false, insertable = false, updatable = false)
+    public Action getActionByNumaction() {
+        return actionByNumaction;
+    }
+
+    public void setActionByNumaction(Action actionByNumaction) {
+        this.actionByNumaction = actionByNumaction;
     }
 }

@@ -1,12 +1,9 @@
 package com.polytech4a.piste.beans;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.IdClass;
+import javax.persistence.*;
 
 /**
- * Created by Antoine CARON on 04/06/2015.
+ * Created by Antoine CARON on 10/06/2015.
  *
  * @author Antoine CARON
  * @version 1.0
@@ -14,26 +11,28 @@ import javax.persistence.IdClass;
 @Entity
 @IdClass(FixePK.class)
 public class Fixe {
-    private int nummission;
-    private int numobjectif;
+    private Integer nummission;
+    private Integer numobjectif;
+    private Objectif objectifByNumobjectif;
+    private Mission missionByNummission;
 
     @Id
     @Column(name = "NUMMISSION")
-    public int getNummission() {
+    public Integer getNummission() {
         return nummission;
     }
 
-    public void setNummission(int nummission) {
+    public void setNummission(Integer nummission) {
         this.nummission = nummission;
     }
 
     @Id
     @Column(name = "NUMOBJECTIF")
-    public int getNumobjectif() {
+    public Integer getNumobjectif() {
         return numobjectif;
     }
 
-    public void setNumobjectif(int numobjectif) {
+    public void setNumobjectif(Integer numobjectif) {
         this.numobjectif = numobjectif;
     }
 
@@ -44,16 +43,36 @@ public class Fixe {
 
         Fixe fixe = (Fixe) o;
 
-        if (nummission != fixe.nummission) return false;
-        if (numobjectif != fixe.numobjectif) return false;
+        if (nummission != null ? !nummission.equals(fixe.nummission) : fixe.nummission != null) return false;
+        if (numobjectif != null ? !numobjectif.equals(fixe.numobjectif) : fixe.numobjectif != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = nummission;
-        result = 31 * result + numobjectif;
+        int result = nummission != null ? nummission.hashCode() : 0;
+        result = 31 * result + (numobjectif != null ? numobjectif.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "NUMOBJECTIF", referencedColumnName = "NUMOBJECTIF", nullable = false, insertable = false, updatable = false)
+    public Objectif getObjectifByNumobjectif() {
+        return objectifByNumobjectif;
+    }
+
+    public void setObjectifByNumobjectif(Objectif objectifByNumobjectif) {
+        this.objectifByNumobjectif = objectifByNumobjectif;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "NUMMISSION", referencedColumnName = "NUMMISSION", nullable = false, insertable = false, updatable = false)
+    public Mission getMissionByNummission() {
+        return missionByNummission;
+    }
+
+    public void setMissionByNummission(Mission missionByNummission) {
+        this.missionByNummission = missionByNummission;
     }
 }

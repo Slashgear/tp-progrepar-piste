@@ -1,30 +1,35 @@
 package com.polytech4a.piste.beans;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by Antoine CARON on 04/06/2015.
+ * Created by Antoine CARON on 10/06/2015.
  *
  * @author Antoine CARON
  * @version 1.0
  */
 @Entity
 public class Action {
-    private int numaction;
+    private Integer numaction;
     private Integer actNumaction;
     private String libaction;
     private Integer scoremin;
+    private Action actionByActNumaction;
+    private Collection<Action> actionsByNumaction;
+    private Collection<Appartient> appartientsByNumaction;
+    private Collection<EstAssocie> estAssociesByNumaction;
+    private Collection<Indicateur> indicateursByNumaction;
+    private Collection<Obtient> obtientsByNumaction;
+    private Collection<Possede> possedesByNumaction;
 
     @Id
     @Column(name = "NUMACTION")
-    public int getNumaction() {
+    public Integer getNumaction() {
         return numaction;
     }
 
-    public void setNumaction(int numaction) {
+    public void setNumaction(Integer numaction) {
         this.numaction = numaction;
     }
 
@@ -65,7 +70,7 @@ public class Action {
 
         Action action = (Action) o;
 
-        if (numaction != action.numaction) return false;
+        if (numaction != null ? !numaction.equals(action.numaction) : action.numaction != null) return false;
         if (actNumaction != null ? !actNumaction.equals(action.actNumaction) : action.actNumaction != null)
             return false;
         if (libaction != null ? !libaction.equals(action.libaction) : action.libaction != null) return false;
@@ -76,10 +81,74 @@ public class Action {
 
     @Override
     public int hashCode() {
-        int result = numaction;
+        int result = numaction != null ? numaction.hashCode() : 0;
         result = 31 * result + (actNumaction != null ? actNumaction.hashCode() : 0);
         result = 31 * result + (libaction != null ? libaction.hashCode() : 0);
         result = 31 * result + (scoremin != null ? scoremin.hashCode() : 0);
         return result;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "ACT_NUMACTION", referencedColumnName = "NUMACTION", insertable = false, updatable = false)
+    public Action getActionByActNumaction() {
+        return actionByActNumaction;
+    }
+
+    public void setActionByActNumaction(Action actionByActNumaction) {
+        this.actionByActNumaction = actionByActNumaction;
+    }
+
+    @OneToMany(mappedBy = "actionByActNumaction")
+    public Collection<Action> getActionsByNumaction() {
+        return actionsByNumaction;
+    }
+
+    public void setActionsByNumaction(Collection<Action> actionsByNumaction) {
+        this.actionsByNumaction = actionsByNumaction;
+    }
+
+    @OneToMany(mappedBy = "actionByNumaction")
+    public Collection<Appartient> getAppartientsByNumaction() {
+        return appartientsByNumaction;
+    }
+
+    public void setAppartientsByNumaction(Collection<Appartient> appartientsByNumaction) {
+        this.appartientsByNumaction = appartientsByNumaction;
+    }
+
+    @OneToMany(mappedBy = "actionByNumaction")
+    public Collection<EstAssocie> getEstAssociesByNumaction() {
+        return estAssociesByNumaction;
+    }
+
+    public void setEstAssociesByNumaction(Collection<EstAssocie> estAssociesByNumaction) {
+        this.estAssociesByNumaction = estAssociesByNumaction;
+    }
+
+    @OneToMany(mappedBy = "actionByNumaction")
+    public Collection<Indicateur> getIndicateursByNumaction() {
+        return indicateursByNumaction;
+    }
+
+    public void setIndicateursByNumaction(Collection<Indicateur> indicateursByNumaction) {
+        this.indicateursByNumaction = indicateursByNumaction;
+    }
+
+    @OneToMany(mappedBy = "actionByNumaction")
+    public Collection<Obtient> getObtientsByNumaction() {
+        return obtientsByNumaction;
+    }
+
+    public void setObtientsByNumaction(Collection<Obtient> obtientsByNumaction) {
+        this.obtientsByNumaction = obtientsByNumaction;
+    }
+
+    @OneToMany(mappedBy = "actionByNumaction")
+    public Collection<Possede> getPossedesByNumaction() {
+        return possedesByNumaction;
+    }
+
+    public void setPossedesByNumaction(Collection<Possede> possedesByNumaction) {
+        this.possedesByNumaction = possedesByNumaction;
     }
 }

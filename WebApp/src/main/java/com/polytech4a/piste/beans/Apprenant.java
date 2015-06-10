@@ -1,25 +1,32 @@
 package com.polytech4a.piste.beans;
 
 import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by Antoine CARON on 04/06/2015.
+ * Created by Antoine CARON on 10/06/2015.
  *
  * @author Antoine CARON
  * @version 1.0
  */
 @Entity
 public class Apprenant {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int numapprenant;
+
+    private Integer numapprenant;
     private String nomapprenant;
     private String prenomapprenant;
+    private Collection<Inscription> inscriptionsByNumapprenant;
+    private Collection<Obtient> obtientsByNumapprenant;
 
-
+    @Id
     @Column(name = "NUMAPPRENANT")
-    public int getNumapprenant() {
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    public Integer getNumapprenant() {
         return numapprenant;
+    }
+
+    public void setNumapprenant(Integer numapprenant) {
+        this.numapprenant = numapprenant;
     }
 
     @Basic
@@ -49,7 +56,8 @@ public class Apprenant {
 
         Apprenant apprenant = (Apprenant) o;
 
-        if (numapprenant != apprenant.numapprenant) return false;
+        if (numapprenant != null ? !numapprenant.equals(apprenant.numapprenant) : apprenant.numapprenant != null)
+            return false;
         if (nomapprenant != null ? !nomapprenant.equals(apprenant.nomapprenant) : apprenant.nomapprenant != null)
             return false;
         if (prenomapprenant != null ? !prenomapprenant.equals(apprenant.prenomapprenant) : apprenant.prenomapprenant != null)
@@ -60,9 +68,27 @@ public class Apprenant {
 
     @Override
     public int hashCode() {
-        int result = numapprenant;
+        int result = numapprenant != null ? numapprenant.hashCode() : 0;
         result = 31 * result + (nomapprenant != null ? nomapprenant.hashCode() : 0);
         result = 31 * result + (prenomapprenant != null ? prenomapprenant.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "apprenantByNumapprenant")
+    public Collection<Inscription> getInscriptionsByNumapprenant() {
+        return inscriptionsByNumapprenant;
+    }
+
+    public void setInscriptionsByNumapprenant(Collection<Inscription> inscriptionsByNumapprenant) {
+        this.inscriptionsByNumapprenant = inscriptionsByNumapprenant;
+    }
+
+    @OneToMany(mappedBy = "apprenantByNumapprenant")
+    public Collection<Obtient> getObtientsByNumapprenant() {
+        return obtientsByNumapprenant;
+    }
+
+    public void setObtientsByNumapprenant(Collection<Obtient> obtientsByNumapprenant) {
+        this.obtientsByNumapprenant = obtientsByNumapprenant;
     }
 }

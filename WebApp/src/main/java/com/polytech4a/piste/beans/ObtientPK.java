@@ -6,23 +6,23 @@ import java.io.Serializable;
 import java.sql.Date;
 
 /**
- * Created by Antoine CARON on 04/06/2015.
+ * Created by Antoine CARON on 10/06/2015.
  *
  * @author Antoine CARON
  * @version 1.0
  */
 public class ObtientPK implements Serializable {
-    private int numapprenant;
+    private Integer numapprenant;
     private Date datejour;
-    private int numaction;
+    private Integer numaction;
 
     @Column(name = "NUMAPPRENANT")
     @Id
-    public int getNumapprenant() {
+    public Integer getNumapprenant() {
         return numapprenant;
     }
 
-    public void setNumapprenant(int numapprenant) {
+    public void setNumapprenant(Integer numapprenant) {
         this.numapprenant = numapprenant;
     }
 
@@ -38,11 +38,11 @@ public class ObtientPK implements Serializable {
 
     @Column(name = "NUMACTION")
     @Id
-    public int getNumaction() {
+    public Integer getNumaction() {
         return numaction;
     }
 
-    public void setNumaction(int numaction) {
+    public void setNumaction(Integer numaction) {
         this.numaction = numaction;
     }
 
@@ -53,18 +53,19 @@ public class ObtientPK implements Serializable {
 
         ObtientPK obtientPK = (ObtientPK) o;
 
-        if (numapprenant != obtientPK.numapprenant) return false;
-        if (numaction != obtientPK.numaction) return false;
+        if (numapprenant != null ? !numapprenant.equals(obtientPK.numapprenant) : obtientPK.numapprenant != null)
+            return false;
         if (datejour != null ? !datejour.equals(obtientPK.datejour) : obtientPK.datejour != null) return false;
+        if (numaction != null ? !numaction.equals(obtientPK.numaction) : obtientPK.numaction != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = numapprenant;
+        int result = numapprenant != null ? numapprenant.hashCode() : 0;
         result = 31 * result + (datejour != null ? datejour.hashCode() : 0);
-        result = 31 * result + numaction;
+        result = 31 * result + (numaction != null ? numaction.hashCode() : 0);
         return result;
     }
 }

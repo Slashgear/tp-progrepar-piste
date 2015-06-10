@@ -3,10 +3,12 @@ package com.polytech4a.piste.beans;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.sql.Date;
+import java.util.Collection;
 
 /**
- * Created by Antoine CARON on 04/06/2015.
+ * Created by Antoine CARON on 10/06/2015.
  *
  * @author Antoine CARON
  * @version 1.0
@@ -14,6 +16,7 @@ import java.sql.Date;
 @Entity
 public class Calendrier {
     private Date datejour;
+    private Collection<Obtient> obtientsByDatejour;
 
     @Id
     @Column(name = "DATEJOUR")
@@ -40,5 +43,14 @@ public class Calendrier {
     @Override
     public int hashCode() {
         return datejour != null ? datejour.hashCode() : 0;
+    }
+
+    @OneToMany(mappedBy = "calendrierByDatejour")
+    public Collection<Obtient> getObtientsByDatejour() {
+        return obtientsByDatejour;
+    }
+
+    public void setObtientsByDatejour(Collection<Obtient> obtientsByDatejour) {
+        this.obtientsByDatejour = obtientsByDatejour;
     }
 }

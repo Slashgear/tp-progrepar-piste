@@ -1,29 +1,28 @@
 package com.polytech4a.piste.beans;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Collection;
 
 /**
- * Created by Antoine CARON on 04/06/2015.
+ * Created by Antoine CARON on 10/06/2015.
  *
  * @author Antoine CARON
  * @version 1.0
  */
 @Entity
 public class Regle {
-    private int numregle;
+    private Integer numregle;
     private String libregle;
     private Integer scoremin;
+    private Collection<Possede> possedesByNumregle;
 
     @Id
     @Column(name = "NUMREGLE")
-    public int getNumregle() {
+    public Integer getNumregle() {
         return numregle;
     }
 
-    public void setNumregle(int numregle) {
+    public void setNumregle(Integer numregle) {
         this.numregle = numregle;
     }
 
@@ -54,7 +53,7 @@ public class Regle {
 
         Regle regle = (Regle) o;
 
-        if (numregle != regle.numregle) return false;
+        if (numregle != null ? !numregle.equals(regle.numregle) : regle.numregle != null) return false;
         if (libregle != null ? !libregle.equals(regle.libregle) : regle.libregle != null) return false;
         if (scoremin != null ? !scoremin.equals(regle.scoremin) : regle.scoremin != null) return false;
 
@@ -63,9 +62,18 @@ public class Regle {
 
     @Override
     public int hashCode() {
-        int result = numregle;
+        int result = numregle != null ? numregle.hashCode() : 0;
         result = 31 * result + (libregle != null ? libregle.hashCode() : 0);
         result = 31 * result + (scoremin != null ? scoremin.hashCode() : 0);
         return result;
+    }
+
+    @OneToMany(mappedBy = "regleByNumregle")
+    public Collection<Possede> getPossedesByNumregle() {
+        return possedesByNumregle;
+    }
+
+    public void setPossedesByNumregle(Collection<Possede> possedesByNumregle) {
+        this.possedesByNumregle = possedesByNumregle;
     }
 }
