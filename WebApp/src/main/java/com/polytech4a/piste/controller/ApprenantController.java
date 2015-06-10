@@ -1,10 +1,13 @@
 package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Apprenant;
+import com.polytech4a.piste.beans.Jeu;
 import com.polytech4a.piste.controller.components.ErrorPage;
 import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
 import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
 import com.polytech4a.piste.dao.ApprenantDAO;
+import com.polytech4a.piste.dao.InscriptionDAO;
+import com.polytech4a.piste.dao.JeuDAO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -38,6 +41,12 @@ public class ApprenantController {
 
     @Autowired
     private ApprenantDAO apprenantDAO;
+
+    @Autowired
+    private JeuDAO jeuDAO;
+
+    @Autowired
+    private InscriptionDAO inscriptionDAO;
 
     @RequestMapping(method = RequestMethod.GET)
     public String displayList(final ModelMap pModel) {
@@ -136,8 +145,8 @@ public class ApprenantController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public String detailAppreant(final ModelMap pModel,
-                                 @PathVariable(value = "id") int id) {
+    public String detailApprenant(final ModelMap pModel,
+                                  @PathVariable(value = "id") int id) {
         Apprenant apprenant = apprenantDAO.findOne(id);
         if (apprenant != null) {
             // Breadcrumb set up
@@ -148,10 +157,15 @@ public class ApprenantController {
             Breadcrumb.addToModel(pModel, breadcrumbList);
 
             pModel.addAttribute("apprenant", apprenant);
+
+            List<Jeu> jeux = jeuDAO.findAvailableJeuForApprenant(id);
+            if (!jeux.isEmpty()) {
+                pModel.addAttribute("jeux", jeux);
+                pModel.addAttribute("showinsc", "show");
+            }
             return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
         } else {
             return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", id, DIR_VIEW));
         }
     }
-
 }
