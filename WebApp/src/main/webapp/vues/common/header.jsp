@@ -41,13 +41,11 @@
           </ul>
         </li>
         <li class="dropdown">
-          <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Actions <b class="caret"></b></a>
+          <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Statistiques <b class="caret"></b></a>
           <ul class="dropdown-menu">
             <li class="dropdown-header">Affichages</li>
             <li><a href="/action">Affichage des actions</a></li>
-            <li class="divider"></li>
-            <li class="dropdown-header">Statistiques</li>
-            <li><a href="/action/stats">Statistique globales</a></li>
+            <li><a href="/jeu">Affichages des jeux</a></li>
           </ul>
         </li>
       </ul>
