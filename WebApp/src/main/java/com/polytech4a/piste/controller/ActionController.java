@@ -23,20 +23,20 @@ public class ActionController {
     private static final String DIR_VIEW = "action";
 
     private static final String LIST_VIEW = "listeaction";
+    private static final String DETAILS_VIEW = "detailsaction";
 
     @Autowired
     private ActionDAO actionDAO;
 
     @RequestMapping(value = "/{actionId}", method = RequestMethod.GET)
     public String display(final ModelMap pModel, @PathVariable(value = "actionId") Integer actionID) {
-        List<Action> actionList = new ArrayList<>();
         Action action = actionDAO.findOne(actionID);
         if (action == null)
             return Error.newError(pModel, String.format("Action n°%s non trouvée !", actionID), DIR_VIEW);
 
-        actionList.add(actionDAO.findOne(actionID));
-        pModel.addAttribute("listeActions", actionList);
-        return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
+        pModel.addAttribute("action", action);
+        pModel.addAttribute("returnPage", "/action");
+        return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
 
     @RequestMapping(method = RequestMethod.GET)
