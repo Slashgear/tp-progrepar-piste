@@ -2,6 +2,7 @@ package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Apprenant;
 import com.polytech4a.piste.dao.ApprenantDAO;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -18,7 +19,7 @@ import java.util.List;
  *
  * @author Adrien CHAUSSENDE
  * @version 1.0
- *          <p>
+ *          <p/>
  *          Controller of Apprenant related views.
  */
 @Controller
@@ -71,9 +72,9 @@ public class ApprenantController {
                                 @RequestParam("nomApprenant") String nom,
                                 @RequestParam("prenomApprenant") String prenom) {
         Apprenant apprenant = new Apprenant();
-        apprenant.setNomapprenant(nom);
-        apprenant.setPrenomapprenant(prenom);
-        if(apprenantDAO.save(apprenant) != null) {
+        apprenant.setNomapprenant(StringUtils.capitalize(StringUtils.lowerCase(nom)));
+        apprenant.setPrenomapprenant(StringUtils.capitalize(StringUtils.lowerCase(prenom)));
+        if (apprenantDAO.save(apprenant) != null) {
             pModel.addAttribute("success", "Apprenant a été créé avec succès.");
         } else {
             pModel.addAttribute("error", "Echec lors de la création de l'apprenant.");
@@ -87,9 +88,9 @@ public class ApprenantController {
                                    @RequestParam("nomApprenant") String nom,
                                    @RequestParam("prenomApprenant") String prenom) {
         Apprenant apprenant = apprenantDAO.findOne(id);
-        apprenant.setNomapprenant(nom);
-        apprenant.setPrenomapprenant(prenom);
-        if(apprenantDAO.save(apprenant) != null) {
+        apprenant.setNomapprenant(StringUtils.capitalize(StringUtils.lowerCase(nom)));
+        apprenant.setPrenomapprenant(StringUtils.capitalize(StringUtils.lowerCase(prenom)));
+        if (apprenantDAO.save(apprenant) != null) {
             pModel.addAttribute("success", "Apprenant n°" + id + " a été modfié avec succès.");
         } else {
             pModel.addAttribute("error", "Echec lors de la modification de l'apprenant.");
