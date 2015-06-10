@@ -14,28 +14,25 @@
                 <strong>${success}</strong>
             </div>
         </c:if>
-        <table class="table table-striped table-hover ">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Nom</th>
-                <th>Prénom</th>
-                <th>Action</th>
-            </thead>
-            <tbody>
+        <c:forEach items="${listeApprenants}" var="apprenant">
+            <div class="col-md-4 col-sm-6">
+                <div class="well infobox">
+                    <h2><c:out value="${apprenant.prenomapprenant}"/> <c:out value="${apprenant.nomapprenant}"/></h2>
 
-            <c:forEach items="${listeApprenants}" var="apprenant">
-                <tr>
-                    <td>${apprenant.numapprenant}</td>
-                    <td>${apprenant.nomapprenant}</td>
-                    <td>${apprenant.prenomapprenant}</td>
-                    <td>
-                        <a href="/apprenant/modifier/${apprenant.numapprenant}"><i class="mdi-content-create"></i></a>
-                        <a href="/apprenant/suppr/${apprenant.numapprenant}"><i class="mdi-content-clear"></i></a></td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+                    <div class="btn-group btn-group-justified">
+                        <a href="/apprenant/${apprenant.numapprenant}" class="btn btn-sm btn-flat btn-info"
+                           title="Détails"><i
+                                class="mdi-content-add-circle-outline"></i></a>
+                        <a href="/apprenant/modifier/${apprenant.numapprenant}" class="btn btn-sm btn-flat btn-primary"
+                           title="Modifier"><i
+                                class="mdi-content-create"></i></a>
+                        <a href="/apprenant/suppr/${apprenant.numapprenant}" class="btn btn-sm  btn-flat btn-danger"
+                           title="Supprimer"><i
+                                class="mdi-content-clear"></i></a>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
     </div>
 </div>
 <%@include file="../common/footer.jsp" %>
