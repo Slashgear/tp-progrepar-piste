@@ -4,28 +4,17 @@
 <jsp:include page="../common/header.jsp"/>
 <div class="container">
     <div class="row">
-        <table class="table table-striped table-hover ">
-            <thead>
-            <tr>
-                <th>Numaction</th>
-                <th>Action précédente</th>
-                <th>Libellé</th>
-                <th>Score minimum</th>
-            </tr>
-            </thead>
-            <tbody>
-            <c:forEach items="${listeActions}" var="action">
-                <tr>
-                    <td><a href=<c:out value="action/${action.numaction}"/>><c:out value="${action.numaction}"/></a>
-                    </td>
-                    <td><a href=<c:out value="action/${action.actNumaction}"/>><c:out
-                            value="${action.actNumaction}"/></a></td>
-                    <td><c:out value="${action.libaction}"/></td>
-                    <td><c:out value="${action.scoremin}"/></td>
-                </tr>
-            </c:forEach>
-            </tbody>
-        </table>
+        <c:forEach items="${listeActions}" var="action">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="well">
+                    <a href=<c:out value="action/${action.numaction}"/>>
+                        #<c:out value="${action.numaction}"/> : <c:out value="${action.libaction}"/>
+                    </a>
+
+                    <p>Score minimum : <c:out value="${action.scoremin}"/></p>
+                </div>
+            </div>
+        </c:forEach>
     </div>
 </div>
 <jsp:include page="../common/footer.jsp"/>
