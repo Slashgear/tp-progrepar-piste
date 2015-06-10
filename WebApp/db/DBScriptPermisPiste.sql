@@ -321,6 +321,23 @@ CREATE TABLE IF NOT EXISTS `regle` (
   PRIMARY KEY (`NUMREGLE`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
+
+--
+-- Structure de la table `regle`
+--
+
+CREATE TABLE IF NOT EXISTS `inscription` (
+  `NUMAPPRENANT` INT(11) NOT NULL,
+  `NUMJEU`       INT(11) NOT NULL,
+  KEY (`NUMAPPRENANT`),
+  KEY (`NUMJEU`),
+  FOREIGN KEY (`NUMAPPRENANT`) REFERENCES `apprenant` (`NUMAPPRENANT`),
+  FOREIGN KEY (`NUMJEU`) REFERENCES `jeu` (`NUMJEU`)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
+
+
 --
 -- Contraintes pour les tables exportées
 --
