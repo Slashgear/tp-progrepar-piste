@@ -1,7 +1,7 @@
 package com.polytech4a.piste.controller;
 
-import com.polytech4a.piste.Error;
 import com.polytech4a.piste.beans.Action;
+import com.polytech4a.piste.controller.components.Error;
 import com.polytech4a.piste.dao.ActionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

@@ -2,7 +2,6 @@ package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Apprenant;
 import com.polytech4a.piste.dao.ApprenantDAO;
-import com.sun.javafx.sg.prism.NGShape;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -104,9 +103,9 @@ public class ApprenantController {
             //TODO Check suppression clef étrangère
             apprenantDAO.delete(id);
             pModel.addAttribute("isDeleted", "Apprenant n°" + id + " a été supprimé avec succès.");
+            return displayList(pModel);
         } else {
-            //TODO Call AGO Error Handling
+            return com.polytech4a.piste.controller.components.Error.newError(pModel, String.format("Apprenant n°%s non trouvée !", id, DIR_VIEW));
         }
-        return displayList(pModel);
     }
 }

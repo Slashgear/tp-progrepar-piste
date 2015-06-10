@@ -1,4 +1,4 @@
-package com.polytech4a.piste;
+package com.polytech4a.piste.controller.components;
 
 import org.springframework.ui.ModelMap;
 
