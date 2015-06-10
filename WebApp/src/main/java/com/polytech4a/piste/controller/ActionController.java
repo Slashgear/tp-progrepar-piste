@@ -2,6 +2,7 @@ package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Action;
 import com.polytech4a.piste.controller.components.Error;
+import com.polytech4a.piste.controller.components.ReturnButton;
 import com.polytech4a.piste.dao.ActionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,7 +36,7 @@ public class ActionController {
             return Error.newError(pModel, String.format("Action n°%s non trouvée !", actionID), DIR_VIEW);
 
         pModel.addAttribute("action", action);
-        pModel.addAttribute("returnPage", "/action");
+        ReturnButton.addToModel(pModel, "/action");
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
 
