@@ -31,7 +31,8 @@ public class ActionController {
     public String display(final ModelMap pModel, @PathVariable(value = "actionId") Integer actionID) {
         List<Action> actionList = new ArrayList<>();
         Action action = actionDAO.findOne(actionID);
-        if (action == null) return Error.newError(pModel, String.format("Action n°%s non trouvée !", actionID));
+        if (action == null)
+            return Error.newError(pModel, String.format("Action n°%s non trouvée !", actionID), DIR_VIEW);
 
         actionList.add(actionDAO.findOne(actionID));
         pModel.addAttribute("listeActions", actionList);
