@@ -6,7 +6,7 @@
     <div class="row">
         <div class="alert alert-danger">
             <h3>
-                <strong> Une erreur est survenue : </strong>
+                <i class="mdi-alert-error"></i> <strong> Une erreur est survenue : </strong>
                 <c:out value="${errorMessage}"/>
             </h3>
             <c:if test="${not empty errorReturnPage}">
