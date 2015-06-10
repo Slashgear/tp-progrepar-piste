@@ -1,7 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
-         pageEncoding="UTF-8" %>
-<jsp:include page="../common/header.jsp"/>
+<%@include file="../common/header.jsp" %>
 <div class="container">
     <div class="row">
         <c:forEach items="${listeActions}" var="action">
@@ -17,4 +15,4 @@
         </c:forEach>
     </div>
 </div>
-<jsp:include page="../common/footer.jsp"/>
+<%@include file="../common/footer.jsp" %>

@@ -14,8 +14,8 @@
   <title>Simulateur de Piste</title>
 </head>
 <body>
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
+         pageEncoding="UTF-8" %>
 <div class="header">
   <div class="navbar navbar-inverse">
     <div class="navbar-header">

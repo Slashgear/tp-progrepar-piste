@@ -1,6 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
-         pageEncoding="UTF-8" %>
-<jsp:include page="../common/header.jsp"/>
+<%@include file="../common/header.jsp" %>
 <div class="container">
     <div class="row">
         <form class="form-horizontal" method="post" action="${action}">
@@ -32,4 +30,4 @@
         </form>
     </div>
 </div>
-<jsp:include page="../common/footer.jsp"/>
+<%@include file="../common/footer.jsp" %>
