@@ -30,6 +30,7 @@ public class ApprenantController {
 
     private static final String LIST_VIEW = "listeApprenant";
     private static final String FORM_VIEW = "formapprenant";
+    private static final String DETAILS_VIEW = "detailsapprenant";
 
     @Autowired
     private ApprenantDAO apprenantDAO;
@@ -108,4 +109,17 @@ public class ApprenantController {
             return com.polytech4a.piste.controller.components.Error.newError(pModel, String.format("Apprenant n°%s non trouvée !", id, DIR_VIEW));
         }
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String detailAppreant(final ModelMap pModel,
+                                 @PathVariable(value = "id") int id) {
+        Apprenant apprenant = apprenantDAO.findOne(id);
+        if (apprenant != null) {
+            pModel.addAttribute("apprenant", apprenant);
+            return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
+        } else {
+            return com.polytech4a.piste.controller.components.Error.newError(pModel, String.format("Apprenant n°%s non trouvée !", id, DIR_VIEW));
+        }
+    }
+
 }
