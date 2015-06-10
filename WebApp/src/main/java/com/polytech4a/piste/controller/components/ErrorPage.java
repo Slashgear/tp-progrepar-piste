@@ -6,7 +6,7 @@ import org.springframework.ui.ModelMap;
  * @author Alexandre
  *         08/06/2015
  */
-public class Error {
+public class ErrorPage {
     private static final String DIR_VIEW = "common";
     private static final String ERROR_VIEW = "error";
 

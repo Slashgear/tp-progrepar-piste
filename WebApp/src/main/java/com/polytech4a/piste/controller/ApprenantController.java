@@ -1,6 +1,7 @@
 package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Apprenant;
+import com.polytech4a.piste.controller.components.ErrorPage;
 import com.polytech4a.piste.dao.ApprenantDAO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class ApprenantController {
         if (!listApprenants.isEmpty()) {
             pModel.addAttribute("listeApprenants", listApprenants);
         } else {
-            //TODO Call AGO Error Handling
+            //TODO Call AGO ErrorPage Handling
         }
         return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
@@ -107,7 +108,7 @@ public class ApprenantController {
             pModel.addAttribute("isDeleted", "Apprenant n°" + id + " a été supprimé avec succès.");
             return displayList(pModel);
         } else {
-            return com.polytech4a.piste.controller.components.Error.newError(pModel, String.format("Apprenant n°%s non trouvée !", id, DIR_VIEW));
+            return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", id, DIR_VIEW));
         }
     }
 
@@ -119,7 +120,7 @@ public class ApprenantController {
             pModel.addAttribute("apprenant", apprenant);
             return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
         } else {
-            return com.polytech4a.piste.controller.components.Error.newError(pModel, String.format("Apprenant n°%s non trouvée !", id, DIR_VIEW));
+            return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", id, DIR_VIEW));
         }
     }
 

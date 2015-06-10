@@ -1,7 +1,7 @@
 package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Action;
-import com.polytech4a.piste.controller.components.Error;
+import com.polytech4a.piste.controller.components.ErrorPage;
 import com.polytech4a.piste.controller.components.ReturnButton;
 import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
 import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
@@ -35,7 +35,7 @@ public class ActionController {
     public String display(final ModelMap pModel, @PathVariable(value = "actionId") Integer actionID) {
         Action action = actionDAO.findOne(actionID);
         if (action == null)
-            return Error.newError(pModel, String.format("Action n°%s non trouvée !", actionID), DIR_VIEW);
+            return ErrorPage.newError(pModel, String.format("Action n°%s non trouvée !", actionID), DIR_VIEW);
 
         // Attributes
         pModel.addAttribute("action", action);

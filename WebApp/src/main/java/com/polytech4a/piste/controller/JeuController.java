@@ -1,7 +1,7 @@
 package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Jeu;
-import com.polytech4a.piste.controller.components.Error;
+import com.polytech4a.piste.controller.components.ErrorPage;
 import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
 import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
 import com.polytech4a.piste.dao.JeuDAO;
@@ -36,7 +36,7 @@ public class JeuController {
     public String display(final ModelMap pModel, @PathVariable(value = "id") Integer id) {
         Jeu jeu = jeuDAO.findOne(id);
 
-        if (jeu == null) return Error.newError(pModel, String.format("Jeu n°%s non trouvée !", id), DIR_VIEW);
+        if (jeu == null) return ErrorPage.newError(pModel, String.format("Jeu n°%s non trouvée !", id), DIR_VIEW);
 
         // Attributes
         pModel.addAttribute("jeu", jeu);
