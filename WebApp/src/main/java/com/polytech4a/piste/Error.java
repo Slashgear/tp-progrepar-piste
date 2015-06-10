@@ -11,7 +11,12 @@ public class Error {
     private static final String ERROR_VIEW = "error";
 
     public static String newError(final ModelMap pModel, String message) {
-        pModel.addAttribute("message", message);
+        return newError(pModel, message, null);
+    }
+
+    public static String newError(final ModelMap pModel, String errorMessage, String errorReturnPage) {
+        pModel.addAttribute("errorMessage", errorMessage);
+        pModel.addAttribute("errorReturnPage", errorReturnPage);
         return String.format("%s/%s", DIR_VIEW, ERROR_VIEW);
     }
 }
