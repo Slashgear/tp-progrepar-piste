@@ -3,6 +3,8 @@ package com.polytech4a.piste.controller;
 import com.polytech4a.piste.beans.Action;
 import com.polytech4a.piste.controller.components.Error;
 import com.polytech4a.piste.controller.components.ReturnButton;
+import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
+import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
 import com.polytech4a.piste.dao.ActionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,8 +37,19 @@ public class ActionController {
         if (action == null)
             return Error.newError(pModel, String.format("Action n°%s non trouvée !", actionID), DIR_VIEW);
 
+        // Attributes
         pModel.addAttribute("action", action);
+
+        // Return button
         ReturnButton.addToModel(pModel, "/action");
+
+        // Breadcrumb set up
+        Breadcrumb breadcrumbList = new Breadcrumb(
+                new BreadcrumbItem("Accueil", "/"),
+                new BreadcrumbItem("Actions", "/action"),
+                new BreadcrumbItem(String.format("#%s", action.getNumaction())));
+        Breadcrumb.addToModel(pModel, breadcrumbList);
+
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
 
@@ -44,7 +57,16 @@ public class ActionController {
     public String displayList(final ModelMap pModel) {
         List<Action> actionList = new ArrayList<>();
         actionList.addAll(actionDAO.findAll());
+
+        // Attributes
         pModel.addAttribute("listeActions", actionList);
+
+        // Breadcrumb set up
+        Breadcrumb breadcrumbList = new Breadcrumb(
+                new BreadcrumbItem("Accueil", "/"),
+                new BreadcrumbItem("Actions"));
+        Breadcrumb.addToModel(pModel, breadcrumbList);
+
         return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
 }

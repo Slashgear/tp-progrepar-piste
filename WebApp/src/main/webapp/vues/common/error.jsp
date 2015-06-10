@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
          pageEncoding="UTF-8" %>
-<%@include file="../common/header.jsp" %>
+<%@include file="header.jsp" %>
 <div class="container">
     <div class="row">
         <div class="alert alert-danger">

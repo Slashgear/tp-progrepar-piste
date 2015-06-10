@@ -1,6 +1,9 @@
 package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Jeu;
+import com.polytech4a.piste.controller.components.Error;
+import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
+import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
 import com.polytech4a.piste.dao.JeuDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,18 +35,35 @@ public class JeuController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String display(final ModelMap pModel, @PathVariable(value = "id") Integer id) {
         Jeu jeu = jeuDAO.findOne(id);
-        if (jeu != null) {
-            pModel.addAttribute("jeu", jeu);
-            return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
-        } else {
-            return com.polytech4a.piste.controller.components.Error.newError(pModel, String.format("Jeu n°%s non trouvée !", id), DIR_VIEW);
-        }
+
+        if (jeu == null) return Error.newError(pModel, String.format("Jeu nÂ°%s non trouvÃ©e !", id), DIR_VIEW);
+
+        // Attributes
+        pModel.addAttribute("jeu", jeu);
+
+        // Breadcrumb set up
+        Breadcrumb breadcrumbList = new Breadcrumb(
+                new BreadcrumbItem("Accueil", "/"),
+                new BreadcrumbItem("Jeux", "/jeu"),
+                new BreadcrumbItem(String.format("#%s", jeu.getNumjeu())));
+        Breadcrumb.addToModel(pModel, breadcrumbList);
+        return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
+
     }
 
     @RequestMapping(method = RequestMethod.GET)
     public String displayList(final ModelMap pModel) {
         List<Jeu> jeux = jeuDAO.findAll();
+
+        // Attributes
         pModel.addAttribute("jeux", jeux);
+
+        // Breadcrumb set up
+        Breadcrumb breadcrumbList = new Breadcrumb(
+                new BreadcrumbItem("Accueil", "/"),
+                new BreadcrumbItem("Jeux"));
+        Breadcrumb.addToModel(pModel, breadcrumbList);
+
         return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
 }

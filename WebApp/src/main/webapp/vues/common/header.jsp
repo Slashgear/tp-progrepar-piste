@@ -51,4 +51,5 @@
       </ul>
     </div>
   </div>
+  <%@include file="headercomponents/breadcrumb.jsp" %>
 </div>
