@@ -23,6 +23,10 @@
         <servlet-name>servlet-dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/vues/common/errors/404.jsp</location>
+    </error-page>
 
     <resource-ref>
         <description>Ressource JDBC de l'application</description>
@@ -31,4 +35,5 @@
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
+
 </web-app>
