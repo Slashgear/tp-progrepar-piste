@@ -1,0 +1,64 @@
+* {
+    box-sizing: border-box;
+}
+
+.button {
+    position: relative;
+    border-radius: 50%;
+    margin-bottom: 18px;
+}
+.button:last-child {
+    margin-bottom: 0;
+}
+
+.button-floating::before {
+    content: "+";
+}
+.button-floating, .button-floating-shadow {
+    width: 54px;
+    height: 54px;
+}
+.button-floating {
+    z-index: 40;
+    cursor: pointer;
+    background-color: #2196F3;
+    color: #FFF;
+    font-size: 30px;
+    text-align: center;
+    line-height: 54px;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+}
+.button-floating-clicked .button-floating {
+    -webkit-transform: rotate(225deg);
+    transform: rotate(225deg);
+}
+
+.button-sub, .button-floating-shadow {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .16),
+    0 3px 6px rgba(0, 0, 0, .23);
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+}
+
+.button-floating-shadow {
+    position: relative;
+    z-index: 20;
+    top: -55px;
+    border-radius: 50%;
+}
+.button-floating:hover + .button-floating-shadow,
+.button-floating-clicked .button-floating-shadow {
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .19),
+    0 6px 6px rgba(0, 0, 0, .23);
+}
+
+.footer{
+    position:fixed;
+    bottom: 0px;
+    width: 100%;
+}
+
+.nounderline {
+    text-decoration: none!important;
+}
