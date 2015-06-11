@@ -14,6 +14,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.css"
         rel="stylesheet">
   <link href="/resources/css/main.css" rel="stylesheet">
+  <link href='/resources/images/favicon.png' rel='icon' type='image/png'/>
   <title>Simulateur de Piste</title>
 </head>
 <body>
