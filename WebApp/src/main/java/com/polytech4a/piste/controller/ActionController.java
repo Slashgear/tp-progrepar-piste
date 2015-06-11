@@ -6,6 +6,7 @@ import com.polytech4a.piste.controller.components.ReturnButton;
 import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
 import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
 import com.polytech4a.piste.dao.ActionDAO;
+import com.polytech4a.piste.dao.ObtientDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -30,6 +31,8 @@ public class ActionController {
 
     @Autowired
     private ActionDAO actionDAO;
+    @Autowired
+    private ObtientDAO obtientDAO;
 
     @RequestMapping(value = "/{actionId}", method = RequestMethod.GET)
     public String display(final ModelMap pModel, @PathVariable(value = "actionId") Integer actionID) {
@@ -37,8 +40,11 @@ public class ActionController {
         if (action == null)
             return ErrorPage.newError(pModel, String.format("Action n°%s non trouvée !", actionID), DIR_VIEW);
 
+        Double averageScore = obtientDAO.getAvgValeurdebutForAction(actionID);
+
         // Attributes
         pModel.addAttribute("action", action);
+        pModel.addAttribute("averageScore", averageScore);
 
         // Return button
         ReturnButton.addToModel(pModel, "/action");
