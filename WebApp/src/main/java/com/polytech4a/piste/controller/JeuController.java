@@ -2,6 +2,7 @@ package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Jeu;
 import com.polytech4a.piste.controller.components.ErrorPage;
+import com.polytech4a.piste.controller.components.ReturnButton;
 import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
 import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
 import com.polytech4a.piste.dao.JeuDAO;
@@ -40,6 +41,9 @@ public class JeuController {
 
         // Attributes
         pModel.addAttribute("jeu", jeu);
+
+        // Return button
+        ReturnButton.addToModel(pModel, "/jeu");
 
         // Breadcrumb set up
         Breadcrumb breadcrumbList = new Breadcrumb(
