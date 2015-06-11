@@ -6,13 +6,13 @@
     <div class="row">
         <c:forEach items="${listeActions}" var="action">
             <div class="col-lg-3 col-md-4 col-sm-6">
+                <a href=<c:out value="action/${action.numaction}"/>>
                 <div class="well">
-                    <a href=<c:out value="action/${action.numaction}"/>>
                         #<c:out value="${action.numaction}"/> : <c:out value="${action.libaction}"/>
-                    </a>
 
                     <p>Score minimum : <c:out value="${action.scoremin}"/></p>
                 </div>
+                </a>
             </div>
         </c:forEach>
     </div>
