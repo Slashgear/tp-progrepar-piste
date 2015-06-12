@@ -1,6 +1,7 @@
 package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Apprenant;
+import com.polytech4a.piste.beans.Inscription;
 import com.polytech4a.piste.beans.Jeu;
 import com.polytech4a.piste.controller.components.ErrorPage;
 import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -167,5 +169,20 @@ public class ApprenantController {
         } else {
             return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", id, DIR_VIEW));
         }
+    }
+
+    @RequestMapping(value = "/inscrire", method = RequestMethod.POST)
+    public String submitinscrireForm(final ModelMap pModel,
+                                     @RequestParam("idApprenant") Integer idApprenant,
+                                     @RequestParam("idJeu") Integer idJeu) {
+        Apprenant apprenant = apprenantDAO.findOne(idApprenant);
+        Inscription inscription = new Inscription();
+        inscription.setNumjeu(idJeu);
+        inscription.setApprenantByNumapprenant(apprenant);
+        ArrayList<Inscription> inscriptions = new ArrayList<>();
+        inscriptions.add(inscription);
+        apprenant.setInscriptionsByNumapprenant(inscriptions);
+        apprenantDAO.save(apprenant);
+        return detailApprenant(pModel, idApprenant);
     }
 }

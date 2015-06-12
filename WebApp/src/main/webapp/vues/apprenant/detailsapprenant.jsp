@@ -15,7 +15,7 @@
         <c:if test="${not empty showinsc}">
             <div class="col-md-6">
                 <div class="well">
-                    <form class="form-horizontal" method="post" action="/apprenant/ajouterjeu">
+                    <form class="form-horizontal" method="post" action="/apprenant/inscrire">
                         <fieldset>
                             <legend>Inscrire apprenant à un jeu</legend>
                             <div class="form-group">
@@ -23,7 +23,7 @@
 
 
                                 <div class="col-lg-10">
-                                    <select class="form-control" id="select" name="choosenjeu" required>
+                                    <select class="form-control" id="select" name="idJeu" required>
                                         <c:forEach items="${jeux}" var="jeu">
                                             <option value="<c:out value="${jeu.numjeu}"/>"><c:out
                                                     value="${jeu.libellejeu}"/></option>
@@ -32,7 +32,7 @@
                                 </div>
 
                             </div>
-                            <input type="hidden" name="idapprenant" value="${apprenant.numapprenant}"/>
+                            <input type="hidden" name="idApprenant" value="${apprenant.numapprenant}"/>
 
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-2">
