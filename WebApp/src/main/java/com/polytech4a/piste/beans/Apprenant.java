@@ -74,7 +74,7 @@ public class Apprenant {
         return result;
     }
 
-    @OneToMany(mappedBy = "apprenantByNumapprenant", cascade = {CascadeType.PERSIST})
+    @OneToMany(mappedBy = "apprenantByNumapprenant")
     public Collection<Inscription> getInscriptionsByNumapprenant() {
         return inscriptionsByNumapprenant;
     }
