@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="container">
     <div class="row">
         <h1><c:out value="${jeu.libellejeu}"/></h1>
@@ -34,9 +35,11 @@
                              aria-controls="collapseMission<c:out value="${mission.nummission}"/>">
                             <h3 class="panel-title">
                                 Mission : <c:out value="${mission.libmission}"/>
-                                <c:if test="${not empty statsMissions.get(mission.nummission)}">(<c:out
-                                        value="${statsMissions.get(mission.nummission)}"/>/20)</c:if>
-
+                                <c:if test="${not empty statsMissions.get(mission.nummission)}">
+                                    &nbsp;<span class="badge"><fmt:formatNumber type="number" minFractionDigits="2"
+                                                                                maxFractionDigits="2"
+                                                                                value="${statsMissions.get(mission.nummission)}"/>/20</span>
+                                </c:if>
                                 <a>
                                     <i class="icone-right mdi-navigation-unfold-more"></i></a>
                             </h3>
@@ -47,9 +50,13 @@
                             <div class="panel-body">
                                 <c:forEach items="${mission.fixesByNummission}" var="fixe">
                                     <h4><a href="action/objectif/<c:out value="${fixe.numobjectif}"/>">
-                                        Objectif : <c:out value="${fixe.objectifByNumobjectif.libobectif}"/>
-                                        <c:if test="${not empty statsObjectifs.get(mission.nummission).get(fixe.numobjectif)}">(<c:out
-                                                value="${statsObjectifs.get(mission.nummission).get(fixe.numobjectif)}"/>/20)</c:if></a>
+                                        Objectif : <c:out value="${fixe.objectifByNumobjectif.libobectif}"/> </a>
+                                        <c:if test="${not empty statsObjectifs.get(mission.nummission).get(fixe.numobjectif)}">
+                                            &nbsp;<span class="badge"><fmt:formatNumber type="number"
+                                                                                        minFractionDigits="2"
+                                                                                        maxFractionDigits="2"
+                                                                                        value="${statsObjectifs.get(mission.nummission).get(fixe.numobjectif)}"/>/20</span>
+                                        </c:if>
                                     </h4>
                                     <c:forEach
                                             items="${fixe.objectifByNumobjectif.estAssociesByNumobjectif}"
