@@ -31,8 +31,8 @@
     <div class="navbar-collapse collapse navbar-inverse-collapse">
       <ul class="nav navbar-nav">
         <li class="dropdown">
-          <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Apprenants <b
-                  class="caret"></b></a>
+          <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Apprenants <span
+                  class="caret"></span></a>
           <ul class="dropdown-menu">
             <li class="dropdown-header">Affichages</li>
             <li><a href="/apprenant">Affichage des apprenants</a></li>
@@ -43,7 +43,8 @@
           </ul>
         </li>
         <li class="dropdown">
-          <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Statistiques <b class="caret"></b></a>
+          <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Statistiques <span
+                  class="caret"></span></a>
           <ul class="dropdown-menu">
             <li class="dropdown-header">Affichages</li>
             <li><a href="/action">Affichage des actions</a></li>
