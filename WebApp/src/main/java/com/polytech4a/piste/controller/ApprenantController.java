@@ -60,6 +60,7 @@ public class ApprenantController {
             Breadcrumb.addToModel(pModel, breadcrumbList);
 
             pModel.addAttribute("listeApprenants", listApprenants);
+            pModel.addAttribute("action", "/apprenant/ajout");
         } else {
             return ErrorPage.newError(pModel, "Aucun Apprenant trouvé!", DIR_VIEW);
         }
