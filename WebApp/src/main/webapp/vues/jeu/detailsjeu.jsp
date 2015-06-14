@@ -34,6 +34,9 @@
                              aria-controls="collapseMission<c:out value="${mission.nummission}"/>">
                             <h3 class="panel-title">
                                 Mission : <c:out value="${mission.libmission}"/>
+                                <c:if test="${not empty statsMissions.get(mission.nummission)}">(<c:out
+                                        value="${statsMissions.get(mission.nummission)}"/>/20)</c:if>
+
                                 <a>
                                     <i class="icone-right mdi-navigation-unfold-more"></i></a>
                             </h3>
@@ -43,8 +46,11 @@
                              aria-labelledby="headingOne">
                             <div class="panel-body">
                                 <c:forEach items="${mission.fixesByNummission}" var="fixe">
-                                    <h4><a href="action/objectif/<c:out value="${fixe.numobjectif}"/>">Objectif : <c:out
-                                            value="${fixe.objectifByNumobjectif.libobectif}"/></a></h4>
+                                    <h4><a href="action/objectif/<c:out value="${fixe.numobjectif}"/>">
+                                        Objectif : <c:out value="${fixe.objectifByNumobjectif.libobectif}"/>
+                                        <c:if test="${not empty statsObjectifs.get(mission.nummission).get(fixe.numobjectif)}">(<c:out
+                                                value="${statsObjectifs.get(mission.nummission).get(fixe.numobjectif)}"/>/20)</c:if></a>
+                                    </h4>
                                     <c:forEach
                                             items="${fixe.objectifByNumobjectif.estAssociesByNumobjectif}"
                                             var="estAssocie">

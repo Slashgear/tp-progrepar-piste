@@ -7,7 +7,7 @@ import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
 import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
 import com.polytech4a.piste.dao.ApprenantDAO;
 import com.polytech4a.piste.dao.JeuDAO;
-import com.polytech4a.piste.ws.JeuWS;
+import com.polytech4a.piste.service.JeuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -37,16 +38,21 @@ public class JeuController {
     @Autowired
     private ApprenantDAO apprenantDAO;
     @Autowired
-    private JeuWS jeuWS;
+    private JeuService jeuService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String display(final ModelMap pModel, @PathVariable(value = "id") Integer id) {
-        Jeu jeu = jeuWS.findByNumjeuAndFetchAll(id);
+        Jeu jeu = jeuService.findByNumjeuAndFetchAll(id);
 
         if (jeu == null) return ErrorPage.newError(pModel, String.format("Jeu n°%s non trouvée !", id), DIR_VIEW);
 
         // Attributes
         pModel.addAttribute("jeu", jeu);
+
+        Map<Integer, Map<Integer, Double>> statsObjectifs = jeuService.getAvgActionForAllObjectifsForAllMissions(jeu);
+        pModel.addAttribute("statsObjectifs", statsObjectifs);
+        Map<Integer, Double> statsMissions = jeuService.getAvgObjectifsForAllMissions(jeu);
+        pModel.addAttribute("statsMissions", statsMissions);
 
         // Return button
         ReturnButton.addToModel(pModel, "/jeu");
