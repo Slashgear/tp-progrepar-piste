@@ -28,6 +28,7 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
     <jpa:repositories base-package="com.polytech4a.piste.dao"/>
     <context:component-scan base-package="com.polytech4a.piste.controller"/>
+    <context:component-scan base-package="com.polytech4a.piste.ws"/>
 
     <mvc:resources mapping="/resources/**" location="/resources/" cache-period="31556926"/>
 

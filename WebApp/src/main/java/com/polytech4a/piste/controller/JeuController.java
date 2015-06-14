@@ -6,6 +6,7 @@ import com.polytech4a.piste.controller.components.ReturnButton;
 import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
 import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
 import com.polytech4a.piste.dao.JeuDAO;
+import com.polytech4a.piste.ws.JeuWS;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -32,10 +33,12 @@ public class JeuController {
 
     @Autowired
     private JeuDAO jeuDAO;
+    @Autowired
+    private JeuWS jeuWS;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String display(final ModelMap pModel, @PathVariable(value = "id") Integer id) {
-        Jeu jeu = jeuDAO.findOne(id);
+        Jeu jeu = jeuWS.findByNumjeuAndFetchAll(id);
 
         if (jeu == null) return ErrorPage.newError(pModel, String.format("Jeu n°%s non trouvée !", id), DIR_VIEW);
 
