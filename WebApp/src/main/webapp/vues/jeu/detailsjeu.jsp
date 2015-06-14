@@ -21,14 +21,15 @@
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">
                     <c:forEach items="${jeu.missionsByNumjeu}" var="mission">
-                        <div class="panel-heading" role="tab" id="headingOne">
+                        <div class="panel-heading" role="tab" id="headingOne" data-toggle="collapse"
+                             data-parent="#accordion"
+                             href="#collapseMission<c:out value="${mission.nummission}"/>"
+                             aria-expanded="false"
+                             aria-controls="collapseMission<c:out value="${mission.nummission}"/>">
                             <h3 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion"
-                                   href="#collapseMission<c:out value="${mission.nummission}"/>"
-                                   aria-expanded="false"
-                                   aria-controls="collapseMission<c:out value="${mission.nummission}"/>">
-                                    Mission : <c:out value="${mission.libmission}"/>
-                                </a>
+                                Mission : <c:out value="${mission.libmission}"/>
+                                <a>
+                                    <i class="icone-right mdi-navigation-unfold-more"></i></a>
                             </h3>
                         </div>
                         <div id="collapseMission<c:out value="${mission.nummission}"/>"
