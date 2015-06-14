@@ -64,6 +64,9 @@ public class ActionController {
                 new BreadcrumbItem(String.format("Action #%s", action.getNumaction())));
         Breadcrumb.addToModel(pModel, breadcrumbList);
 
+        pModel.addAttribute("nbValidators", actionDAO.getNumberOfApprenantWhoValidateAction(actionID));
+        pModel.addAttribute("nbInscrits", actionDAO.getNumberOfApprenantforAction(actionID));
+
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
 

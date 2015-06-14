@@ -27,6 +27,34 @@
                 </c:if>
             </div>
         </div>
+        <div class="col-md-6">
+            <h3>Proportion d'apprenants validant cette action</h3>
+
+            <div class="well">
+                <div id="piechart_validation" style="width: 100%; height: 100%;"></div>
+            </div>
+        </div>
     </div>
 </div>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", {packages: ["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['% d\'apprenants validant l\'action', ${nbValidators}],
+            ['% d\'apprenants ne validant pas l\'action', ${nbInscrits - nbValidators}]
+        ]);
+
+        var options = {
+            colors: ['#f44336', '#3f51b5', '#9c27b0', '#4caf50', '#ffc624', '#ff5722']
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_validation'));
+        chart.draw(data, options);
+    }
+    $(window).resize(function () {
+        drawChart();
+    });
+</script>
 <%@include file="../common/footer.jsp" %>
