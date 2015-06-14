@@ -36,7 +36,8 @@
                              aria-labelledby="headingOne">
                             <div class="panel-body">
                                 <c:forEach items="${mission.fixesByNummission}" var="fixe">
-                                    <h4>Objectif : <c:out value="${fixe.objectifByNumobjectif.libobectif}"/></h4>
+                                    <h4><a href="action/objectif/<c:out value="${fixe.numobjectif}"/>">Objectif : <c:out
+                                            value="${fixe.objectifByNumobjectif.libobectif}"/></a></h4>
                                     <c:forEach
                                             items="${fixe.objectifByNumobjectif.estAssociesByNumobjectif}"
                                             var="estAssocie">

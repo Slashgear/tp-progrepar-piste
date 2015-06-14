@@ -1,11 +1,14 @@
 package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Action;
+import com.polytech4a.piste.beans.EstAssocie;
 import com.polytech4a.piste.controller.components.ErrorPage;
 import com.polytech4a.piste.controller.components.ReturnButton;
 import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
 import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
 import com.polytech4a.piste.dao.ActionDAO;
+import com.polytech4a.piste.dao.EstAssocieDAO;
+import com.polytech4a.piste.dao.ObjectifDAO;
 import com.polytech4a.piste.dao.ObtientDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Alexandre
@@ -33,6 +37,10 @@ public class ActionController {
     private ActionDAO actionDAO;
     @Autowired
     private ObtientDAO obtientDAO;
+    @Autowired
+    private EstAssocieDAO estAssocieDAO;
+    @Autowired
+    private ObjectifDAO objectifDAO;
 
     @RequestMapping(value = "/{actionId}", method = RequestMethod.GET)
     public String display(final ModelMap pModel, @PathVariable(value = "actionId") Integer actionID) {
@@ -53,10 +61,32 @@ public class ActionController {
         Breadcrumb breadcrumbList = new Breadcrumb(
                 new BreadcrumbItem("Accueil", "/"),
                 new BreadcrumbItem("Actions", "/action"),
-                new BreadcrumbItem(String.format("#%s", action.getNumaction())));
+                new BreadcrumbItem(String.format("Action #%s", action.getNumaction())));
         Breadcrumb.addToModel(pModel, breadcrumbList);
 
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
+    }
+
+    @RequestMapping(value = "/objectif/{objectifId}", method = RequestMethod.GET)
+    public String displayListForObjectif(final ModelMap pModel, @PathVariable(value = "objectifId") Integer objectifId) {
+        if (objectifDAO.findOne(objectifId) == null)
+            return ErrorPage.newError(pModel, String.format("L'objectif n°%s n'a pas été trouvé !", objectifId));
+
+        List<Action> actionList = new ArrayList<>();
+        List<EstAssocie> estAssocieList = estAssocieDAO.findEstassociesByNumobjectif(objectifId);
+        actionList.addAll(estAssocieList.stream().map(EstAssocie::getActionByNumaction).collect(Collectors.toList()));
+
+        // Attributes
+        pModel.addAttribute("listeActions", actionList);
+
+        // Breadcrumb set up
+        Breadcrumb breadcrumbList = new Breadcrumb(
+                new BreadcrumbItem("Accueil", "/"),
+                new BreadcrumbItem("Actions", "/action"),
+                new BreadcrumbItem(String.format("Objectif #%s", objectifId)));
+        Breadcrumb.addToModel(pModel, breadcrumbList);
+
+        return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
 
     @RequestMapping(method = RequestMethod.GET)
