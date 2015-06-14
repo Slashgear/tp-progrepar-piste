@@ -4,6 +4,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
     <div class="row">
+        <h1>Liste des actions</h1>
+        <c:if test="${empty listeActions}">
+            <div class="alert alert-info">
+                Aucune action trouvée.
+            </div>
+        </c:if>
         <c:forEach items="${listeActions}" var="action">
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <a href=<c:out value="action/${action.numaction}"/>>
