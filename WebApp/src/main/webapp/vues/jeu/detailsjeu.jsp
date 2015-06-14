@@ -12,9 +12,15 @@
 
             <div class="well">
                 <p>Identifiant #<c:out value="${jeu.numjeu}"/></p>
+
+                <p>Il y a actuellement <strong><c:out value="${missionNb}"/> missions</strong>, <strong><c:out
+                        value="${objectifNb}"/> objectifs</strong>
+                    , et <strong><c:out value="${actionNb}"/> actions</strong> à accomplir dans ce jeu.</p>
+
+                <p><strong><c:out value="${inscritNb}"/></strong> Apprenants sont inscrit à ce jeu.</p>
             </div>
         </div>
-        <div class="col-xs-12">
+        <div class="col-lg-6">
 
             <h2>Détails</h2>
 
@@ -53,6 +59,34 @@
                 </div>
             </div>
         </div>
+        <div class="col-lg-6">
+            <h3>Popularité du Jeu</h3>
+
+            <div class="well">
+                <div id="piechart_popularity" style="width: 100%; height: 100%;"></div>
+            </div>
+        </div>
     </div>
 </div>
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script type="text/javascript">
+    google.load("visualization", "1", {packages: ["corechart"]});
+    google.setOnLoadCallback(drawChart);
+    function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+            ['Task', 'Hours per Day'],
+            ['Inscrits', ${inscritNb}],
+            ['Non inscrits', ${apprenantNb - inscritNb}]
+        ]);
+
+        var options = {
+            colors: ['#f44336', '#3f51b5', '#9c27b0', '#4caf50', '#ffc624', '#ff5722']
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('piechart_popularity'));
+        chart.draw(data, options);
+    }
+    $(window).resize(function () {
+        drawChart();
+    });
+</script>
 <%@include file="../common/footer.jsp" %>

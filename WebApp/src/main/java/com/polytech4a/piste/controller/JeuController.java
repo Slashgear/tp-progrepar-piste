@@ -5,6 +5,7 @@ import com.polytech4a.piste.controller.components.ErrorPage;
 import com.polytech4a.piste.controller.components.ReturnButton;
 import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
 import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
+import com.polytech4a.piste.dao.ApprenantDAO;
 import com.polytech4a.piste.dao.JeuDAO;
 import com.polytech4a.piste.ws.JeuWS;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,8 @@ public class JeuController {
     @Autowired
     private JeuDAO jeuDAO;
     @Autowired
+    private ApprenantDAO apprenantDAO;
+    @Autowired
     private JeuWS jeuWS;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
@@ -54,6 +57,13 @@ public class JeuController {
                 new BreadcrumbItem("Jeux", "/jeu"),
                 new BreadcrumbItem(String.format("#%s", jeu.getNumjeu())));
         Breadcrumb.addToModel(pModel, breadcrumbList);
+
+        pModel.addAttribute("actionNb", jeuDAO.getNumberofActionbyJeu(id));
+        pModel.addAttribute("missionNb", jeuDAO.getNumberofMissionByJeu(id));
+        pModel.addAttribute("objectifNb", jeuDAO.getNumberofObjectifByJeu(id));
+        pModel.addAttribute("inscritNb", jeuDAO.getNumberofInscritByJeu(id));
+        pModel.addAttribute("apprenantNb", apprenantDAO.findAll().size());
+
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
 
     }
