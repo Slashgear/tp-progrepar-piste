@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <div class="col-lg-10 col-lg-offset-2">
                         <a href="/apprenant" class="btn btn-default">Annuler</a>
-                        <button type="submit" class="btn btn-primary">${confirmButtonLabel}</button>
+                        <button type="submit" class="btn btn-material-indigo">${confirmButtonLabel}</button>
                     </div>
                 </div>
             </fieldset>

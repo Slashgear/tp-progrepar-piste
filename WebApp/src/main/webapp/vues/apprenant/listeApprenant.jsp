@@ -24,7 +24,8 @@
                     <h2><c:out value="${apprenant.prenomapprenant}"/> <c:out value="${apprenant.nomapprenant}"/></h2>
 
                     <div class="btn-group btn-group-justified">
-                        <a href="/apprenant/${apprenant.numapprenant}" class="btn btn-sm btn-flat btn-info"
+                        <a href="/apprenant/${apprenant.numapprenant}"
+                           class="btn btn-sm btn-flat btn-info btn-material-indigo"
                            title="Détails"><i
                                 class="mdi-content-add-circle-outline"></i></a>
                         <a href="/apprenant/modifier/${apprenant.numapprenant}" class="btn btn-sm btn-flat btn-primary"
