@@ -80,4 +80,13 @@ public interface EstAssocieDAO extends JpaRepository<EstAssocie, Integer> {
     Integer getCountScoreFailureActionByObjectifAndApprenant(@Param(value = "numObjectif") Integer numObjectif,
                                                              @Param(value = "numApprenant") Integer numApprenant);
 
+    @Query("select count(o.valeurdebut) from EstAssocie ea, " +
+            "Obtient o, " +
+            "Action a " +
+            "where ea.numobjectif = :numObjectif " +
+            "and ea.numaction = o.numaction " +
+            "and ea.numaction = a.numaction " +
+            "and a.scoremin > o.valeurdebut")
+    Integer getCountScoreFailureActionByObjectif(@Param(value = "numObjectif") Integer numObjectif);
+
 }

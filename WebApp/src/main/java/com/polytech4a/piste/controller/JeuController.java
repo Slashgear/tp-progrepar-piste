@@ -34,6 +34,7 @@ public class JeuController {
 
     private static final String LIST_VIEW = "listejeu";
     private static final String DETAILS_VIEW = "detailsjeu";
+    private static final String DETAILS_FOR_APPRENANT_VIEW = "detailsjeupourapprenant";
 
     @Autowired
     private JeuDAO jeuDAO;
@@ -44,7 +45,7 @@ public class JeuController {
     @Autowired
     private ScoreService scoreService;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public String display(final ModelMap pModel, @PathVariable(value = "id") Integer id) {
         Jeu jeu = jeuService.findByNumjeuAndFetchAll(id);
 
@@ -53,24 +54,26 @@ public class JeuController {
         // Attributes
         pModel.addAttribute("jeu", jeu);
 
-        Map<Integer, Map<Integer, Double>> statsObjectifs = jeuService.getAvgActionForAllObjectifsForAllMissions(jeu);
+        Map<Integer, Double> statsObjectifs = scoreService.getAvgScore();
         pModel.addAttribute("statsObjectifs", statsObjectifs);
         Map<Integer, Double> statsMissions = jeuService.getAvgObjectifsForAllMissions(jeu);
         pModel.addAttribute("statsMissions", statsMissions);
         Map<Integer, Integer> scoresMinimum = scoreService.getScoresMinimum();
         pModel.addAttribute("scoresMinimum", scoresMinimum);
+        Map<Integer, Integer> statsObjectifsFailure = scoreService.getCountScoreFailureForObjectif();
+        pModel.addAttribute("statsObjectifsFailure", statsObjectifsFailure);
         Map<Integer, Integer> countScore = scoreService.getCountScore();
         pModel.addAttribute("countScore", countScore);
-        Map<Integer, Double> scoresActions = scoreService.getAvgScore();
+        Map<Integer, Double> scoresActions = jeuService.getAvgObjectifsForAllMissions(jeu);
         pModel.addAttribute("scoresActions", scoresActions);
 
         // Return button
-        ReturnButton.addToModel(pModel, "/jeu");
+        ReturnButton.addToModel(pModel, "jeu");
 
         // Breadcrumb set up
         Breadcrumb breadcrumbList = new Breadcrumb(
-                new BreadcrumbItem("Accueil", "/"),
-                new BreadcrumbItem("Jeux", "/jeu"),
+                new BreadcrumbItem("Accueil", ""),
+                new BreadcrumbItem("Jeux", "jeu"),
                 new BreadcrumbItem(String.format("#%s", jeu.getNumjeu())));
         Breadcrumb.addToModel(pModel, breadcrumbList);
 
@@ -84,7 +87,7 @@ public class JeuController {
     }
 
 
-    @RequestMapping(value = "/{id}/apprenant/{numApprenant}", method = RequestMethod.GET)
+    @RequestMapping(value = "{id}/apprenant/{numApprenant}", method = RequestMethod.GET)
     public String displayForApprenant(final ModelMap pModel, @PathVariable(value = "id") Integer id,
                                       @PathVariable(value = "numApprenant") Integer numApprenant) {
         Jeu jeu = jeuService.findByNumjeuAndFetchAll(id);
@@ -111,15 +114,14 @@ public class JeuController {
         pModel.addAttribute("scoresActions", scoresActions);
 
         // Return button
-        ReturnButton.addToModel(pModel, "/jeu");
+        ReturnButton.addToModel(pModel, "jeu");
 
         // Breadcrumb set up
         Breadcrumb breadcrumbList = new Breadcrumb(
-                new BreadcrumbItem("Accueil", "/"),
-                new BreadcrumbItem("Jeux", "/jeu"),
-                new BreadcrumbItem(String.format("#%s", jeu.getNumjeu())),
-                new BreadcrumbItem("Apprenants", "/apprenant"),
-                new BreadcrumbItem(String.format("#%s", numApprenant)));
+                new BreadcrumbItem("Accueil", ""),
+                new BreadcrumbItem("Jeux", "jeu"),
+                new BreadcrumbItem(String.format("#%s", jeu.getNumjeu()), String.format("jeu/%s", jeu.getNumjeu())),
+                new BreadcrumbItem(String.format("Apprenants #%s", numApprenant)));
         Breadcrumb.addToModel(pModel, breadcrumbList);
 
         pModel.addAttribute("actionNb", jeuDAO.getNumberofActionbyJeu(id));
@@ -128,7 +130,7 @@ public class JeuController {
         pModel.addAttribute("inscritNb", jeuDAO.getNumberofInscritByJeu(id));
         pModel.addAttribute("apprenantNb", apprenantDAO.findAll().size());
 
-        return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
+        return String.format("%s/%s", DIR_VIEW, DETAILS_FOR_APPRENANT_VIEW);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -140,7 +142,7 @@ public class JeuController {
 
         // Breadcrumb set up
         Breadcrumb breadcrumbList = new Breadcrumb(
-                new BreadcrumbItem("Accueil", "/"),
+                new BreadcrumbItem("Accueil", ""),
                 new BreadcrumbItem("Jeux"));
         Breadcrumb.addToModel(pModel, breadcrumbList);
 

@@ -71,6 +71,16 @@ public class ScoreService {
         return countScore;
     }
 
+    public Map<Integer, Integer> getCountScoreFailureForObjectif() {
+        List<Objectif> objectifList = objectifDAO.findAll();
+        Map<Integer, Integer> countScore = Collections.synchronizedMap(new HashMap<>());
+        objectifList.forEach(objectif -> {
+            if (!countScore.containsKey(objectif.getNumobjectif()))
+                countScore.put(objectif.getNumobjectif(), estAssocieDAO.getCountScoreFailureActionByObjectif(objectif.getNumobjectif()));
+        });
+        return countScore;
+    }
+
     public Map<Integer, Integer> getScoreForApprenant(Integer numApprenant) {
         List<Obtient> obtientList = obtientDAO.findByNumapprenant(numApprenant);
         Map<Integer, Integer> scores = Collections.synchronizedMap(new HashMap<>());
