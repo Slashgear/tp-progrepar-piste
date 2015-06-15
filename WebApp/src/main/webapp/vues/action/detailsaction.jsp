@@ -26,7 +26,7 @@
                     </c:choose>
                 </c:if>
                 <c:if test="${not empty action.actNumaction}">
-                    <p>Action parente : <a href="/action/${action.actNumaction}" title="détail action parente">
+                    <p>Action précédente : <a href="/action/${action.actNumaction}" title="détail action parente">
                         #<c:out value="${action.actNumaction}"/></a></p>
                 </c:if>
             </div>
@@ -51,6 +51,31 @@
 
                 <div class="well">
                     <div id="barchart_repartition" style="width: 100%; height: 100%;"></div>
+                </div>
+            </div>
+        </c:if>
+        <c:if test="${not empty childActions}">
+            <div class="col-md-6">
+                <h3>Action<c:if test="${fn:length(childActions)>1}">s</c:if> suivante<c:if
+                        test="${fn:length(childActions)>1}">s</c:if></h3>
+
+                <div class="well">
+                    <div class="list-group">
+                        <c:forEach items="${childActions}" var="action" varStatus="loop">
+                            <div class="list-group-item">
+                                <div class="row-content">
+                                    <h4 class="list-group-item-heading"><a
+                                            href="/action/<c:out value="${action.numaction}"/>">#<c:out
+                                            value="${action.numaction}"/></a></h4>
+
+                                    <p class="list-group-item-text"><c:out value="${action.libaction}"/></p>
+                                </div>
+                            </div>
+                            <c:if test="${!loop.last}">
+                                <div class="list-group-separator"></div>
+                            </c:if>
+                        </c:forEach>
+                    </div>
                 </div>
             </div>
         </c:if>

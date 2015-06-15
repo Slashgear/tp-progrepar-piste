@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 /**
  * Created by Antoine CARON on 04/06/2015.
  *
@@ -21,4 +23,7 @@ public interface ActionDAO extends JpaRepository<Action, Integer> {
             "inner join fix.objectifByNumobjectif as obj inner join obj.estAssociesByNumobjectif as est\n" +
             "inner join est.actionByNumaction as ac where ac.numaction=:idAction")
     Integer getNumberOfApprenantforAction(@Param("idAction") Integer idAction);
+
+    @Query("from Action a where actNumaction=:idAction")
+    List<Action> findByActNumaction(@Param("idAction") Integer idAction);
 }

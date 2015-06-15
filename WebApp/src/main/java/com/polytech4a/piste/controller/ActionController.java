@@ -71,7 +71,7 @@ public class ActionController {
         pModel.addAttribute("obt10_14", obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 10, 14));
         pModel.addAttribute("obt14_18", obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 14, 18));
         pModel.addAttribute("obt18_20", obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 18, 20));
-
+        pModel.addAttribute("childActions", actionDAO.findByActNumaction(actionID));
 
 
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
