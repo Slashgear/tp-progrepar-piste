@@ -7,7 +7,7 @@
         <h1><c:out value="${action.libaction}"/></h1>
 
         <div class="col-md-6">
-            <h2>Résumé</h2>
+            <h3>Résumé</h3>
 
             <div class="well">
                 <p>Identifiant #<c:out value="${action.numaction}"/></p>
@@ -24,6 +24,10 @@
                             </p>
                         </c:otherwise>
                     </c:choose>
+                </c:if>
+                <c:if test="${not empty action.actNumaction}">
+                    <p>Action parente : <a href="/action/${action.actNumaction}" title="détail action parente">
+                        #<c:out value="${action.actNumaction}"/></a></p>
                 </c:if>
             </div>
         </div>
@@ -53,7 +57,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
-                <%@include file="../common/returnbutton.jsp" %>
+            <%@include file="../common/returnbutton.jsp" %>
         </div>
     </div>
 </div>

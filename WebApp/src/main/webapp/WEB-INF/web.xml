@@ -45,7 +45,10 @@
         <error-code>404</error-code>
         <location>/vues/common/errors/404.jsp</location>
     </error-page>
-
+    <error-page>
+        <error-code>400</error-code>
+        <location>/vues/common/errors/404.jsp</location>
+    </error-page>
     <resource-ref>
         <description>Ressource JDBC de l'application</description>
         <res-ref-name>jdbc/dsPermisPiste</res-ref-name>
