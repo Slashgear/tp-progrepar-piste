@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 /**
- * Created by Antoine CARON on 10/06/2015.
+ * Created by Antoine CARON on 15/06/2015.
  *
  * @author Antoine CARON
  * @version 1.0

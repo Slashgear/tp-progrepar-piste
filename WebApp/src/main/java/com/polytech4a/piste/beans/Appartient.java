@@ -3,7 +3,7 @@ package com.polytech4a.piste.beans;
 import javax.persistence.*;
 
 /**
- * Created by Antoine CARON on 10/06/2015.
+ * Created by Antoine CARON on 15/06/2015.
  *
  * @author Antoine CARON
  * @version 1.0
