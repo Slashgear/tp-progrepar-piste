@@ -55,7 +55,7 @@
                                             <c:when test="${
                                             not empty statsObjectifs.get(fixe.numobjectif)
                                             and not empty countScore
-                                            and countScore.get(fixe.numobjectif) >= fixe.objectifByNumobjectif.estAssociesByNumobjectif.size()}">&nbsp;
+                                            and countScore.get(fixe.numobjectif) == fixe.objectifByNumobjectif.estAssociesByNumobjectif.size()}">&nbsp;
                                                 <c:choose>
                                                     <c:when test="${statsObjectifsFailure.get(fixe.numobjectif) != 0 || statsObjectifs.get(fixe.numobjectif) < 10}">
                                                         <span class="label label-danger"><fmt:formatNumber type="number"
