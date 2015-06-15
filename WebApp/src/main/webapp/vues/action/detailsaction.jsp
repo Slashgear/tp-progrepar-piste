@@ -6,7 +6,7 @@
     <div class="row">
         <h1><c:out value="${action.libaction}"/></h1>
 
-        <div class="col-xs-12">
+        <div class="col-md-6">
             <h2>Résumé</h2>
 
             <div class="well">
@@ -29,10 +29,24 @@
         </div>
         <c:if test="${nbInscrits>0}">
             <div class="col-md-6">
-                <h3>Proportion d'apprenants validant cette action</h3>
+                <h3>Apprenants validant cette action</h3>
 
                 <div class="well">
                     <div id="piechart_validation" style="width: 100%; height: 100%;"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3>Apprenants inscrit ayant obtenu une note</h3>
+
+                <div class="well">
+                    <div id="piechart_obtention" style="width: 100%; height: 100%;"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <h3>Répartition des notes</h3>
+
+                <div class="well">
+                    <div id="barchart_repartition" style="width: 100%; height: 100%;"></div>
                 </div>
             </div>
         </c:if>
@@ -60,6 +74,27 @@
             };
             var chart = new google.visualization.PieChart(document.getElementById('piechart_validation'));
             chart.draw(data, options);
+
+            var data2 = google.visualization.arrayToDataTable([
+                ['Task', 'Hours per Day'],
+                ['% d\'apprenants qui ont obtenu une note', ${nbObtient}],
+                ['% d\'apprenants sans note', ${nbInscrits - nbObtient}]
+            ]);
+
+            var chart2 = new google.visualization.PieChart(document.getElementById('piechart_obtention'));
+            chart2.draw(data2, options);
+
+
+            var data3 = new google.visualization.arrayToDataTable([
+                ['Move', 'Nombre d\'apprenants'],
+                ["0 à 10", ${obt0_10}],
+                ["10 à 14", ${obt10_14}],
+                ["14 à 18", ${obt14_18}],
+                ["18 à 20", ${obt18_20}]
+            ]);
+
+            var chart3 = new google.visualization.ColumnChart(document.getElementById('barchart_repartition'));
+            chart3.draw(data3, options);
         }
         $(window).resize(function () {
             drawChart();

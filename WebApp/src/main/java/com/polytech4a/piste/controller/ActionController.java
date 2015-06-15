@@ -66,6 +66,13 @@ public class ActionController {
 
         pModel.addAttribute("nbValidators", actionDAO.getNumberOfApprenantWhoValidateAction(actionID));
         pModel.addAttribute("nbInscrits", actionDAO.getNumberOfApprenantforAction(actionID));
+        pModel.addAttribute("nbObtient", obtientDAO.getNumberOfApprenantObtientforAction(actionID));
+        pModel.addAttribute("obt0_10", obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 0, 10));
+        pModel.addAttribute("obt10_14", obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 10, 14));
+        pModel.addAttribute("obt14_18", obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 14, 18));
+        pModel.addAttribute("obt18_20", obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 18, 20));
+
+
 
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
