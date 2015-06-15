@@ -16,4 +16,6 @@ public interface ObtientDAO extends JpaRepository<Obtient, Integer> {
 
     @Query("select avg(o.valeurdebut) from Obtient o where o.numaction = :numAction")
     Double getAvgValeurdebutForAction(@Param("numAction") Integer numAction);
+
+    List<Obtient> findByNumapprenant(Integer numApprenant);
 }

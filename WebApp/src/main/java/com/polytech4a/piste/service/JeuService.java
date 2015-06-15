@@ -45,9 +45,9 @@ public class JeuService {
     }
 
     public Map<Integer, Map<Integer, Double>> getAvgActionForAllObjectifsForAllMissions(Jeu jeu) {
-        final Map<Integer, Map<Integer, Double>> stats = Collections.synchronizedMap(new HashMap<Integer, Map<Integer, Double>>());
+        final Map<Integer, Map<Integer, Double>> stats = Collections.synchronizedMap(new HashMap<>());
         jeu.getMissionsByNumjeu().forEach(mission -> {
-            final Map<Integer, Double> stat = Collections.synchronizedMap(new HashMap<Integer, Double>());
+            final Map<Integer, Double> stat = Collections.synchronizedMap(new HashMap<>());
             mission.getFixesByNummission().parallelStream().forEach(fixe ->
                             stat.put(fixe.getNumobjectif(), estAssocieDAO.getAvgActionByObjectifAndMission(mission.getNummission(), fixe.getNumobjectif()))
             );
@@ -57,12 +57,35 @@ public class JeuService {
     }
 
     public Map<Integer, Double> getAvgObjectifsForAllMissions(Jeu jeu) {
-        final Map<Integer, Double> stats = Collections.synchronizedMap(new HashMap<Integer, Double>());
+        final Map<Integer, Double> stats = Collections.synchronizedMap(new HashMap<>());
         final Map<Integer, Map<Integer, Double>> statsObj = getAvgActionForAllObjectifsForAllMissions(jeu);
         statsObj.forEach((integer, integerDoubleMap) -> {
             OptionalDouble avg = integerDoubleMap.values().stream().filter(aDouble -> aDouble != null).mapToDouble(value -> value).average();
             if (avg.isPresent()) stats.put(integer, avg.getAsDouble());
         });
+        return stats;
+    }
+
+
+    public Map<Integer, Double> getAvgActionForAllObjectifsForApprenant(Jeu jeu, Integer numApprenant) {
+        final Map<Integer, Double> stats = Collections.synchronizedMap(new HashMap<>());
+        jeu.getMissionsByNumjeu().forEach(mission ->
+                mission.getFixesByNummission().parallelStream().forEach(fixe -> {
+                    if (!stats.containsKey(fixe.getNumobjectif()))
+                        stats.put(fixe.getNumobjectif(), estAssocieDAO.getAvgActionByObjectifAndApprenant(fixe.getNumobjectif(), numApprenant));
+                }));
+        return stats;
+    }
+
+    public Map<Integer, Double> getAvgObjectifsForAllMissionsForApprenant(Jeu jeu, Integer numApprenant) {
+        final Map<Integer, Double> stats = Collections.synchronizedMap(new HashMap<>());
+        final Map<Integer, Double> statsObj = getAvgActionForAllObjectifsForApprenant(jeu, numApprenant);
+        jeu.getMissionsByNumjeu().forEach(mission -> {
+                    OptionalDouble avg = fixeDAO.findFixesByNummission(mission.getNummission()).stream().filter(fixe -> statsObj.get(fixe.getNumobjectif()) != null).mapToDouble(value -> statsObj.get(value.getNumobjectif())).average();
+                    if (avg.isPresent())
+                        stats.put(mission.getNummission(), avg.getAsDouble());
+                }
+        );
         return stats;
     }
 }
