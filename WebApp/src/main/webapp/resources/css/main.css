@@ -11,3 +11,7 @@
 .icone-right {
     float: right;
 }
+.dropdownjs:after{
+    font-family: Material-Design-Icons;
+    content: "\e7bd";
+}
