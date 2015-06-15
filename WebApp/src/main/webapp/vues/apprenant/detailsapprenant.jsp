@@ -23,7 +23,7 @@
                                 <label for="select" class="col-lg-2 control-label">Jeux disponibles</label>
 
 
-                                <div class="col-lg-10">
+                                <div class="col-lg-6">
                                     <select class="select form-control" id="select" name="idJeu" required>
                                         <c:forEach items="${jeux}" var="jeu">
                                             <option value="<c:out value="${jeu.numjeu}"/>"><c:out
@@ -45,15 +45,36 @@
                 </div>
             </div>
         </c:if>
-
+        <c:if test="${not empty showjeuinsc}">
+            <div class="col-md-6">
+                <div class="well">
+                    <legend>Jeux auquels l'apprenant est inscrit</legend>
+                    <div class="list-group">
+                        <c:forEach items="${jeuxinsc}" var="jeu">
+                            <div class="list-group-item">
+                                <div class="btn-group btn-group-justified">
+                                    <a href="/jeu/${jeu.numjeu}/apprenant/${apprenant.numapprenant}" class="btn btn-flat btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="Résultats de l'apprenant au jeu">${jeu.libellejeu}</a>
+                                    <a href="/jeu/${jeu.numjeu}" class="btn btn-flat btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="Informations générales du jeu"><i class="mdi-action-info-outline"></i></a>
+                                </div>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>
+            </div>
+        </c:if>
     </div>
 </div>
 <script src="/resources/js/dropdown.js/jquery.dropdown.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $(".select").dropdown({"optionClass": "withripple"});
     });
     $().dropdown({autoinit: "select"});
+</script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip({container: 'body'});
+    })
 </script>
 <%@include file="../common/footer.jsp" %>
 

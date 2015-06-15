@@ -164,6 +164,12 @@ public class ApprenantController {
                 pModel.addAttribute("jeux", jeux);
                 pModel.addAttribute("showinsc", "show");
             }
+
+            List<Jeu> jeuxinsc = jeuDAO.findSubscribedJeuForApprenant(id);
+            if(!jeuxinsc.isEmpty()) {
+                pModel.addAttribute("jeuxinsc", jeuxinsc);
+                pModel.addAttribute("showjeuinsc", "show");
+            }
             return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
         } else {
             return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", id, DIR_VIEW));

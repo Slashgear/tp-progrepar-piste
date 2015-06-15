@@ -36,4 +36,7 @@ public interface JeuDAO extends JpaRepository<Jeu, Integer> {
 
     @Query("select count(distinct a.numapprenant)from Jeu as j inner join j.inscriptionsByNumjeu as i inner join i.apprenantByNumapprenant a where j.id=:idJeu")
     Integer getNumberofInscritByJeu(@Param("idJeu") Integer idJeu);
+
+    @Query("select j from Jeu as j inner join j.inscriptionsByNumjeu as i where i.apprenantByNumapprenant.numapprenant = :idApprenant")
+    List<Jeu> findSubscribedJeuForApprenant(@Param("idApprenant") Integer idApprenant);
 }
