@@ -37,9 +37,6 @@
             <li class="dropdown-header">Affichages</li>
             <li><a href="/apprenant">Affichage des apprenants</a></li>
             <li><a href="/apprenant/ajout">Ajouter un apprenant</a></li>
-            <li class="divider"></li>
-            <li class="dropdown-header">Statistiques</li>
-            <li><a href="/apprenant/stats">Statistique globales</a></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -47,8 +44,8 @@
                   class="caret"></span></a>
           <ul class="dropdown-menu">
             <li class="dropdown-header">Affichages</li>
-            <li><a href="/action">Affichage des actions</a></li>
             <li><a href="/jeu">Affichages des jeux</a></li>
+            <li><a href="/action">Affichage des actions</a></li>
           </ul>
         </li>
       </ul>
