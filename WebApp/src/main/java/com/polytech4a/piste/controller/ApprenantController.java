@@ -8,10 +8,12 @@ import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
 import com.polytech4a.piste.dao.ApprenantDAO;
 import com.polytech4a.piste.dao.InscriptionDAO;
 import com.polytech4a.piste.dao.JeuDAO;
+import com.polytech4a.piste.dao.ObtientDAO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,7 +31,7 @@ import java.util.List;
  *          Controller of Apprenant related views.
  */
 @Controller
-@RequestMapping("/apprenant")
+@RequestMapping("apprenant")
 @Component
 public class ApprenantController {
     private static final String DIR_VIEW = "apprenant";
@@ -41,12 +43,12 @@ public class ApprenantController {
 
     @Autowired
     private ApprenantDAO apprenantDAO;
-
     @Autowired
     private JeuDAO jeuDAO;
-
     @Autowired
     private InscriptionDAO inscriptionDAO;
+    @Autowired
+    private ObtientDAO obtientDAO;
 
     @RequestMapping(method = RequestMethod.GET)
     public String displayList(final ModelMap pModel) {
@@ -55,40 +57,40 @@ public class ApprenantController {
 
             // Breadcrumb set up
             Breadcrumb breadcrumbList = new Breadcrumb(
-                    new BreadcrumbItem("Accueil", "/"),
+                    new BreadcrumbItem("Accueil", ""),
                     new BreadcrumbItem("Apprenants"));
             Breadcrumb.addToModel(pModel, breadcrumbList);
 
             pModel.addAttribute("listeApprenants", listApprenants);
-            pModel.addAttribute("action", "/apprenant/ajout");
+            pModel.addAttribute("action", "apprenant/ajout");
         } else {
             return ErrorPage.newError(pModel, "Aucun Apprenant trouvé!", DIR_VIEW);
         }
         return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
 
-    @RequestMapping(value = "/ajout", method = RequestMethod.GET)
+    @RequestMapping(value = "ajout", method = RequestMethod.GET)
     public String displayAddForm(final ModelMap pModel) {
         // Breadcrumb set up
         Breadcrumb breadcrumbList = new Breadcrumb(
-                new BreadcrumbItem("Accueil", "/"),
-                new BreadcrumbItem("Apprenants", "/apprenant"),
+                new BreadcrumbItem("Accueil", ""),
+                new BreadcrumbItem("Apprenants", "apprenant"),
                 new BreadcrumbItem("Ajout"));
         Breadcrumb.addToModel(pModel, breadcrumbList);
 
         pModel.addAttribute("legend", "Ajout d'un apprenant");
         pModel.addAttribute("confirmButtonLabel", "Ajouter");
-        pModel.addAttribute("action", "/apprenant/ajout");
+        pModel.addAttribute("action", "apprenant/ajout");
         return String.format("%s/%s", DIR_VIEW, FORM_VIEW);
     }
 
-    @RequestMapping(value = "/modifier/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "modifier/{id}", method = RequestMethod.GET)
     public String displayModifyForm(final ModelMap pModel, @PathVariable(value = "id") int id) {
 
         // Breadcrumb set up
         Breadcrumb breadcrumbList = new Breadcrumb(
-                new BreadcrumbItem("Accueil", "/"),
-                new BreadcrumbItem("Apprenants", "/apprenant"),
+                new BreadcrumbItem("Accueil", ""),
+                new BreadcrumbItem("Apprenants", "apprenant"),
                 new BreadcrumbItem("Modifier"));
         Breadcrumb.addToModel(pModel, breadcrumbList);
 
@@ -98,11 +100,11 @@ public class ApprenantController {
         pModel.addAttribute("prenomApprenant", apprenant.getPrenomapprenant());
         pModel.addAttribute("legend", "Modification d'un apprenant");
         pModel.addAttribute("confirmButtonLabel", "Modifier");
-        pModel.addAttribute("action", "/apprenant/modifier/" + id);
+        pModel.addAttribute("action", "apprenant/modifier/" + id);
         return String.format("%s/%s", DIR_VIEW, FORM_VIEW);
     }
 
-    @RequestMapping(value = "/ajout", method = RequestMethod.POST)
+    @RequestMapping(value = "ajout", method = RequestMethod.POST)
     public String submitAddForm(final ModelMap pModel,
                                 @RequestParam("nomApprenant") String nom,
                                 @RequestParam("prenomApprenant") String prenom) {
@@ -117,7 +119,7 @@ public class ApprenantController {
         return displayList(pModel);
     }
 
-    @RequestMapping(value = "/modifier/{id}", method = RequestMethod.POST)
+    @RequestMapping(value = "modifier/{id}", method = RequestMethod.POST)
     public String submitModifyForm(final ModelMap pModel,
                                    @PathVariable(value = "id") int id,
                                    @RequestParam("nomApprenant") String nom,
@@ -133,10 +135,13 @@ public class ApprenantController {
         return displayList(pModel);
     }
 
-    @RequestMapping(value = "/suppr/{id}", method = RequestMethod.GET)
-    public String supprApprenant(final ModelMap pModel, @PathVariable(value = "id") int id) {
+    @RequestMapping(value = "suppr/{id}", method = RequestMethod.GET)
+    @Transactional
+    public String supprApprenant(final ModelMap pModel, @PathVariable(value = "id") Integer id) {
         Apprenant apprenant = apprenantDAO.findOne(id);
         if (apprenant != null) {
+            obtientDAO.findByNumapprenant(id).forEach(obtientDAO::delete);
+            inscriptionDAO.deleteByNumapprenant(id);
             apprenantDAO.delete(id);
             pModel.addAttribute("isDeleted", "Apprenant n°" + id + " a été supprimé avec succès.");
             return displayList(pModel);
@@ -145,7 +150,7 @@ public class ApprenantController {
         }
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public String detailApprenant(final ModelMap pModel,
                                   @PathVariable(value = "id") int id) {
         Apprenant apprenant = apprenantDAO.findOne(id);
@@ -166,7 +171,7 @@ public class ApprenantController {
             }
 
             List<Jeu> jeuxinsc = jeuDAO.findSubscribedJeuForApprenant(id);
-            if(!jeuxinsc.isEmpty()) {
+            if (!jeuxinsc.isEmpty()) {
                 pModel.addAttribute("jeuxinsc", jeuxinsc);
                 pModel.addAttribute("showjeuinsc", "show");
             }
@@ -176,7 +181,7 @@ public class ApprenantController {
         }
     }
 
-    @RequestMapping(value = "/inscrire", method = RequestMethod.POST)
+    @RequestMapping(value = "inscrire", method = RequestMethod.POST)
     public String submitinscrireForm(final ModelMap pModel,
                                      @RequestParam("idApprenant") Integer idApprenant,
                                      @RequestParam("idJeu") Integer idJeu) {
