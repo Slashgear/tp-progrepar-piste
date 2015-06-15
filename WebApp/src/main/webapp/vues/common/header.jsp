@@ -46,6 +46,7 @@
             <li class="dropdown-header">Affichages</li>
             <li><a href="jeu">Affichages des jeux</a></li>
             <li><a href="mission">Affichage des missions</a></li>
+            <li><a href="objectif">Affichage des objectifs</a></li>
             <li><a href="action">Affichage des actions</a></li>
           </ul>
         </li>
