@@ -23,7 +23,7 @@
         </div>
         <div class="col-lg-6">
 
-            <h2>Détails</h2>
+            <h2>Détails pour l'apprenant : <c:out value="${apprenant.prenomapprenant} ${apprenant.nomapprenant}"/></h2>
 
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">

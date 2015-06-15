@@ -54,9 +54,9 @@ public class JeuController {
         // Attributes
         pModel.addAttribute("jeu", jeu);
 
-        Map<Integer, Double> statsObjectifs = scoreService.getAvgScore();
+        Map<Integer, Double> statsObjectifs = scoreService.getAvgObjectifs();
         pModel.addAttribute("statsObjectifs", statsObjectifs);
-        Map<Integer, Double> statsMissions = jeuService.getAvgObjectifsForAllMissions(jeu);
+        Map<Integer, Double> statsMissions = scoreService.getAvgObjectifsForAllMissions(jeu);
         pModel.addAttribute("statsMissions", statsMissions);
         Map<Integer, Integer> scoresMinimum = scoreService.getScoresMinimum();
         pModel.addAttribute("scoresMinimum", scoresMinimum);
@@ -64,7 +64,7 @@ public class JeuController {
         pModel.addAttribute("statsObjectifsFailure", statsObjectifsFailure);
         Map<Integer, Integer> countScore = scoreService.getCountScore();
         pModel.addAttribute("countScore", countScore);
-        Map<Integer, Double> scoresActions = jeuService.getAvgObjectifsForAllMissions(jeu);
+        Map<Integer, Double> scoresActions = scoreService.getAvgAction();
         pModel.addAttribute("scoresActions", scoresActions);
 
         // Return button
@@ -99,10 +99,11 @@ public class JeuController {
 
         // Attributes
         pModel.addAttribute("jeu", jeu);
+        pModel.addAttribute("apprenant", apprenant);
 
-        Map<Integer, Double> statsObjectifs = jeuService.getAvgActionForAllObjectifsForApprenant(jeu, numApprenant);
+        Map<Integer, Double> statsObjectifs = scoreService.getAvgActionForAllObjectifsForApprenant(jeu, numApprenant);
         pModel.addAttribute("statsObjectifs", statsObjectifs);
-        Map<Integer, Double> statsMissions = jeuService.getAvgObjectifsForAllMissionsForApprenant(jeu, numApprenant);
+        Map<Integer, Double> statsMissions = scoreService.getAvgObjectifsForAllMissionsForApprenant(jeu, numApprenant);
         pModel.addAttribute("statsMissions", statsMissions);
         Map<Integer, Integer> scoresMinimum = scoreService.getScoresMinimum();
         pModel.addAttribute("scoresMinimum", scoresMinimum);

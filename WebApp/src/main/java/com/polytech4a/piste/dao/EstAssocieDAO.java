@@ -26,13 +26,11 @@ public interface EstAssocieDAO extends JpaRepository<EstAssocie, Integer> {
     Double getAvgActionByObjectifAndMission(@Param(value = "numMission") Integer numMission,
                                             @Param(value = "numObjectif") Integer numObjectif);
 
-    @Query("select sum(o.valeurdebut * i.poids)/sum(i.poids) from EstAssocie ea, " +
-            "Obtient o, " +
-            "Indicateur i " +
-            "where ea.numobjectif = :numObjectif " +
-            "and ea.numaction = o.numaction " +
-            "and ea.numaction = i.numaction ")
-    Double getAvgActionByObjectif(@Param(value = "numObjectif") Integer numObjectif);
+    @Query("select o.numaction, avg(o.valeurdebut) as average, i.poids as poids  from Obtient o, \n" +
+            "            Indicateur i \n" +
+            "            where o.numaction = i.numaction\n" +
+            "            group by o.numaction")
+    List<Object[]> getAvgAction();
 
     @Query("select sum(o.valeurdebut * i.poids)/sum(i.poids) from EstAssocie ea, " +
             "Obtient o, " +
@@ -50,7 +48,7 @@ public interface EstAssocieDAO extends JpaRepository<EstAssocie, Integer> {
             "and ea.numaction = o.numaction ")
     Integer getCountScoreActionByObjectif(@Param(value = "numObjectif") Integer numObjectif);
 
-    @Query("select count(o.valeurdebut) from EstAssocie ea, " +
+    @Query("select count(distinct o.numaction) from EstAssocie ea, " +
             "Obtient o " +
             "where ea.numobjectif = :numObjectif " +
             "and o.numapprenant = :numApprenant " +
@@ -58,7 +56,7 @@ public interface EstAssocieDAO extends JpaRepository<EstAssocie, Integer> {
     Integer getCountScoreActionByObjectifAndApprenant(@Param(value = "numObjectif") Integer numObjectif,
                                                       @Param(value = "numApprenant") Integer numApprenant);
 
-    @Query("select count(o.valeurdebut) from EstAssocie ea, " +
+    @Query("select count(distinct o.numaction) from EstAssocie ea, " +
             "Obtient o, " +
             "Action a " +
             "where ea.numobjectif = :numObjectif " +
@@ -69,7 +67,7 @@ public interface EstAssocieDAO extends JpaRepository<EstAssocie, Integer> {
     Integer getCountScoreSuccessActionByObjectifAndApprenant(@Param(value = "numObjectif") Integer numObjectif,
                                                              @Param(value = "numApprenant") Integer numApprenant);
 
-    @Query("select count(o.valeurdebut) from EstAssocie ea, " +
+    @Query("select count(distinct o.numaction) from EstAssocie ea, " +
             "Obtient o, " +
             "Action a " +
             "where ea.numobjectif = :numObjectif " +
@@ -80,7 +78,7 @@ public interface EstAssocieDAO extends JpaRepository<EstAssocie, Integer> {
     Integer getCountScoreFailureActionByObjectifAndApprenant(@Param(value = "numObjectif") Integer numObjectif,
                                                              @Param(value = "numApprenant") Integer numApprenant);
 
-    @Query("select count(o.valeurdebut) from EstAssocie ea, " +
+    @Query("select count(distinct o.numaction) from EstAssocie ea, " +
             "Obtient o, " +
             "Action a " +
             "where ea.numobjectif = :numObjectif " +
