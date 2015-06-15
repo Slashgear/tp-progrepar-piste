@@ -146,7 +146,7 @@ public class ApprenantController {
             pModel.addAttribute("isDeleted", "Apprenant n°" + id + " a été supprimé avec succès.");
             return displayList(pModel);
         } else {
-            return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", id, DIR_VIEW));
+            return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", id), DIR_VIEW);
         }
     }
 
@@ -177,7 +177,7 @@ public class ApprenantController {
             }
             return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
         } else {
-            return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", id, DIR_VIEW));
+            return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", id), DIR_VIEW);
         }
     }
 
