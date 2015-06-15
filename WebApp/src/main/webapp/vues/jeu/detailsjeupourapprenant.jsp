@@ -48,8 +48,10 @@
                              class="panel-collapse collapse" role="tabpanel"
                              aria-labelledby="headingOne">
                             <div class="panel-body">
+                                <a href="<c:out value="mission/${mission.nummission}"/>">Plus d'informations sur la
+                                    mission</a>
                                 <c:forEach items="${mission.fixesByNummission}" var="fixe">
-                                    <h4><a href="action/objectif/<c:out value="${fixe.numobjectif}"/>">
+                                    <h4><a href="objectif/<c:out value="${fixe.numobjectif}"/>">
                                         Objectif : <c:out value="${fixe.objectifByNumobjectif.libobectif}"/></a>
                                         <c:choose>
                                             <c:when test="${
