@@ -6,10 +6,7 @@ import com.polytech4a.piste.controller.components.ErrorPage;
 import com.polytech4a.piste.controller.components.ReturnButton;
 import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
 import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
-import com.polytech4a.piste.dao.ActionDAO;
-import com.polytech4a.piste.dao.EstAssocieDAO;
-import com.polytech4a.piste.dao.ObjectifDAO;
-import com.polytech4a.piste.dao.ObtientDAO;
+import com.polytech4a.piste.dao.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -41,8 +38,10 @@ public class ActionController {
     private EstAssocieDAO estAssocieDAO;
     @Autowired
     private ObjectifDAO objectifDAO;
+    @Autowired
+    private IndicateurDAO indicateurDAO;
 
-    @RequestMapping(value = "/{actionId}", method = RequestMethod.GET)
+    @RequestMapping(value = "{actionId}", method = RequestMethod.GET)
     public String display(final ModelMap pModel, @PathVariable(value = "actionId") Integer actionID) {
         Action action = actionDAO.findOne(actionID);
         if (action == null)
@@ -59,8 +58,8 @@ public class ActionController {
 
         // Breadcrumb set up
         Breadcrumb breadcrumbList = new Breadcrumb(
-                new BreadcrumbItem("Accueil", "/"),
-                new BreadcrumbItem("Actions", "/action"),
+                new BreadcrumbItem("Accueil", ""),
+                new BreadcrumbItem("Actions", "action"),
                 new BreadcrumbItem(String.format("Action #%s", action.getNumaction())));
         Breadcrumb.addToModel(pModel, breadcrumbList);
 
@@ -72,12 +71,13 @@ public class ActionController {
         pModel.addAttribute("obt14_18", obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 14, 18));
         pModel.addAttribute("obt18_20", obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 18, 20));
         pModel.addAttribute("childActions", actionDAO.findByActNumaction(actionID));
+        pModel.addAttribute("coef", indicateurDAO.findByNumaction(actionID).getPoids());
 
 
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
 
-    @RequestMapping(value = "/objectif/{objectifId}", method = RequestMethod.GET)
+    @RequestMapping(value = "objectif/{objectifId}", method = RequestMethod.GET)
     public String displayListForObjectif(final ModelMap pModel, @PathVariable(value = "objectifId") Integer objectifId) {
         if (objectifDAO.findOne(objectifId) == null)
             return ErrorPage.newError(pModel, String.format("L'objectif n°%s n'a pas été trouvé !", objectifId));
@@ -91,8 +91,8 @@ public class ActionController {
 
         // Breadcrumb set up
         Breadcrumb breadcrumbList = new Breadcrumb(
-                new BreadcrumbItem("Accueil", "/"),
-                new BreadcrumbItem("Actions", "/action"),
+                new BreadcrumbItem("Accueil", ""),
+                new BreadcrumbItem("Actions", "action"),
                 new BreadcrumbItem(String.format("Objectif #%s", objectifId)));
         Breadcrumb.addToModel(pModel, breadcrumbList);
 
@@ -109,7 +109,7 @@ public class ActionController {
 
         // Breadcrumb set up
         Breadcrumb breadcrumbList = new Breadcrumb(
-                new BreadcrumbItem("Accueil", "/"),
+                new BreadcrumbItem("Accueil", ""),
                 new BreadcrumbItem("Actions"));
         Breadcrumb.addToModel(pModel, breadcrumbList);
 
