@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 
 /**
- * Created by Antoine CARON on 10/06/2015.
+ * Created by Antoine CARON on 15/06/2015.
  *
  * @author Antoine CARON
  * @version 1.0

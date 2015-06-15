@@ -4,14 +4,13 @@ import javax.persistence.*;
 import java.util.Collection;
 
 /**
- * Created by Antoine CARON on 10/06/2015.
+ * Created by Antoine CARON on 15/06/2015.
  *
  * @author Antoine CARON
  * @version 1.0
  */
 @Entity
 public class Apprenant {
-
     private Integer numapprenant;
     private String nomapprenant;
     private String prenomapprenant;
@@ -20,7 +19,6 @@ public class Apprenant {
 
     @Id
     @Column(name = "NUMAPPRENANT")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer getNumapprenant() {
         return numapprenant;
     }

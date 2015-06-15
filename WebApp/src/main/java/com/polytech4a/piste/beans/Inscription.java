@@ -3,16 +3,28 @@ package com.polytech4a.piste.beans;
 import javax.persistence.*;
 
 /**
- * Created by Antoine CARON on 10/06/2015.
+ * Created by Antoine CARON on 15/06/2015.
  *
  * @author Antoine CARON
  * @version 1.0
  */
 @Entity
+@IdClass(InscriptionPK.class)
 public class Inscription {
+    private Integer numapprenant;
     private Integer numjeu;
     private Apprenant apprenantByNumapprenant;
     private Jeu jeuByNumjeu;
+
+    @Id
+    @Column(name = "NUMAPPRENANT")
+    public Integer getNumapprenant() {
+        return numapprenant;
+    }
+
+    public void setNumapprenant(Integer numapprenant) {
+        this.numapprenant = numapprenant;
+    }
 
     @Id
     @Column(name = "NUMJEU")
@@ -31,6 +43,7 @@ public class Inscription {
 
         Inscription that = (Inscription) o;
 
+        if (numapprenant != null ? !numapprenant.equals(that.numapprenant) : that.numapprenant != null) return false;
         if (numjeu != null ? !numjeu.equals(that.numjeu) : that.numjeu != null) return false;
 
         return true;
@@ -38,7 +51,9 @@ public class Inscription {
 
     @Override
     public int hashCode() {
-        return numjeu != null ? numjeu.hashCode() : 0;
+        int result = numapprenant != null ? numapprenant.hashCode() : 0;
+        result = 31 * result + (numjeu != null ? numjeu.hashCode() : 0);
+        return result;
     }
 
     @ManyToOne

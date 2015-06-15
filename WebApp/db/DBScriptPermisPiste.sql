@@ -94,29 +94,6 @@ INSERT INTO `apprenant` (`NUMAPPRENANT`, `NOMAPPRENANT`, `PRENOMAPPRENANT`) VALU
   (13, 'Rodarie', 'Dimitri'),
   (14, 'Ferjani', 'Gael');
 
--- --------------------------------------------------------
-
---
--- Structure de la table `calendrier`
---
-
-DROP TABLE IF EXISTS `calendrier`;
-CREATE TABLE IF NOT EXISTS `calendrier` (
-  `DATEJOUR` date NOT NULL,
-  PRIMARY KEY (`DATEJOUR`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Contenu de la table `calendrier`
---
-
-INSERT INTO `calendrier` (`DATEJOUR`) VALUES
-  ('2015-06-10'),
-  ('2015-06-11'),
-  ('2015-06-12'),
-  ('2015-06-13'),
-  ('2015-06-14'),
-  ('2015-06-15');
 
 -- --------------------------------------------------------
 
@@ -209,7 +186,6 @@ DROP TABLE IF EXISTS `indicateur`;
 CREATE TABLE IF NOT EXISTS `indicateur` (
   `NUMINDIC` int(11) NOT NULL AUTO_INCREMENT,
   `NUMACTION` int(11) NOT NULL,
-  `LIBINDIC` char(20) DEFAULT NULL,
   `POIDS` int(11) DEFAULT NULL,
   PRIMARY KEY (`NUMINDIC`),
   KEY `EST_VALORISE_FK` (`NUMACTION`)
@@ -219,26 +195,26 @@ CREATE TABLE IF NOT EXISTS `indicateur` (
 -- Contenu de la table `indicateur`
 --
 
-INSERT INTO `indicateur` (`NUMINDIC`, `NUMACTION`, `LIBINDIC`, `POIDS`) VALUES
-  (1, 1, 'indic_misetenue', 1),
-  (2, 2, 'indic_prepvehicule', 2),
-  (3, 3, 'indic_respecsecu', 5),
-  (4, 4, 'indic_manoeuvre', 4),
-  (5, 5, 'indic_hypothese', 1),
-  (6, 6, 'indic_propositionsol', 2),
-  (7, 7, 'indic_evalsol', 3),
-  (8, 8, 'indic_effectuersol', 2),
-  (9, 9, 'indic_accesmeca', 1),
-  (10, 10, 'indic_verifmeca', 2),
-  (11, 11, 'indic_analyserpanne', 3),
-  (12, 12, 'indic_effectuerniv', 1),
-  (13, 13, 'indic_reaction', 1),
-  (14, 14, 'indic_actiondanger', 3),
-  (15, 15, 'indic_priseinfo', 1),
-  (16, 16, 'indic_placement', 2),
-  (17, 17, 'indic_outilscomm', 1),
-  (18, 18, 'indic_respprotocole', 5),
-  (19, 19, 'indic_travailatemps', 1);
+INSERT INTO `indicateur` (`NUMINDIC`, `NUMACTION`, `POIDS`) VALUES
+  (1, 1, 1),
+  (2, 2, 2),
+  (3, 3, 5),
+  (4, 4, 4),
+  (5, 5, 1),
+  (6, 6, 2),
+  (7, 7, 3),
+  (8, 8, 2),
+  (9, 9, 1),
+  (10, 10, 2),
+  (11, 11, 3),
+  (12, 12, 1),
+  (13, 13, 1),
+  (14, 14, 3),
+  (15, 15, 1),
+  (16, 16, 2),
+  (17, 17, 1),
+  (18, 18, 5),
+  (19, 19, 1);
 
 -- --------------------------------------------------------
 
@@ -356,13 +332,10 @@ INSERT INTO `objectif` (`NUMOBJECTIF`, `LIBOBECTIF`) VALUES
 DROP TABLE IF EXISTS `obtient`;
 CREATE TABLE IF NOT EXISTS `obtient` (
   `NUMAPPRENANT` int(11) NOT NULL,
-  `DATEJOUR` date NOT NULL,
   `NUMACTION` int(11) NOT NULL,
-  `VALEURDEBUT` int(11) DEFAULT NULL,
-  `VALEURFIN` int(11) DEFAULT NULL,
-  PRIMARY KEY (`NUMAPPRENANT`,`DATEJOUR`,`NUMACTION`),
+  `VALEUR` INT(11) DEFAULT NULL,
+  PRIMARY KEY (`NUMAPPRENANT`, `NUMACTION`),
   KEY `OBTIENT_FK` (`NUMAPPRENANT`),
-  KEY `OBTIENT3_FK` (`DATEJOUR`),
   KEY `OBTIENT3_FK2` (`NUMACTION`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -370,40 +343,15 @@ CREATE TABLE IF NOT EXISTS `obtient` (
 -- Contenu de la table `obtient`
 --
 
-INSERT INTO `obtient` (`NUMAPPRENANT`, `DATEJOUR`, `NUMACTION`, `VALEURDEBUT`, `VALEURFIN`) VALUES
-  (3, '2015-06-10', 3, 12, 12),
-  (3, '2015-06-12', 4, 8, 8),
-  (12, '2015-06-14', 3, 12, 12),
-  (12, '2015-06-15', 4, 18, 18);
+INSERT INTO `obtient` (`NUMAPPRENANT`, `NUMACTION`, `VALEUR`) VALUES
+  (3, 3, 12),
+  (3, 4, 8),
+  (12, 3, 12),
+  (12, 4, 18);
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `possede`
---
 
-DROP TABLE IF EXISTS `possede`;
-CREATE TABLE IF NOT EXISTS `possede` (
-  `NUMACTION` int(11) NOT NULL,
-  `NUMREGLE` int(11) NOT NULL,
-  PRIMARY KEY (`NUMACTION`,`NUMREGLE`),
-  KEY `POSSEDE_FK` (`NUMACTION`),
-  KEY `POSSEDE2_FK` (`NUMREGLE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `regle`
---
-
-DROP TABLE IF EXISTS `regle`;
-CREATE TABLE IF NOT EXISTS `regle` (
-  `NUMREGLE` int(11) NOT NULL AUTO_INCREMENT,
-  `LIBREGLE` char(25) DEFAULT NULL,
-  `SCOREMIN` int(11) DEFAULT NULL,
-  PRIMARY KEY (`NUMREGLE`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
 -- Contraintes pour les tables exportées
@@ -459,13 +407,6 @@ ADD CONSTRAINT `FK_MISSION_SE_COMPOS_JEU` FOREIGN KEY (`NUMJEU`) REFERENCES `jeu
 -- Contraintes pour la table `obtient`
 --
 ALTER TABLE `obtient`
-ADD CONSTRAINT `FK_OBTIENT_OBTIENT2_CALENDRI` FOREIGN KEY (`DATEJOUR`) REFERENCES `calendrier` (`DATEJOUR`),
 ADD CONSTRAINT `FK_OBTIENT_OBTIENT3_ACTION` FOREIGN KEY (`NUMACTION`) REFERENCES `action` (`NUMACTION`),
 ADD CONSTRAINT `FK_OBTIENT_OBTIENT_APPRENAN` FOREIGN KEY (`NUMAPPRENANT`) REFERENCES `apprenant` (`NUMAPPRENANT`);
 
---
--- Contraintes pour la table `possede`
---
-ALTER TABLE `possede`
-ADD CONSTRAINT `FK_POSSEDE_POSSEDE2_REGLE` FOREIGN KEY (`NUMREGLE`) REFERENCES `regle` (`NUMREGLE`),
-ADD CONSTRAINT `FK_POSSEDE_POSSEDE_ACTION` FOREIGN KEY (`NUMACTION`) REFERENCES `action` (`NUMACTION`);

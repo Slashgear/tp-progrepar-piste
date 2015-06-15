@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Collection;
 
 /**
- * Created by Antoine CARON on 10/06/2015.
+ * Created by Antoine CARON on 15/06/2015.
  *
  * @author Antoine CARON
  * @version 1.0
@@ -21,7 +21,6 @@ public class Action {
     private Collection<EstAssocie> estAssociesByNumaction;
     private Collection<Indicateur> indicateursByNumaction;
     private Collection<Obtient> obtientsByNumaction;
-    private Collection<Possede> possedesByNumaction;
 
     @Id
     @Column(name = "NUMACTION")
@@ -141,14 +140,5 @@ public class Action {
 
     public void setObtientsByNumaction(Collection<Obtient> obtientsByNumaction) {
         this.obtientsByNumaction = obtientsByNumaction;
-    }
-
-    @OneToMany(mappedBy = "actionByNumaction")
-    public Collection<Possede> getPossedesByNumaction() {
-        return possedesByNumaction;
-    }
-
-    public void setPossedesByNumaction(Collection<Possede> possedesByNumaction) {
-        this.possedesByNumaction = possedesByNumaction;
     }
 }

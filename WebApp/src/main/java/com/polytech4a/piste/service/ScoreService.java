@@ -79,7 +79,7 @@ public class ScoreService {
         List<Obtient> obtientList = obtientDAO.findByNumapprenant(numApprenant);
         Map<Integer, Integer> scores = Collections.synchronizedMap(new HashMap<>());
         obtientList.forEach(obtient ->
-                scores.put(obtient.getNumaction(), obtient.getValeurdebut()));
+                scores.put(obtient.getNumaction(), obtient.getValeur()));
         return scores;
     }
 

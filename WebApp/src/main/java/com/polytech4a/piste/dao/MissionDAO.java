@@ -16,7 +16,7 @@ import java.util.List;
 public interface MissionDAO extends JpaRepository<Mission, Integer> {
     List<Mission> findMissionsByNumjeu(Integer numJeu);
 
-    @Query("select ea.numobjectif, avg(o.valeurdebut * i.poids)/sum(i.poids) from Fixe f, " +
+    @Query("select ea.numobjectif, avg(o.valeur * i.poids)/sum(i.poids) from Fixe f, " +
             "EstAssocie ea, " +
             "Obtient o, " +
             "Indicateur i " +
@@ -27,7 +27,7 @@ public interface MissionDAO extends JpaRepository<Mission, Integer> {
             "group by ea.numobjectif")
     List<Object[]> getAvgActionForAllObjectifForMission(@Param(value = "numMission") Integer numMission);
 
-    @Query("select f.nummission, avg(o.valeurdebut * i.poids)/sum(i.poids) from Mission m, " +
+    @Query("select f.nummission, avg(o.valeur * i.poids)/sum(i.poids) from Mission m, " +
             "Fixe f, " +
             "EstAssocie ea, " +
             "Obtient o, " +

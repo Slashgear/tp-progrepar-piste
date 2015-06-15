@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface ActionDAO extends JpaRepository<Action, Integer> {
 
-    @Query("select count(distinct a) from Apprenant a inner join  a.obtientsByNumapprenant as o inner join o.actionByNumaction as ac where o.valeurdebut >= ac.scoremin and ac.numaction=:idAction")
+    @Query("select count(distinct a) from Apprenant a inner join  a.obtientsByNumapprenant as o inner join o.actionByNumaction as ac where o.valeur >= ac.scoremin and ac.numaction=:idAction")
     Integer getNumberOfApprenantWhoValidateAction(@Param("idAction") Integer idAction);
 
     @Query("select count(distinct a) from Apprenant a inner join a.inscriptionsByNumapprenant as i " +

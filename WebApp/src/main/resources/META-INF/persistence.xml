@@ -6,7 +6,6 @@
         <class>com.polytech4a.piste.beans.Action</class>
         <class>com.polytech4a.piste.beans.Appartient</class>
         <class>com.polytech4a.piste.beans.Apprenant</class>
-        <class>com.polytech4a.piste.beans.Calendrier</class>
         <class>com.polytech4a.piste.beans.EstAssocie</class>
         <class>com.polytech4a.piste.beans.Fixe</class>
         <class>com.polytech4a.piste.beans.Indicateur</class>
@@ -14,8 +13,6 @@
         <class>com.polytech4a.piste.beans.Mission</class>
         <class>com.polytech4a.piste.beans.Objectif</class>
         <class>com.polytech4a.piste.beans.Obtient</class>
-        <class>com.polytech4a.piste.beans.Possede</class>
-        <class>com.polytech4a.piste.beans.Regle</class>
         <class>com.polytech4a.piste.beans.Inscription</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/permispiste"/>

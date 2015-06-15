@@ -14,7 +14,7 @@ import java.util.List;
 public interface ObtientDAO extends JpaRepository<Obtient, Integer> {
     List<Obtient> findByNumaction(Integer numAction);
 
-    @Query("select avg(o.valeurdebut) from Obtient o where o.numaction = :numAction")
+    @Query("select avg(o.valeur) from Obtient o where o.numaction = :numAction")
     Double getAvgValeurdebutForAction(@Param("numAction") Integer numAction);
 
 
@@ -24,7 +24,7 @@ public interface ObtientDAO extends JpaRepository<Obtient, Integer> {
     Integer getNumberOfApprenantObtientforAction(@Param("idAction") Integer idAction);
 
     @Query("select count(distinct a.numapprenant) from Obtient o inner join o.apprenantByNumapprenant a " +
-            "where o.actionByNumaction.numaction=:idAction and o.valeurdebut<:valMax and o.valeurdebut>=:valMin")
+            "where o.actionByNumaction.numaction=:idAction and o.valeur<:valMax and o.valeur>=:valMin")
     Integer getNumberOfApprenantObtientforActionBetween(@Param("idAction") Integer idAction
             , @Param("valMin") Integer valMin, @Param("valMax") Integer valMax);
 
