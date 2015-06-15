@@ -21,6 +21,11 @@ public class ErrorPage {
         pModel.addAttribute("errorMessage", errorMessage);
         pModel.addAttribute("errorReturnPage", errorReturnPage);
         logger.error(String.format("An error occured : %s", errorMessage));
+
         return String.format("%s/%s", DIR_VIEW, ERROR_VIEW);
+    }
+
+    public static String new404Error() {
+        return "forward:notfoundpage";
     }
 }

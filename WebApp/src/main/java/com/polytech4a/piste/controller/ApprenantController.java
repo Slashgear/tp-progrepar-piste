@@ -64,7 +64,8 @@ public class ApprenantController {
             pModel.addAttribute("listeApprenants", listApprenants);
             pModel.addAttribute("action", "apprenant/ajout");
         } else {
-            return ErrorPage.newError(pModel, "Aucun Apprenant trouvé!", DIR_VIEW);
+            //return ErrorPage.newError(pModel, "Aucun Apprenant trouvé!", DIR_VIEW);
+            return ErrorPage.new404Error();
         }
         return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
@@ -146,7 +147,8 @@ public class ApprenantController {
             pModel.addAttribute("isDeleted", "Apprenant n°" + id + " a été supprimé avec succès.");
             return displayList(pModel);
         } else {
-            return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", id), DIR_VIEW);
+            //return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", id), DIR_VIEW);
+            return ErrorPage.new404Error();
         }
     }
 
@@ -177,7 +179,8 @@ public class ApprenantController {
             }
             return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
         } else {
-            return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", id), DIR_VIEW);
+            //return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", id), DIR_VIEW);
+            return ErrorPage.new404Error();
         }
     }
 

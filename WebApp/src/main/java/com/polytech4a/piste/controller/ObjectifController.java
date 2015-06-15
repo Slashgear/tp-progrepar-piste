@@ -63,7 +63,8 @@ public class ObjectifController {
     public String display(final ModelMap pModel, @PathVariable(value = "objectifId") Integer objectifId) {
         Objectif objectif = objectifService.findByNumobjectifAndFetchAll(objectifId);
         if (objectif == null)
-            return ErrorPage.newError(pModel, String.format("Objectif n°%s non trouvée !", objectifId), DIR_VIEW);
+            //return ErrorPage.newError(pModel, String.format("Objectif n°%s non trouvée !", objectifId), DIR_VIEW);
+            return ErrorPage.new404Error();
 
 
         Map<Integer, Double> statsObjectifs = scoreService.getAvgObjectifs();

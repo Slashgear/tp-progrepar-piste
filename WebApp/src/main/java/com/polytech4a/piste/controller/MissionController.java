@@ -63,7 +63,8 @@ public class MissionController {
     public String display(final ModelMap pModel, @PathVariable(value = "missionId") Integer missionId) {
         Mission mission = missionService.findByNummissionAndFetchAll(missionId);
         if (mission == null)
-            return ErrorPage.newError(pModel, String.format("Mission n°%s non trouvée !", missionId), DIR_VIEW);
+            //return ErrorPage.newError(pModel, String.format("Mission n°%s non trouvée !", missionId), DIR_VIEW);
+            return ErrorPage.new404Error();
 
 
         Map<Integer, Double> statsObjectifs = scoreService.getAvgObjectifs();

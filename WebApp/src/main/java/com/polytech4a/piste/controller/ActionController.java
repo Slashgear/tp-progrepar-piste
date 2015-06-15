@@ -71,7 +71,8 @@ public class ActionController {
     public String display(final ModelMap pModel, @PathVariable(value = "actionId") Integer actionID) {
         Action action = actionDAO.findOne(actionID);
         if (action == null)
-            return ErrorPage.newError(pModel, String.format("Action n°%s non trouvée !", actionID), DIR_VIEW);
+            //return ErrorPage.newError(pModel, String.format("Action n°%s non trouvée !", actionID), DIR_VIEW);
+            return ErrorPage.new404Error();
 
         Double averageScore = obtientDAO.getAvgValeurdebutForAction(actionID);
 
@@ -114,6 +115,10 @@ public class ActionController {
 
         // Attributes
         pModel.addAttribute("listeActions", actionList);
+        Map<Integer, Double> scoresActions = scoreService.getAvgAction();
+        pModel.addAttribute("scoresActions", scoresActions);
+        Map<Integer, Integer> coefActions = scoreService.getCoefActions();
+        pModel.addAttribute("coefActions", coefActions);
 
         // Breadcrumb set up
         Breadcrumb breadcrumbList = new Breadcrumb(
