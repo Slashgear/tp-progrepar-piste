@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link href="/resources/js/dropdown.js/jquery.dropdown.css" rel="stylesheet"/>
 <div class="container">
     <div class="row">
         <h1><c:out value="${apprenant.prenomapprenant}"/> <c:out value="${apprenant.nomapprenant}"/></h1>
@@ -23,7 +24,7 @@
 
 
                                 <div class="col-lg-10">
-                                    <select class="form-control" id="select" name="idJeu" required>
+                                    <select class="select form-control" id="select" name="idJeu" required>
                                         <c:forEach items="${jeux}" var="jeu">
                                             <option value="<c:out value="${jeu.numjeu}"/>"><c:out
                                                     value="${jeu.libellejeu}"/></option>
@@ -47,4 +48,12 @@
 
     </div>
 </div>
+<script src="/resources/js/dropdown.js/jquery.dropdown.js"></script>
+<script>
+    $(document).ready(function() {
+        $(".select").dropdown({"optionClass": "withripple"});
+    });
+    $().dropdown({autoinit: "select"});
+</script>
 <%@include file="../common/footer.jsp" %>
+
