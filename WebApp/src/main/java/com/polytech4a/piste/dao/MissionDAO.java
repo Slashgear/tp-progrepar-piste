@@ -39,4 +39,15 @@ public interface MissionDAO extends JpaRepository<Mission, Integer> {
             "and ea.numaction = i.numaction " +
             "group by f.nummission")
     List<Object[]> getAvgAObjectifForAllMissions(@Param(value = "numJeu") Integer numJeu);
+
+    @Query("select count(distinct o.numobjectif) from Mission m inner join  m.fixesByNummission f inner join f.objectifByNumobjectif as o where m.nummission=:numMission")
+    Integer getNumberofObjectifByMission(@Param("numMission") Integer numMission);
+
+    @Query("select count(distinct a.numaction )from " +
+            "Mission m " +
+            "inner join  m.fixesByNummission f " +
+            "inner join f.objectifByNumobjectif as o " +
+            "inner join o.estAssociesByNumobjectif as e " +
+            "inner join e.actionByNumaction a where m.nummission = :numMission")
+    Integer getNumberofActionbyMission(@Param("numMission") Integer numMission);
 }

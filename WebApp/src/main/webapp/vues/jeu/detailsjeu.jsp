@@ -15,8 +15,8 @@
                 <p>Identifiant #<c:out value="${jeu.numjeu}"/></p>
 
                 <p>Il y a actuellement <strong><c:out value="${missionNb}"/> missions</strong>, <strong><c:out
-                        value="${objectifNb}"/> objectifs</strong>
-                    , et <strong><c:out value="${actionNb}"/> actions</strong> à accomplir dans ce jeu.</p>
+                        value="${objectifNb}"/> objectifs</strong>, et <strong><c:out value="${actionNb}"/>
+                    actions</strong> à accomplir dans ce jeu.</p>
 
                 <p><strong><c:out value="${inscritNb}"/></strong> Apprenants sont inscrit à ce jeu.</p>
             </div>

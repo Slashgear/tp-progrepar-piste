@@ -151,7 +151,6 @@ public class ScoreService {
         return stats;
     }
 
-
     public Map<Integer, Double> getAvgActionForAllObjectifsForApprenant(Jeu jeu, Integer numApprenant) {
         final Map<Integer, Double> stats = Collections.synchronizedMap(new HashMap<>());
         jeu.getMissionsByNumjeu().forEach(mission ->
