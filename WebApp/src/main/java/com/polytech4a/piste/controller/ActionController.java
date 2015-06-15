@@ -7,6 +7,7 @@ import com.polytech4a.piste.controller.components.ReturnButton;
 import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
 import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
 import com.polytech4a.piste.dao.*;
+import com.polytech4a.piste.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -40,6 +42,8 @@ public class ActionController {
     private ObjectifDAO objectifDAO;
     @Autowired
     private IndicateurDAO indicateurDAO;
+    @Autowired
+    private ScoreService scoreService;
 
 
     @RequestMapping(method = RequestMethod.GET)
@@ -49,6 +53,10 @@ public class ActionController {
 
         // Attributes
         pModel.addAttribute("listeActions", actionList);
+        Map<Integer, Double> scoresActions = scoreService.getAvgAction();
+        pModel.addAttribute("scoresActions", scoresActions);
+        Map<Integer, Integer> coefActions = scoreService.getCoefActions();
+        pModel.addAttribute("coefActions", coefActions);
 
         // Breadcrumb set up
         Breadcrumb breadcrumbList = new Breadcrumb(
