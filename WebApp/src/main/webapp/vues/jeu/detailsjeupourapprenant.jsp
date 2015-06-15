@@ -81,7 +81,8 @@
                                             items="${fixe.objectifByNumobjectif.estAssociesByNumobjectif}"
                                             var="estAssocie">
                                         <a href="/action/<c:out value="${estAssocie.numaction}"/>">
-                                            <c:out value="${estAssocie.actionByNumaction.libaction}"/></a>
+                                            <c:out value="${estAssocie.actionByNumaction.libaction}"/> (<c:out
+                                                value="${coefActions.get(estAssocie.actionByNumaction.numaction)}"/>)</a>
                                         <c:choose>
                                             <c:when test="${not empty scoresActions.get(estAssocie.actionByNumaction.numaction)}">
                                                 <c:choose>

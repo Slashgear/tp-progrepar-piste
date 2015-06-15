@@ -28,7 +28,7 @@ import java.util.Map;
  * @version 1.0
  */
 @Controller
-@RequestMapping(value = "/jeu")
+@RequestMapping(value = "jeu")
 public class JeuController {
     private static final String DIR_VIEW = "jeu";
 
@@ -66,6 +66,8 @@ public class JeuController {
         pModel.addAttribute("countScore", countScore);
         Map<Integer, Double> scoresActions = scoreService.getAvgAction();
         pModel.addAttribute("scoresActions", scoresActions);
+        Map<Integer, Integer> coefActions = scoreService.getCoefActions();
+        pModel.addAttribute("coefActions", coefActions);
 
         // Return button
         ReturnButton.addToModel(pModel, "jeu");
@@ -113,6 +115,8 @@ public class JeuController {
         pModel.addAttribute("countScore", countScore);
         Map<Integer, Integer> scoresActions = scoreService.getScoreForApprenant(numApprenant);
         pModel.addAttribute("scoresActions", scoresActions);
+        Map<Integer, Integer> coefActions = scoreService.getCoefActions();
+        pModel.addAttribute("coefActions", coefActions);
 
         // Return button
         ReturnButton.addToModel(pModel, "jeu");
