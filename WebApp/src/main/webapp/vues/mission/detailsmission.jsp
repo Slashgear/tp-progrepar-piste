@@ -17,14 +17,11 @@
                 <p>Il y a actuellement <strong><c:out
                         value="${objectifNb}"/> objectifs</strong>, et <strong><c:out value="${actionNb}"/>
                     actions</strong> à accomplir dans cette mission.</p>
-
-                <p><strong><c:out value="${inscritNb}"/></strong> Apprenants sont inscrit à cette mission.</p>
             </div>
         </div>
         <div class="col-lg-6">
 
             <h2>Détails</h2>
-
             <div class="well">
                 <c:forEach items="${mission.fixesByNummission}" var="fixe">
                     <h4><a href="action/objectif/<c:out value="${fixe.numobjectif}"/>">
