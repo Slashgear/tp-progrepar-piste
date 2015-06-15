@@ -8,19 +8,20 @@
             <fieldset>
                 <legend>${legend}</legend>
                 <div class="form-group">
+                    <label for="prenomApprenant" class="col-lg-2 control-label">Prénom</label>
+
+                    <div class="col-lg-10">
+                        <input type="text" class="form-control" name="prenomApprenant" id="prenomApprenant"
+                               placeholder="Prénom de l'apprenant"
+                               value="${prenomApprenant}">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="nomApprenant" class="col-lg-2 control-label">Nom</label>
 
                     <div class="col-lg-10">
                         <input type="text" class="form-control" name="nomApprenant" id="nomApprenant" placeholder="Nom de l'apprenant"
                                value="${nomApprenant}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label for="prenomApprenant" class="col-lg-2 control-label">Prénom</label>
-
-                    <div class="col-lg-10">
-                        <input type="text" class="form-control" name="prenomApprenant" id="prenomApprenant" placeholder="Prénom de l'apprenant"
-                               value="${prenomApprenant}">
                     </div>
                 </div>
                 <div class="form-group">
