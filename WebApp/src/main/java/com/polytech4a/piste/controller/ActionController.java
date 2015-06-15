@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
  *         08/06/2015
  */
 @Controller
-@RequestMapping(value = "/action")
+@RequestMapping(value = "action")
 public class ActionController {
     private static final String DIR_VIEW = "action";
 
@@ -41,6 +41,24 @@ public class ActionController {
     @Autowired
     private IndicateurDAO indicateurDAO;
 
+
+    @RequestMapping(method = RequestMethod.GET)
+    public String displayList(final ModelMap pModel) {
+        List<Action> actionList = new ArrayList<>();
+        actionList.addAll(actionDAO.findAll());
+
+        // Attributes
+        pModel.addAttribute("listeActions", actionList);
+
+        // Breadcrumb set up
+        Breadcrumb breadcrumbList = new Breadcrumb(
+                new BreadcrumbItem("Accueil", ""),
+                new BreadcrumbItem("Actions"));
+        Breadcrumb.addToModel(pModel, breadcrumbList);
+
+        return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
+    }
+
     @RequestMapping(value = "{actionId}", method = RequestMethod.GET)
     public String display(final ModelMap pModel, @PathVariable(value = "actionId") Integer actionID) {
         Action action = actionDAO.findOne(actionID);
@@ -54,7 +72,7 @@ public class ActionController {
         pModel.addAttribute("averageScore", averageScore);
 
         // Return button
-        ReturnButton.addToModel(pModel, "/action");
+        ReturnButton.addToModel(pModel, "action");
 
         // Breadcrumb set up
         Breadcrumb breadcrumbList = new Breadcrumb(
@@ -94,23 +112,6 @@ public class ActionController {
                 new BreadcrumbItem("Accueil", ""),
                 new BreadcrumbItem("Actions", "action"),
                 new BreadcrumbItem(String.format("Objectif #%s", objectifId)));
-        Breadcrumb.addToModel(pModel, breadcrumbList);
-
-        return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
-    }
-
-    @RequestMapping(method = RequestMethod.GET)
-    public String displayList(final ModelMap pModel) {
-        List<Action> actionList = new ArrayList<>();
-        actionList.addAll(actionDAO.findAll());
-
-        // Attributes
-        pModel.addAttribute("listeActions", actionList);
-
-        // Breadcrumb set up
-        Breadcrumb breadcrumbList = new Breadcrumb(
-                new BreadcrumbItem("Accueil", ""),
-                new BreadcrumbItem("Actions"));
         Breadcrumb.addToModel(pModel, breadcrumbList);
 
         return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
