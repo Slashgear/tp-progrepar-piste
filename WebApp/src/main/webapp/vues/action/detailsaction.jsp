@@ -37,6 +37,11 @@
             </div>
         </c:if>
     </div>
+    <div class="row">
+        <div class="col-xs-12">
+                <%@include file="../common/returnbutton.jsp" %>
+        </div>
+    </div>
 </div>
 <c:if test="${nbInscrits>0}">
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
@@ -61,4 +66,5 @@
         });
     </script>
 </c:if>
+
 <%@include file="../common/footer.jsp" %>
