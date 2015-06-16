@@ -37,8 +37,12 @@
         <div class="col-lg-6">
             ${pieChart.getDiv()}
         </div>
+        <div class="col-lg-6">
+            ${pieChart2.getDiv()}
+        </div>
     </div>
 </div>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 ${pieChart.getScript()}
+${pieChart2.getScript()}
 <%@include file="../common/footer.jsp" %>

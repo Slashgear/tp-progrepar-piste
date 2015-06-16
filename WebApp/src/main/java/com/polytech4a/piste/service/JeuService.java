@@ -1,5 +1,7 @@
 package com.polytech4a.piste.service;
 
+import com.polytech4a.piste.beans.Action;
+import com.polytech4a.piste.beans.Apprenant;
 import com.polytech4a.piste.beans.Jeu;
 import com.polytech4a.piste.beans.Objectif;
 import com.polytech4a.piste.dao.EstAssocieDAO;
@@ -8,6 +10,11 @@ import com.polytech4a.piste.dao.JeuDAO;
 import com.polytech4a.piste.dao.MissionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author Alexandre
@@ -23,6 +30,8 @@ public class JeuService {
     private FixeDAO fixeDAO;
     @Autowired
     private EstAssocieDAO estAssocieDAO;
+    @Autowired
+    private ScoreService scoreService;
 
     public Jeu findByNumjeuAndFetchAll(Integer numJeu) {
         Jeu jeu = jeuDAO.findOne(numJeu);
@@ -37,5 +46,39 @@ public class JeuService {
             });
         });
         return jeu;
+    }
+
+    public Integer getNumberFailureByJeu(Integer numJeu) {
+        List<Apprenant> apprenantList = jeuDAO.getInscritByJeu(numJeu);
+        List<Action> actionList = jeuDAO.getActionsByJeu(numJeu);
+        Map<Integer, Integer> actionScoreMin = Collections.synchronizedMap(new HashMap<>());
+        actionList.forEach(action1 -> actionScoreMin.put(action1.getNumaction(), action1.getScoremin()));
+        Integer total = 0;
+        for (Apprenant apprenant : apprenantList) {
+            Map<Integer, Integer> scoresApprenant = scoreService.getScoreForApprenant(apprenant.getNumapprenant());
+            if (actionList.size() ==
+                    scoresApprenant.entrySet().stream()
+                            .filter(integerIntegerEntry -> actionScoreMin.containsKey(integerIntegerEntry.getKey()) &&
+                                    actionScoreMin.get(integerIntegerEntry.getKey()) > integerIntegerEntry.getValue()).count())
+                total++;
+        }
+        return total;
+    }
+
+    public Integer getNumberSuccessByJeu(Integer numJeu) {
+        List<Apprenant> apprenantList = jeuDAO.getInscritByJeu(numJeu);
+        List<Action> actionList = jeuDAO.getActionsByJeu(numJeu);
+        Map<Integer, Integer> actionScoreMin = Collections.synchronizedMap(new HashMap<>());
+        actionList.forEach(action1 -> actionScoreMin.put(action1.getNumaction(), action1.getScoremin()));
+        Integer total = 0;
+        for (Apprenant apprenant : apprenantList) {
+            Map<Integer, Integer> scoresApprenant = scoreService.getScoreForApprenant(apprenant.getNumapprenant());
+            if (actionList.size() ==
+                    scoresApprenant.entrySet().stream()
+                            .filter(integerIntegerEntry -> actionScoreMin.containsKey(integerIntegerEntry.getKey()) &&
+                                    actionScoreMin.get(integerIntegerEntry.getKey()) <= integerIntegerEntry.getValue()).count())
+                total++;
+        }
+        return total;
     }
 }

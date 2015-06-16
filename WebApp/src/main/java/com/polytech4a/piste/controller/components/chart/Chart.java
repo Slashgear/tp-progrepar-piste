@@ -25,13 +25,15 @@ public abstract class Chart {
     }
 
     public String getScript() {
+        String chartName = String.format("%s_%s", chartType.getLabel(), id);
+        String dataName = String.format("data_%s", chartName);
+        String functionName = String.format("drawChart_%s", chartName);
         StringBuilder script = new StringBuilder("");
-        //script.append("<script type=\"text/javascript\" src=\"https://www.google.com/jsapi\"></script>\n");
         script.append("<script type=\"text/javascript\">\n");
         script.append("google.load(\"visualization\", \"1\", {packages: [\"corechart\"]});\n");
-        script.append("google.setOnLoadCallback(drawChart);\n");
-        script.append("function drawChart() {\n");
-        script.append("var data = google.visualization.arrayToDataTable([\n");
+        script.append(String.format("google.setOnLoadCallback(%s);\n", functionName));
+        script.append(String.format("function %s() {\n", functionName));
+        script.append(String.format("var %s = google.visualization.arrayToDataTable([\n", dataName));
         script.append(String.format("['%s', '%s']", dataTitle.getKey(), dataTitle.getValue()));
         if (data.size() != 0) {
             script.append(",\n");
@@ -52,12 +54,13 @@ public abstract class Chart {
         script.append("]\n};\n");
         script.append(
                 String.format(
-                        "var chart = new google.visualization.%s(document.getElementById('%s_%s'));\n",
-                        chartType.getLabel(), chartType.getLabel(), id));
-        script.append("chart.draw(data, options);\n");
+                        "var %s = new google.visualization.%s(document.getElementById('%s'));\n",
+                        chartName,
+                        chartType.getLabel(), chartName));
+        script.append(String.format("%s.draw(%s, options);\n", chartName, dataName));
         script.append("}\n");
         script.append("$(window).resize(function () {\n");
-        script.append("drawChart();\n");
+        script.append(String.format("%s();\n", functionName));
         script.append("});\n");
         script.append("</script>\n");
 

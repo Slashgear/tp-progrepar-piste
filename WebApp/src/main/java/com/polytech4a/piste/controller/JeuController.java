@@ -83,11 +83,28 @@ public class JeuController {
                 new BreadcrumbItem(String.format("#%s", jeu.getNumjeu())));
         Breadcrumb.addToModel(pModel, breadcrumbList);
 
+        Integer inscritNb = jeuDAO.getNumberofInscritByJeu(id);
+        Integer apprenantNb = apprenantDAO.findAll().size();
         pModel.addAttribute("actionNb", jeuDAO.getNumberofActionbyJeu(id));
         pModel.addAttribute("missionNb", jeuDAO.getNumberofMissionByJeu(id));
         pModel.addAttribute("objectifNb", jeuDAO.getNumberofObjectifByJeu(id));
-        pModel.addAttribute("inscritNb", jeuDAO.getNumberofInscritByJeu(id));
-        pModel.addAttribute("apprenantNb", apprenantDAO.findAll().size());
+        pModel.addAttribute("inscritNb", inscritNb);
+        pModel.addAttribute("apprenantNb", apprenantNb);
+
+        // PieChart
+        PieChart pieChart = new PieChart("Popularité du jeu");
+        pieChart.data.add(new Data("Inscrits", inscritNb));
+        pieChart.data.add(new Data("Non inscrits", apprenantNb - inscritNb));
+        pModel.addAttribute("pieChart", pieChart);
+
+        // PieChart success
+        Integer echecs = jeuService.getNumberFailureByJeu(id);
+        Integer success = jeuService.getNumberSuccessByJeu(id);
+        PieChart pieChart2 = new PieChart("Résultats du jeu");
+        pieChart2.data.add(new Data("Echec", echecs));
+        pieChart2.data.add(new Data("Succès", success));
+        pieChart2.data.add(new Data("Non fini", inscritNb - echecs - success));
+        pModel.addAttribute("pieChart2", pieChart2);
 
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
@@ -150,8 +167,14 @@ public class JeuController {
         pieChart.data.add(new Data("Non inscrits", apprenantNb - inscritNb));
         pModel.addAttribute("pieChart", pieChart);
 
-        pieChart.getDiv();
-        pieChart.getScript();
+        // PieChart success
+        Integer echecs = jeuService.getNumberFailureByJeu(id);
+        Integer success = jeuService.getNumberSuccessByJeu(id);
+        PieChart pieChart2 = new PieChart("Résultats du jeu");
+        pieChart2.data.add(new Data("Echec", echecs));
+        pieChart2.data.add(new Data("Succès", success));
+        pieChart2.data.add(new Data("Non fini", inscritNb - echecs - success));
+        pModel.addAttribute("pieChart2", pieChart2);
 
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
