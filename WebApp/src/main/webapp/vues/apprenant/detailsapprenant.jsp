@@ -64,7 +64,7 @@
                                                 <span class="text-danger"><strong>${jeu.libellejeu}</strong></span>
                                             </c:when>
                                             <c:otherwise>
-                                                <span">${jeu.libellejeu}</span>
+                                                <span>${jeu.libellejeu}</span>
                                             </c:otherwise>
                                         </c:choose>
                                     </a>
