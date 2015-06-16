@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * @author Alexandre
  *         16/06/2015
  */
-public abstract class Chart {
+public class Chart {
     private static Long maxId = 0L;
     public final ArrayList<Data> data;
     protected final Long id;
@@ -15,13 +15,18 @@ public abstract class Chart {
     private final ChartType chartType;
     private final String title;
 
-    public Chart(String title, ChartType chartType, Data dataTitle) {
+    public Chart(ChartType chartType, String title, Data dataTitle) {
         this.data = new ArrayList<>();
         this.id = maxId;
         maxId++;
         this.chartType = chartType;
         this.dataTitle = dataTitle;
         this.title = title;
+    }
+
+    public Chart(ChartType chartType, String title) {
+        this(chartType, title, new Data("", ""));
+        //['Move', 'Nombre d\'apprenants']
     }
 
     public String getScript() {

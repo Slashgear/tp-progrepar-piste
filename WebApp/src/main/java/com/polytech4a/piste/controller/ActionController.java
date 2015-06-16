@@ -6,6 +6,9 @@ import com.polytech4a.piste.controller.components.ErrorPage;
 import com.polytech4a.piste.controller.components.ReturnButton;
 import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
 import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
+import com.polytech4a.piste.controller.components.chart.Chart;
+import com.polytech4a.piste.controller.components.chart.ChartType;
+import com.polytech4a.piste.controller.components.chart.Data;
 import com.polytech4a.piste.dao.*;
 import com.polytech4a.piste.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -90,16 +93,44 @@ public class ActionController {
                 new BreadcrumbItem(String.format("Action #%s", action.getNumaction())));
         Breadcrumb.addToModel(pModel, breadcrumbList);
 
-        pModel.addAttribute("nbValidators", actionDAO.getNumberOfApprenantWhoValidateAction(actionID));
+        Integer nbValidators = actionDAO.getNumberOfApprenantWhoValidateAction(actionID);
+        pModel.addAttribute("nbValidators", nbValidators);
+        Integer nbInscrits = actionDAO.getNumberOfApprenantforAction(actionID);
         pModel.addAttribute("nbInscrits", actionDAO.getNumberOfApprenantforAction(actionID));
-        pModel.addAttribute("nbObtient", obtientDAO.getNumberOfApprenantObtientforAction(actionID));
-        pModel.addAttribute("obt0_10", obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 0, 10));
-        pModel.addAttribute("obt10_14", obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 10, 14));
-        pModel.addAttribute("obt14_18", obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 14, 18));
-        pModel.addAttribute("obt18_20", obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 18, 20));
+        Integer nbObtient = obtientDAO.getNumberOfApprenantObtientforAction(actionID);
+        pModel.addAttribute("nbObtient", nbObtient);
+        Integer obt0_10 = obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 0, 10);
+        pModel.addAttribute("obt0_10", obt0_10);
+        Integer obt10_14 = obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 10, 14);
+        pModel.addAttribute("obt10_14", obt10_14);
+        Integer obt14_18 = obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 14, 18);
+        pModel.addAttribute("obt14_18", obt14_18);
+        Integer obt18_20 = obtientDAO.getNumberOfApprenantObtientforActionBetween(actionID, 18, 20);
+        pModel.addAttribute("obt18_20", obt18_20);
         pModel.addAttribute("childActions", actionDAO.findByActNumaction(actionID));
         pModel.addAttribute("coef", indicateurDAO.findByNumaction(actionID).getPoids());
 
+        // PieChart 1
+        Chart pieChartValidation = new Chart(ChartType.PIE, "Apprenants validant cette action");
+        pieChartValidation.data.add(new Data("% d\\'apprenants validant l\\'action", nbValidators));
+        pieChartValidation.data.add(new Data("% d\\'apprenants ne validant pas l\\'action", nbInscrits - nbValidators));
+        pModel.addAttribute("pieChartValidation", pieChartValidation);
+
+        // PieChart 2
+        Chart pieChartObtention = new Chart(ChartType.PIE, "Apprenants inscrit ayant obtenu une note");
+        pieChartObtention.data.add(new Data("% d\\'apprenants qui ont obtenu une note", nbObtient));
+        pieChartObtention.data.add(new Data("% d\\'apprenants sans note", nbInscrits - nbObtient));
+        pModel.addAttribute("pieChartObtention", pieChartObtention);
+
+        // ColumnChart
+        Chart columnChartRepartition = new Chart(ChartType.COLUMN, "Répartition des notes", new Data("", "Nombre d\\'apprenants"));
+        columnChartRepartition.data.add(new Data("0 à 10", obt0_10));
+        columnChartRepartition.data.add(new Data("10 à 14", obt10_14));
+        columnChartRepartition.data.add(new Data("14 à 18", obt14_18));
+        columnChartRepartition.data.add(new Data("18 à 20", obt18_20));
+        pModel.addAttribute("columnChartRepartition", columnChartRepartition);
+
+        pModel.addAttribute("pieChart", columnChartRepartition);
 
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }

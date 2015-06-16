@@ -34,25 +34,13 @@
         </div>
         <c:if test="${nbInscrits>0}">
             <div class="col-md-6">
-                <h3>Apprenants validant cette action</h3>
-
-                <div class="well">
-                    <div id="piechart_validation" style="width: 100%; height: 100%;"></div>
-                </div>
+                    ${pieChartValidation.getDiv()}
             </div>
             <div class="col-md-6">
-                <h3>Apprenants inscrit ayant obtenu une note</h3>
-
-                <div class="well">
-                    <div id="piechart_obtention" style="width: 100%; height: 100%;"></div>
-                </div>
+                    ${pieChartObtention.getDiv()}
             </div>
             <div class="col-md-6">
-                <h3>Répartition des notes</h3>
-
-                <div class="well">
-                    <div id="barchart_repartition" style="width: 100%; height: 100%;"></div>
-                </div>
+                    ${columnChartRepartition.getDiv()}
             </div>
         </c:if>
         <c:if test="${not empty childActions}">
@@ -89,47 +77,9 @@
 </div>
 <c:if test="${nbInscrits>0}">
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-        google.load("visualization", "1", {packages: ["corechart"]});
-        google.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Task', 'Hours per Day'],
-                ['% d\'apprenants validant l\'action', ${nbValidators}],
-                ['% d\'apprenants ne validant pas l\'action', ${nbInscrits - nbValidators}]
-            ]);
-
-            var options = {
-                colors: ['#f44336', '#3f51b5', '#9c27b0', '#4caf50', '#ffc624', '#ff5722']
-            };
-            var chart = new google.visualization.PieChart(document.getElementById('piechart_validation'));
-            chart.draw(data, options);
-
-            var data2 = google.visualization.arrayToDataTable([
-                ['Task', 'Hours per Day'],
-                ['% d\'apprenants qui ont obtenu une note', ${nbObtient}],
-                ['% d\'apprenants sans note', ${nbInscrits - nbObtient}]
-            ]);
-
-            var chart2 = new google.visualization.PieChart(document.getElementById('piechart_obtention'));
-            chart2.draw(data2, options);
-
-
-            var data3 = new google.visualization.arrayToDataTable([
-                ['Move', 'Nombre d\'apprenants'],
-                ["0 à 10", ${obt0_10}],
-                ["10 à 14", ${obt10_14}],
-                ["14 à 18", ${obt14_18}],
-                ["18 à 20", ${obt18_20}]
-            ]);
-
-            var chart3 = new google.visualization.ColumnChart(document.getElementById('barchart_repartition'));
-            chart3.draw(data3, options);
-        }
-        $(window).resize(function () {
-            drawChart();
-        });
-    </script>
+    ${pieChartValidation.getScript()}
+    ${pieChartObtention.getScript()}
+    ${columnChartRepartition.getScript()}
 </c:if>
 
 <%@include file="../common/footer.jsp" %>

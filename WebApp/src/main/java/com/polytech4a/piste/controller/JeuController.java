@@ -6,8 +6,9 @@ import com.polytech4a.piste.controller.components.ErrorPage;
 import com.polytech4a.piste.controller.components.ReturnButton;
 import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
 import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
+import com.polytech4a.piste.controller.components.chart.Chart;
+import com.polytech4a.piste.controller.components.chart.ChartType;
 import com.polytech4a.piste.controller.components.chart.Data;
-import com.polytech4a.piste.controller.components.chart.PieChart;
 import com.polytech4a.piste.dao.ApprenantDAO;
 import com.polytech4a.piste.dao.JeuDAO;
 import com.polytech4a.piste.service.JeuService;
@@ -92,7 +93,7 @@ public class JeuController {
         pModel.addAttribute("apprenantNb", apprenantNb);
 
         // PieChart
-        PieChart pieChart = new PieChart("Popularité du jeu");
+        Chart pieChart = new Chart(ChartType.PIE, "Popularité du jeu");
         pieChart.data.add(new Data("Inscrits", inscritNb));
         pieChart.data.add(new Data("Non inscrits", apprenantNb - inscritNb));
         pModel.addAttribute("pieChart", pieChart);
@@ -100,7 +101,7 @@ public class JeuController {
         // PieChart success
         Integer echecs = jeuService.getNumberFailureByJeu(id);
         Integer success = jeuService.getNumberSuccessByJeu(id);
-        PieChart pieChart2 = new PieChart("Résultats du jeu");
+        Chart pieChart2 = new Chart(ChartType.PIE, "Résultats du jeu");
         pieChart2.data.add(new Data("Echec", echecs));
         pieChart2.data.add(new Data("Succès", success));
         pieChart2.data.add(new Data("Non fini", inscritNb - echecs - success));
@@ -162,7 +163,7 @@ public class JeuController {
         pModel.addAttribute("apprenantNb", apprenantNb);
 
         // PieChart
-        PieChart pieChart = new PieChart("Popularité du Jeu");
+        Chart pieChart = new Chart(ChartType.PIE, "Popularité du Jeu");
         pieChart.data.add(new Data("Inscrits", inscritNb));
         pieChart.data.add(new Data("Non inscrits", apprenantNb - inscritNb));
         pModel.addAttribute("pieChart", pieChart);
@@ -170,7 +171,7 @@ public class JeuController {
         // PieChart success
         Integer echecs = jeuService.getNumberFailureByJeu(id);
         Integer success = jeuService.getNumberSuccessByJeu(id);
-        PieChart pieChart2 = new PieChart("Résultats du jeu");
+        Chart pieChart2 = new Chart(ChartType.PIE, "Résultats du jeu");
         pieChart2.data.add(new Data("Echec", echecs));
         pieChart2.data.add(new Data("Succès", success));
         pieChart2.data.add(new Data("Non fini", inscritNb - echecs - success));

@@ -5,7 +5,8 @@ package com.polytech4a.piste.controller.components.chart;
  *         16/06/2015
  */
 public enum ChartType {
-    PIECHART("PieChart");
+    PIE("PieChart"),
+    COLUMN("ColumnChart");
 
     private final String label;
 
