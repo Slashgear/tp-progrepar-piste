@@ -6,6 +6,8 @@ import com.polytech4a.piste.controller.components.ErrorPage;
 import com.polytech4a.piste.controller.components.ReturnButton;
 import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
 import com.polytech4a.piste.controller.components.breadcrumb.BreadcrumbItem;
+import com.polytech4a.piste.controller.components.chart.Data;
+import com.polytech4a.piste.controller.components.chart.PieChart;
 import com.polytech4a.piste.dao.ApprenantDAO;
 import com.polytech4a.piste.dao.JeuDAO;
 import com.polytech4a.piste.service.JeuService;
@@ -134,11 +136,22 @@ public class JeuController {
                 new BreadcrumbItem(String.format("Apprenants #%s", numApprenant)));
         Breadcrumb.addToModel(pModel, breadcrumbList);
 
+        Integer inscritNb = jeuDAO.getNumberofInscritByJeu(id);
+        Integer apprenantNb = apprenantDAO.findAll().size();
         pModel.addAttribute("actionNb", jeuDAO.getNumberofActionbyJeu(id));
         pModel.addAttribute("missionNb", jeuDAO.getNumberofMissionByJeu(id));
         pModel.addAttribute("objectifNb", jeuDAO.getNumberofObjectifByJeu(id));
-        pModel.addAttribute("inscritNb", jeuDAO.getNumberofInscritByJeu(id));
-        pModel.addAttribute("apprenantNb", apprenantDAO.findAll().size());
+        pModel.addAttribute("inscritNb", inscritNb);
+        pModel.addAttribute("apprenantNb", apprenantNb);
+
+        // PieChart
+        PieChart pieChart = new PieChart("Popularité du Jeu");
+        pieChart.data.add(new Data("Inscrits", inscritNb));
+        pieChart.data.add(new Data("Non inscrits", apprenantNb - inscritNb));
+        pModel.addAttribute("pieChart", pieChart);
+
+        pieChart.getDiv();
+        pieChart.getScript();
 
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
