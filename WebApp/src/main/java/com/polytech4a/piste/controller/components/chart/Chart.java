@@ -34,54 +34,53 @@ public class Chart {
         String dataName = String.format("data_%s", chartName);
         String functionName = String.format("drawChart_%s", chartName);
         StringBuilder script = new StringBuilder("");
-        script.append("<script type=\"text/javascript\">\n");
-        script.append("google.load(\"visualization\", \"1\", {packages: [\"corechart\"]});\n");
-        script.append(String.format("google.setOnLoadCallback(%s);\n", functionName));
-        script.append(String.format("function %s() {\n", functionName));
-        script.append(String.format("var %s = google.visualization.arrayToDataTable([\n", dataName));
-        script.append(String.format("['%s', '%s']", dataTitle.getKey(), dataTitle.getValue()));
+        script.append("<script type=\"text/javascript\">\n").
+                append("google.load(\"visualization\", \"1\", {packages: [\"corechart\"]}).\n").
+                append(String.format("google.setOnLoadCallback(%s).\n", functionName)).
+                append(String.format("function %s() {\n", functionName)).
+                append(String.format("var %s = google.visualization.arrayToDataTable([\n", dataName)).
+                append(String.format("['%s', '%s']", dataTitle.getKey(), dataTitle.getValue()));
         if (data.size() != 0) {
-            script.append(",\n");
-            script.append(data.get(0));
+            script.append(",\n").
+                    append(data.get(0));
         }
         for (int i = 1; i < data.size(); i++) {
-            script.append(",\n");
-            script.append(data.get(i));
+            script.append(",\n").
+                    append(data.get(i));
         }
-        script.append("]);\n");
-        script.append("var options = {\n");
-        script.append("colors: [");
+        script.append("]).\n").
+                append("var options = {\n").
+                append("colors: [");
         if (colors != null) script.append(colors[0]);
         for (int i = 1; i < colors.length; i++) {
-            script.append(", ");
-            script.append(colors[i]);
+            script.append(", ").
+                    append(colors[i]);
         }
-        script.append("]\n};\n");
-        script.append(
-                String.format(
-                        "var %s = new google.visualization.%s(document.getElementById('%s'));\n",
-                        chartName,
-                        chartType.getLabel(), chartName));
-        script.append(String.format("%s.draw(%s, options);\n", chartName, dataName));
-        script.append("}\n");
-        script.append("$(window).resize(function () {\n");
-        script.append(String.format("%s();\n", functionName));
-        script.append("});\n");
-        script.append("</script>\n");
+        script.append("]\n};\n").
+                append(
+                        String.format(
+                                "var %s = new google.visualization.%s(document.getElementById('%s')).\n",
+                                chartName,
+                                chartType.getLabel(), chartName)).
+                append(String.format("%s.draw(%s, options).\n", chartName, dataName)).
+                append("}\n").
+                append("$(window).resize(function () {\n").
+                append(String.format("%s().\n", functionName)).
+                append("}).\n").
+                append("</script>\n");
 
         return script.toString();
     }
 
     public String getDiv() {
         StringBuilder div = new StringBuilder("");
-        div.append(String.format("<h3>%s</h3>\n", title));
-        div.append("<div class=\"well\">\n");
-        div.append(
-                String.format(
-                        "<div id=\"%s_%s\" style=\"width: 100%%; height: 100%%;\"></div>\n",
-                        chartType.getLabel(), id));
-        div.append("</div>\n");
-
+        div.append(String.format("<h3>%s</h3>\n", title)).
+                append("<div class=\"well\">\n").
+                append(
+                        String.format(
+                                "<div id=\"%s_%s\" style=\"width: 100%%; height: 100%%;\"></div>\n",
+                                chartType.getLabel(), id)).
+                append("</div>\n");
         return div.toString();
     }
 }

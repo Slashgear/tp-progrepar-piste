@@ -1,7 +1,6 @@
 package com.polytech4a.piste.dao;
 
 
-import com.polytech4a.piste.beans.Action;
 import com.polytech4a.piste.beans.Apprenant;
 import com.polytech4a.piste.beans.Jeu;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -42,8 +41,18 @@ public interface JeuDAO extends JpaRepository<Jeu, Integer> {
     @Query("select j from Jeu as j inner join j.inscriptionsByNumjeu as i where i.apprenantByNumapprenant.numapprenant = :idApprenant")
     List<Jeu> findSubscribedJeuForApprenant(@Param("idApprenant") Integer idApprenant);
 
-    @Query("select distinct a.actionByActNumaction from Jeu j inner join j.missionsByNumjeu m inner join m.fixesByNummission f inner join f.objectifByNumobjectif o inner join o.estAssociesByNumobjectif ea inner join ea.actionByNumaction a where j.numjeu = :idJeu")
-    List<Action> getActionsByJeu(@Param("idJeu") Integer idJeu);
+    @Query("select distinct a.numaction, a.scoremin " +
+            "from Mission m, " +
+            "Fixe f, " +
+            "Objectif o, " +
+            "EstAssocie ea, " +
+            "Action a " +
+            "where m.numjeu = :idJeu " +
+            "and m.nummission = f.nummission " +
+            "and f.numobjectif = o.numobjectif " +
+            "and o.numobjectif = ea.numobjectif " +
+            "and a.numaction = ea.numaction")
+    List<Object[]> getActionScoreMinByJeu(@Param("idJeu") Integer idJeu);
 
     @Query("select distinct i.apprenantByNumapprenant from Jeu as j inner join j.inscriptionsByNumjeu as i where j.id=:idJeu")
     List<Apprenant> getInscritByJeu(@Param("idJeu") Integer idJeu);

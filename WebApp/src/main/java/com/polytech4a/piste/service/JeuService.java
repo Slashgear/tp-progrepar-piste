@@ -1,6 +1,5 @@
 package com.polytech4a.piste.service;
 
-import com.polytech4a.piste.beans.Action;
 import com.polytech4a.piste.beans.Apprenant;
 import com.polytech4a.piste.beans.Jeu;
 import com.polytech4a.piste.beans.Objectif;
@@ -50,9 +49,9 @@ public class JeuService {
 
     public Integer getNumberFailureByJeu(Integer numJeu) {
         List<Apprenant> apprenantList = jeuDAO.getInscritByJeu(numJeu);
-        List<Action> actionList = jeuDAO.getActionsByJeu(numJeu);
+        List<Object[]> actionList = jeuDAO.getActionScoreMinByJeu(numJeu);
         Map<Integer, Integer> actionScoreMin = Collections.synchronizedMap(new HashMap<>());
-        actionList.forEach(action1 -> actionScoreMin.put(action1.getNumaction(), action1.getScoremin()));
+        actionList.forEach(action1 -> actionScoreMin.put((Integer) action1[0], (Integer) action1[1]));
         Integer total = 0;
         for (Apprenant apprenant : apprenantList) {
             Map<Integer, Integer> scoresApprenant = scoreService.getScoreForApprenant(apprenant.getNumapprenant());
@@ -67,9 +66,9 @@ public class JeuService {
 
     public Integer getNumberSuccessByJeu(Integer numJeu) {
         List<Apprenant> apprenantList = jeuDAO.getInscritByJeu(numJeu);
-        List<Action> actionList = jeuDAO.getActionsByJeu(numJeu);
+        List<Object[]> actionList = jeuDAO.getActionScoreMinByJeu(numJeu);
         Map<Integer, Integer> actionScoreMin = Collections.synchronizedMap(new HashMap<>());
-        actionList.forEach(action1 -> actionScoreMin.put(action1.getNumaction(), action1.getScoremin()));
+        actionList.forEach(action1 -> actionScoreMin.put((Integer) action1[0], (Integer) action1[1]));
         Integer total = 0;
         for (Apprenant apprenant : apprenantList) {
             Map<Integer, Integer> scoresApprenant = scoreService.getScoreForApprenant(apprenant.getNumapprenant());
@@ -83,9 +82,9 @@ public class JeuService {
     }
 
     public Boolean getAValideApprenantJeu(Integer numJeu, Integer numApprenant) {
-        List<Action> actionList = jeuDAO.getActionsByJeu(numJeu);
+        List<Object[]> actionList = jeuDAO.getActionScoreMinByJeu(numJeu);
         Map<Integer, Integer> actionScoreMin = Collections.synchronizedMap(new HashMap<>());
-        actionList.forEach(action1 -> actionScoreMin.put(action1.getNumaction(), action1.getScoremin()));
+        actionList.forEach(action1 -> actionScoreMin.put((Integer) action1[0], (Integer) action1[1]));
 
         Map<Integer, Integer> scoresApprenant = scoreService.getScoreForApprenant(numApprenant);
         if (actionList.size() ==
@@ -97,9 +96,9 @@ public class JeuService {
     }
 
     public Boolean getANonValideApprenantJeu(Integer numJeu, Integer numApprenant) {
-        List<Action> actionList = jeuDAO.getActionsByJeu(numJeu);
+        List<Object[]> actionList = jeuDAO.getActionScoreMinByJeu(numJeu);
         Map<Integer, Integer> actionScoreMin = Collections.synchronizedMap(new HashMap<>());
-        actionList.forEach(action1 -> actionScoreMin.put(action1.getNumaction(), action1.getScoremin()));
+        actionList.forEach(action1 -> actionScoreMin.put((Integer) action1[0], (Integer) action1[1]));
 
         Map<Integer, Integer> scoresApprenant = scoreService.getScoreForApprenant(numApprenant);
         if (actionList.size() ==
