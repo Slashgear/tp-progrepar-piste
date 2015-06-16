@@ -15,8 +15,8 @@
                 <p>Identifiant #<c:out value="${jeu.numjeu}"/></p>
 
                 <p>Il y a actuellement <strong><c:out value="${missionNb}"/> missions</strong>, <strong><c:out
-                        value="${objectifNb}"/> objectifs</strong>
-                    , et <strong><c:out value="${actionNb}"/> actions</strong> à accomplir dans ce jeu.</p>
+                        value="${objectifNb}"/> objectifs</strong>, et <strong><c:out value="${actionNb}"/>
+                    actions</strong> à accomplir dans ce jeu.</p>
 
                 <p><strong><c:out value="${inscritNb}"/></strong> Apprenants sont inscrit à ce jeu.</p>
             </div>
@@ -48,8 +48,10 @@
                              class="panel-collapse collapse" role="tabpanel"
                              aria-labelledby="headingOne">
                             <div class="panel-body">
+                                <a href="<c:out value="mission/${mission.nummission}"/>">Plus d'informations sur la
+                                    mission</a>
                                 <c:forEach items="${mission.fixesByNummission}" var="fixe">
-                                    <h4><a href="action/objectif/<c:out value="${fixe.numobjectif}"/>">
+                                    <h4><a href="objectif/<c:out value="${fixe.numobjectif}"/>">
                                         Objectif : <c:out value="${fixe.objectifByNumobjectif.libobectif}"/></a>
                                         <c:choose>
                                             <c:when test="${
@@ -81,7 +83,8 @@
                                             items="${fixe.objectifByNumobjectif.estAssociesByNumobjectif}"
                                             var="estAssocie">
                                         <a href="/action/<c:out value="${estAssocie.numaction}"/>">
-                                            <c:out value="${estAssocie.actionByNumaction.libaction}"/></a>
+                                            <c:out value="${estAssocie.actionByNumaction.libaction}"/> (<c:out
+                                                value="${coefActions.get(estAssocie.actionByNumaction.numaction)}"/>)</a>
                                         <c:choose>
                                             <c:when test="${not empty scoresActions.get(estAssocie.actionByNumaction.numaction)}">
                                                 <c:choose>

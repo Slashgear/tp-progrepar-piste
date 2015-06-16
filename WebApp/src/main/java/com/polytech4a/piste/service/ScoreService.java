@@ -119,6 +119,13 @@ public class ScoreService {
         return stats;
     }
 
+    public Map<Integer, Integer> getCoefActions() {
+        final Map<Integer, Integer> stats = Collections.synchronizedMap(new HashMap<>());
+        List<Object[]> values = estAssocieDAO.getCoefAction();
+        values.forEach(objects -> stats.put((Integer) objects[0], (Integer) objects[1]));
+        return stats;
+    }
+
     public Map<Integer, Double> getAvgActionForAllObjectifsForAllMissions(Jeu jeu) {
         final Map<Integer, Double> stats = Collections.synchronizedMap(new HashMap<>());
         final Map<Integer, Double> avgObjectifs = getAvgObjectifs();
@@ -143,7 +150,6 @@ public class ScoreService {
         );
         return stats;
     }
-
 
     public Map<Integer, Double> getAvgActionForAllObjectifsForApprenant(Jeu jeu, Integer numApprenant) {
         final Map<Integer, Double> stats = Collections.synchronizedMap(new HashMap<>());

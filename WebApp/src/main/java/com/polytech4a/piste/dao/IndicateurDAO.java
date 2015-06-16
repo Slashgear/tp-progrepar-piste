@@ -8,4 +8,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  *         08/06/2015
  */
 public interface IndicateurDAO extends JpaRepository<Indicateur, Integer> {
+    Indicateur findByNumaction(Integer numAction);
 }

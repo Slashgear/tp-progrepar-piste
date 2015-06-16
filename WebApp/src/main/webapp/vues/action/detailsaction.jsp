@@ -12,6 +12,7 @@
             <div class="well">
                 <p>Identifiant #<c:out value="${action.numaction}"/></p>
 
+                <p>Coefficient : <c:out value="${coef}"/></p>
                 <p>Score minimum : <c:out value="${action.scoremin}"/>/20</p>
                 <c:if test="${not empty averageScore}">
                     <c:choose>

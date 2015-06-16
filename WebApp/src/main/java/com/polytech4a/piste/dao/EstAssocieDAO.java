@@ -32,6 +32,9 @@ public interface EstAssocieDAO extends JpaRepository<EstAssocie, Integer> {
             "            group by o.numaction")
     List<Object[]> getAvgAction();
 
+    @Query("select distinct i.numaction, i.poids from  Indicateur i")
+    List<Object[]> getCoefAction();
+
     @Query("select sum(o.valeur * i.poids)/sum(i.poids) from EstAssocie ea, " +
             "Obtient o, " +
             "Indicateur i " +

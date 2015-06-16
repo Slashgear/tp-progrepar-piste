@@ -28,7 +28,7 @@ import java.util.Map;
  * @version 1.0
  */
 @Controller
-@RequestMapping(value = "/jeu")
+@RequestMapping(value = "jeu")
 public class JeuController {
     private static final String DIR_VIEW = "jeu";
 
@@ -49,7 +49,9 @@ public class JeuController {
     public String display(final ModelMap pModel, @PathVariable(value = "id") Integer id) {
         Jeu jeu = jeuService.findByNumjeuAndFetchAll(id);
 
-        if (jeu == null) return ErrorPage.newError(pModel, String.format("Jeu n°%s non trouvée !", id), DIR_VIEW);
+        if (jeu == null)
+            //return ErrorPage.newError(pModel, String.format("Jeu n°%s non trouvée !", id), DIR_VIEW);
+            return ErrorPage.new404Error();
 
         // Attributes
         pModel.addAttribute("jeu", jeu);
@@ -66,6 +68,8 @@ public class JeuController {
         pModel.addAttribute("countScore", countScore);
         Map<Integer, Double> scoresActions = scoreService.getAvgAction();
         pModel.addAttribute("scoresActions", scoresActions);
+        Map<Integer, Integer> coefActions = scoreService.getCoefActions();
+        pModel.addAttribute("coefActions", coefActions);
 
         // Return button
         ReturnButton.addToModel(pModel, "jeu");
@@ -93,9 +97,12 @@ public class JeuController {
         Jeu jeu = jeuService.findByNumjeuAndFetchAll(id);
         Apprenant apprenant = apprenantDAO.findOne(numApprenant);
 
-        if (jeu == null) return ErrorPage.newError(pModel, String.format("Jeu n°%s non trouvée !", id), DIR_VIEW);
+        if (jeu == null)
+            //return ErrorPage.newError(pModel, String.format("Jeu n°%s non trouvée !", id), DIR_VIEW);
+            return ErrorPage.new404Error();
         if (apprenant == null)
-            return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", numApprenant), DIR_VIEW);
+            //return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", numApprenant), DIR_VIEW);
+            return ErrorPage.new404Error();
 
         // Attributes
         pModel.addAttribute("jeu", jeu);
@@ -113,6 +120,8 @@ public class JeuController {
         pModel.addAttribute("countScore", countScore);
         Map<Integer, Integer> scoresActions = scoreService.getScoreForApprenant(numApprenant);
         pModel.addAttribute("scoresActions", scoresActions);
+        Map<Integer, Integer> coefActions = scoreService.getCoefActions();
+        pModel.addAttribute("coefActions", coefActions);
 
         // Return button
         ReturnButton.addToModel(pModel, "jeu");
@@ -131,7 +140,7 @@ public class JeuController {
         pModel.addAttribute("inscritNb", jeuDAO.getNumberofInscritByJeu(id));
         pModel.addAttribute("apprenantNb", apprenantDAO.findAll().size());
 
-        return String.format("%s/%s", DIR_VIEW, DETAILS_FOR_APPRENANT_VIEW);
+        return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
 
     @RequestMapping(method = RequestMethod.GET)

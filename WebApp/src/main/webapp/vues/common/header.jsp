@@ -13,8 +13,8 @@
         rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-material-design/0.3.0/css/ripples.css"
         rel="stylesheet">
-  <link href="/resources/css/main.css" rel="stylesheet">
-  <link href='/resources/images/favicon.png' rel='icon' type='image/png'/>
+  <link href="resources/css/main.css" rel="stylesheet">
+  <link href='resources/images/favicon.png' rel='icon' type='image/png'/>
   <title>Simulateur de Piste</title>
 </head>
 <body>
@@ -35,8 +35,8 @@
                   class="caret"></span></a>
           <ul class="dropdown-menu">
             <li class="dropdown-header">Affichages</li>
-            <li><a href="/apprenant">Affichage des apprenants</a></li>
-            <li><a href="/apprenant/ajout">Ajouter un apprenant</a></li>
+            <li><a href="apprenant">Affichage des apprenants</a></li>
+            <li><a href="apprenant/ajout">Ajouter un apprenant</a></li>
           </ul>
         </li>
         <li class="dropdown">
@@ -44,8 +44,10 @@
                   class="caret"></span></a>
           <ul class="dropdown-menu">
             <li class="dropdown-header">Affichages</li>
-            <li><a href="/jeu">Affichages des jeux</a></li>
-            <li><a href="/action">Affichage des actions</a></li>
+            <li><a href="jeu">Affichages des jeux</a></li>
+            <li><a href="mission">Affichage des missions</a></li>
+            <li><a href="objectif">Affichage des objectifs</a></li>
+            <li><a href="action">Affichage des actions</a></li>
           </ul>
         </li>
       </ul>
