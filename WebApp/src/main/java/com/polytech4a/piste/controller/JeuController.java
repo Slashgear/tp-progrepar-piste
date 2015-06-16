@@ -176,6 +176,9 @@ public class JeuController {
         pieChart2.data.add(new Data("Non fini", inscritNb - echecs - success));
         pModel.addAttribute("pieChart2", pieChart2);
 
+        pModel.addAttribute("aValide", jeuService.getAValideApprenantJeu(id, numApprenant));
+        pModel.addAttribute("aNonValide", jeuService.getANonValideApprenantJeu(id, numApprenant));
+
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
 

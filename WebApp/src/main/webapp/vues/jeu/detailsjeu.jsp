@@ -5,7 +5,17 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="container">
     <div class="row">
-        <h1><c:out value="${jeu.libellejeu}"/></h1>
+        <c:choose>
+            <c:when test="${not empty aValide and aValide == true}">
+                <h1 class="text-success"><c:out value="${jeu.libellejeu}"/> : Validé</h1>
+            </c:when>
+            <c:when test="${not empty aNonValide and aNonValide == true}">
+                <h1 class="text-danger"><c:out value="${jeu.libellejeu}"/> : Non validé</h1>
+            </c:when>
+            <c:otherwise>
+                <h1><c:out value="${jeu.libellejeu}"/> : non terminé</h1>
+            </c:otherwise>
+        </c:choose>
 
         <div class="col-xs-12">
 
@@ -20,7 +30,7 @@
 
                 <p><strong><c:out value="${inscritNb}"/></strong> Apprenants sont inscrit à ce jeu.</p>
             </div>
-        </div>
+            </div>
         <div class="col-lg-6">
 
             <h2>Détails<c:if test="${not empty apprenant}"> pour l'apprenant : <c:out
@@ -32,8 +42,8 @@
                         <%@include file="../mission/panelmission.jsp" %>
                     </c:forEach>
                 </div>
+                </div>
             </div>
-        </div>
         <div class="col-lg-6">
             ${pieChart.getDiv()}
         </div>

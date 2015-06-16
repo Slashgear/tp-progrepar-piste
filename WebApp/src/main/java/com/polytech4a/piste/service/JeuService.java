@@ -81,4 +81,32 @@ public class JeuService {
         }
         return total;
     }
+
+    public Boolean getAValideApprenantJeu(Integer numJeu, Integer numApprenant) {
+        List<Action> actionList = jeuDAO.getActionsByJeu(numJeu);
+        Map<Integer, Integer> actionScoreMin = Collections.synchronizedMap(new HashMap<>());
+        actionList.forEach(action1 -> actionScoreMin.put(action1.getNumaction(), action1.getScoremin()));
+
+        Map<Integer, Integer> scoresApprenant = scoreService.getScoreForApprenant(numApprenant);
+        if (actionList.size() ==
+                scoresApprenant.entrySet().stream()
+                        .filter(integerIntegerEntry -> actionScoreMin.containsKey(integerIntegerEntry.getKey()) &&
+                                actionScoreMin.get(integerIntegerEntry.getKey()) <= integerIntegerEntry.getValue()).count())
+            return Boolean.TRUE;
+        return Boolean.FALSE;
+    }
+
+    public Boolean getANonValideApprenantJeu(Integer numJeu, Integer numApprenant) {
+        List<Action> actionList = jeuDAO.getActionsByJeu(numJeu);
+        Map<Integer, Integer> actionScoreMin = Collections.synchronizedMap(new HashMap<>());
+        actionList.forEach(action1 -> actionScoreMin.put(action1.getNumaction(), action1.getScoremin()));
+
+        Map<Integer, Integer> scoresApprenant = scoreService.getScoreForApprenant(numApprenant);
+        if (actionList.size() ==
+                scoresApprenant.entrySet().stream()
+                        .filter(integerIntegerEntry -> actionScoreMin.containsKey(integerIntegerEntry.getKey()) &&
+                                actionScoreMin.get(integerIntegerEntry.getKey()) > integerIntegerEntry.getValue()).count())
+            return Boolean.TRUE;
+        return Boolean.FALSE;
+    }
 }
