@@ -18,7 +18,7 @@
     </div>
     <div class="row">
         <div class="col-md-6">
-            <form class="form-horizontal" method="post" action="/obtient/${apprenant.numapprenant}/action/${action.numaction}" accept-charset="UTF-8">
+            <form class="form-horizontal" method="post" action="/obtient/${apprenant.numapprenant}/action/${action.numaction}/${formaction}" accept-charset="UTF-8">
                 <fieldset>
                     <div class="form-group">
                         <label for="note" class="col-lg-4 control-label">Note attribuée</label>
