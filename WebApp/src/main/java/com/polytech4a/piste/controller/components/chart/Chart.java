@@ -35,8 +35,8 @@ public class Chart {
         String functionName = String.format("drawChart_%s", chartName);
         StringBuilder script = new StringBuilder("");
         script.append("<script type=\"text/javascript\">\n").
-                append("google.load(\"visualization\", \"1\", {packages: [\"corechart\"]}).\n").
-                append(String.format("google.setOnLoadCallback(%s).\n", functionName)).
+                append("google.load(\"visualization\", \"1\", {packages: [\"corechart\"]});\n").
+                append(String.format("google.setOnLoadCallback(%s);\n", functionName)).
                 append(String.format("function %s() {\n", functionName)).
                 append(String.format("var %s = google.visualization.arrayToDataTable([\n", dataName)).
                 append(String.format("['%s', '%s']", dataTitle.getKey(), dataTitle.getValue()));
@@ -48,7 +48,7 @@ public class Chart {
             script.append(",\n").
                     append(data.get(i));
         }
-        script.append("]).\n").
+        script.append("]);\n").
                 append("var options = {\n").
                 append("colors: [");
         if (colors != null) script.append(colors[0]);
@@ -59,14 +59,14 @@ public class Chart {
         script.append("]\n};\n").
                 append(
                         String.format(
-                                "var %s = new google.visualization.%s(document.getElementById('%s')).\n",
+                                "var %s = new google.visualization.%s(document.getElementById('%s'));\n",
                                 chartName,
                                 chartType.getLabel(), chartName)).
-                append(String.format("%s.draw(%s, options).\n", chartName, dataName)).
+                append(String.format("%s.draw(%s, options);\n", chartName, dataName)).
                 append("}\n").
                 append("$(window).resize(function () {\n").
-                append(String.format("%s().\n", functionName)).
-                append("}).\n").
+                append(String.format("%s();\n", functionName)).
+                append("});\n").
                 append("</script>\n");
 
         return script.toString();
