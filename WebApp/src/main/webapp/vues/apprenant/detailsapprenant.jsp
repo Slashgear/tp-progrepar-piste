@@ -53,7 +53,21 @@
                         <c:forEach items="${jeuxinsc}" var="jeu">
                             <div class="list-group-item">
                                 <div class="btn-group btn-group-justified">
-                                    <a href="/jeu/${jeu.numjeu}/apprenant/${apprenant.numapprenant}" class="btn btn-flat btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="Résultats de l'apprenant au jeu">${jeu.libellejeu}</a>
+                                    <a href="/jeu/${jeu.numjeu}/apprenant/${apprenant.numapprenant}"
+                                       class="btn btn-flat btn-default" data-toggle="tooltip" data-placement="top"
+                                       title="" data-original-title="Résultats de l'apprenant au jeu">
+                                        <c:choose>
+                                            <c:when test="${not empty aValide and not empty aValide.get(jeu.numjeu) and aValide.get(jeu.numjeu) == true}">
+                                                <span class="text-success"><strong>${jeu.libellejeu}</strong></span>
+                                            </c:when>
+                                            <c:when test="${not empty aValide and not empty aValide.get(jeu.numjeu) and aValide.get(jeu.numjeu) == false}">
+                                                <span class="text-danger"><strong>${jeu.libellejeu}</strong></span>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <span">${jeu.libellejeu}</span>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </a>
                                     <a href="/jeu/${jeu.numjeu}" class="btn btn-flat btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="Informations générales du jeu"><i class="mdi-action-info-outline"></i></a>
                                 </div>
                             </div>

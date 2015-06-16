@@ -9,6 +9,7 @@ import com.polytech4a.piste.dao.ApprenantDAO;
 import com.polytech4a.piste.dao.InscriptionDAO;
 import com.polytech4a.piste.dao.JeuDAO;
 import com.polytech4a.piste.dao.ObtientDAO;
+import com.polytech4a.piste.service.JeuService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -49,6 +50,8 @@ public class ApprenantController {
     private InscriptionDAO inscriptionDAO;
     @Autowired
     private ObtientDAO obtientDAO;
+    @Autowired
+    private JeuService jeuService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String displayList(final ModelMap pModel) {
@@ -170,6 +173,7 @@ public class ApprenantController {
             if (!jeux.isEmpty()) {
                 pModel.addAttribute("jeux", jeux);
                 pModel.addAttribute("showinsc", "show");
+                pModel.addAttribute("aValide", jeuService.getValideApprenant(id));
             }
 
             List<Jeu> jeuxinsc = jeuDAO.findSubscribedJeuForApprenant(id);

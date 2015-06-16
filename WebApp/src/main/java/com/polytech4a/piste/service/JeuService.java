@@ -109,4 +109,15 @@ public class JeuService {
             return Boolean.TRUE;
         return Boolean.FALSE;
     }
+
+    public Map<Integer, Boolean> getValideApprenant(Integer numApprenant) {
+        Map<Integer, Boolean> booleanMap = Collections.synchronizedMap(new HashMap<>());
+        List<Jeu> jeux = jeuDAO.findSubscribedJeuForApprenant(numApprenant);
+        jeux.forEach(jeu -> {
+            if (getAValideApprenantJeu(jeu.getNumjeu(), numApprenant)) booleanMap.put(jeu.getNumjeu(), Boolean.TRUE);
+            else if (getANonValideApprenantJeu(jeu.getNumjeu(), numApprenant))
+                booleanMap.put(jeu.getNumjeu(), Boolean.FALSE);
+        });
+        return booleanMap;
+    }
 }
