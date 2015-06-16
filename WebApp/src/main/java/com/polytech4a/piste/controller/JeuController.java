@@ -140,7 +140,7 @@ public class JeuController {
         pModel.addAttribute("inscritNb", jeuDAO.getNumberofInscritByJeu(id));
         pModel.addAttribute("apprenantNb", apprenantDAO.findAll().size());
 
-        return String.format("%s/%s", DIR_VIEW, DETAILS_FOR_APPRENANT_VIEW);
+        return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
 
     @RequestMapping(method = RequestMethod.GET)
