@@ -28,4 +28,6 @@ public interface ObtientDAO extends JpaRepository<Obtient, Integer> {
     Integer getNumberOfApprenantObtientforActionBetween(@Param("idAction") Integer idAction
             , @Param("valMin") Integer valMin, @Param("valMax") Integer valMax);
 
+    @Query("from Obtient where apprenantByNumapprenant.numapprenant=:numApprenant and actionByNumaction.numaction=:numAction")
+    Obtient findByNumapprenantAndNumaction(@Param("numApprenant") Integer numApprenant, @Param("numAction") Integer numAction);
 }
