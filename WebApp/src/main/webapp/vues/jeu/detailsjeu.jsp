@@ -56,15 +56,21 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
-            ${pieChart.getDiv()}
-        </div>
-        <div class="col-lg-6">
-            ${pieChart2.getDiv()}
-        </div>
-        <div class="col-lg-6">
-            ${pieChart3.getDiv()}
-        </div>
+        <c:if test="${pieChart.displayable()}">
+            <div class="col-lg-6">
+                    ${pieChart.getDiv()}
+            </div>
+        </c:if>
+        <c:if test="${pieChart2.displayable()}">
+            <div class="col-lg-6">
+                    ${pieChart2.getDiv()}
+            </div>
+        </c:if>
+        <c:if test="${pieChart3.displayable()}">
+            <div class="col-lg-6">
+                    ${pieChart3.getDiv()}
+            </div>
+        </c:if>
     </div>
 </div>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>

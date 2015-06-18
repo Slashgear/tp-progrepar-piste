@@ -13,6 +13,7 @@
                 <p>Identifiant #<c:out value="${action.numaction}"/></p>
 
                 <p>Coefficient : <c:out value="${coef}"/></p>
+
                 <p>Score minimum : <c:out value="${action.scoremin}"/>/20</p>
                 <c:if test="${not empty averageScore}">
                     <c:choose>
@@ -32,13 +33,17 @@
                 </c:if>
             </div>
         </div>
-        <c:if test="${nbInscrits>0}">
+        <c:if test="${pieChartValidation.displayable()}">
             <div class="col-md-6">
                     ${pieChartValidation.getDiv()}
             </div>
+        </c:if>
+        <c:if test="${pieChartObtention.displayable()}">
             <div class="col-md-6">
                     ${pieChartObtention.getDiv()}
             </div>
+        </c:if>
+        <c:if test="${columnChartRepartition.displayable()}">
             <div class="col-md-6">
                     ${columnChartRepartition.getDiv()}
             </div>

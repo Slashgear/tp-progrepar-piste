@@ -30,6 +30,7 @@ public class Chart {
     }
 
     public String getScript() {
+        if (!displayable()) return "";
         String chartName = String.format("%s_%s", chartType.getLabel(), id);
         String dataName = String.format("data_%s", chartName);
         String functionName = String.format("drawChart_%s", chartName);
@@ -73,6 +74,7 @@ public class Chart {
     }
 
     public String getDiv() {
+        if (!displayable()) return "";
         StringBuilder div = new StringBuilder("");
         div.append(String.format("<h3>%s</h3>\n", title)).
                 append("<div class=\"well\">\n").
@@ -82,5 +84,15 @@ public class Chart {
                                 chartType.getLabel(), id)).
                 append("</div>\n");
         return div.toString();
+    }
+
+    public Boolean displayable() {
+        if (data.isEmpty()) return Boolean.FALSE;
+        switch (chartType) {
+            case PIE:
+                return data.stream().anyMatch(data1 -> !"0".equals(data1.getValue()));
+            default:
+                return Boolean.TRUE;
+        }
     }
 }
