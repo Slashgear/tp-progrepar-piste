@@ -30,8 +30,8 @@
                         <label for="note" class="col-lg-4 control-label">Note attribuée</label>
 
                         <div class="col-lg-6">
-                            <input type="text" class="form-control" name="note" id="note"
-                                   placeholder="Note sur 20"
+                            <input type="number" class="form-control" name="note" id="note"
+                                   placeholder="Note sur 20" min="0" max="20" step="1"
                                    value="${note}">
                         </div>
                     </div>
