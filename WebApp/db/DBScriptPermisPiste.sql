@@ -28,25 +28,25 @@ CREATE TABLE IF NOT EXISTS `action` (
 --
 
 INSERT INTO `action` (`NUMACTION`, `ACT_NUMACTION`, `LIBACTION`, `SCOREMIN`) VALUES
-  (1, NULL, 'Se mettre en tenue', 10),
-  (2, 1, 'Préparation véhicule', 10),
-  (3, NULL, 'Respect sécurité', 14),
-  (4, 3, 'Effectuer manoeuvre', 10),
-  (5, NULL, 'Emettre hypothèse', 15),
-  (6, 5, 'Proposer solution', 10),
-  (7, 6, 'Evaluation solution', 14),
-  (8, 7, 'Effectuer solution', 13),
-  (9, NULL, 'Accéder mécanique', 10),
-  (10, 9, 'Vérifications mécanique', 12),
-  (11, 10, 'Analyser panne(s)', 14),
-  (12, 10, 'Effectuer niveaux', 13),
-  (13, NULL, 'Réaction', 10),
-  (14, 13, 'Action face au danger', 16),
-  (15, NULL, 'Prise d''informations', 10),
-  (16, 15, 'Placement', 15),
-  (17, 15, 'Utilisation outils comm', 12),
-  (18, NULL, 'Respect protocole comm', 18),
-  (19, NULL, 'Travail rendu à temps', 16);
+  (1, NULL, 'Se mettre en tenue', 7),
+  (2, 1, 'Préparation véhicule', 7),
+  (3, NULL, 'Respect sécurité', 11),
+  (4, 3, 'Effectuer manoeuvre', 7),
+  (5, NULL, 'Emettre hypothèse', 12),
+  (6, 5, 'Proposer solution', 7),
+  (7, 6, 'Evaluation solution', 11),
+  (8, 7, 'Effectuer solution', 10),
+  (9, NULL, 'Accéder mécanique', 7),
+  (10, 9, 'Vérifications mécanique', 9),
+  (11, 10, 'Analyser panne(s)', 11),
+  (12, 10, 'Effectuer niveaux', 10),
+  (13, NULL, 'Réaction', 7),
+  (14, 13, 'Action face au danger', 13),
+  (15, NULL, 'Prise d''informations', 7),
+  (16, 15, 'Placement', 12),
+  (17, 15, 'Utilisation outils comm', 9),
+  (18, NULL, 'Respect protocole comm', 15),
+  (19, NULL, 'Travail rendu à temps', 13);
 
 -- --------------------------------------------------------
 
