@@ -1,6 +1,7 @@
 package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Apprenant;
+import com.polytech4a.piste.beans.Inscription;
 import com.polytech4a.piste.beans.Jeu;
 import com.polytech4a.piste.controller.components.ErrorPage;
 import com.polytech4a.piste.controller.components.ReturnButton;
@@ -10,6 +11,7 @@ import com.polytech4a.piste.controller.components.chart.Chart;
 import com.polytech4a.piste.controller.components.chart.ChartType;
 import com.polytech4a.piste.controller.components.chart.Data;
 import com.polytech4a.piste.dao.ApprenantDAO;
+import com.polytech4a.piste.dao.InscriptionDAO;
 import com.polytech4a.piste.dao.JeuDAO;
 import com.polytech4a.piste.service.JeuService;
 import com.polytech4a.piste.service.ScoreService;
@@ -48,6 +50,8 @@ public class JeuController {
     private JeuService jeuService;
     @Autowired
     private ScoreService scoreService;
+    @Autowired
+    private InscriptionDAO inscriptionDAO;
 
     @RequestMapping(value = "{id}", method = RequestMethod.GET)
     public String display(final ModelMap pModel, @PathVariable(value = "id") Integer id) {
@@ -123,12 +127,15 @@ public class JeuController {
                                       @PathVariable(value = "numApprenant") Integer numApprenant) {
         Jeu jeu = jeuService.findByNumjeuAndFetchAll(id);
         Apprenant apprenant = apprenantDAO.findOne(numApprenant);
+        Inscription inscription = inscriptionDAO.findInscriptionByNumapprenantAndNumjeu(numApprenant, id);
 
         if (jeu == null)
             //return ErrorPage.newError(pModel, String.format("Jeu n°%s non trouvée !", id), DIR_VIEW);
             return ErrorPage.new404Error();
         if (apprenant == null)
             //return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", numApprenant), DIR_VIEW);
+            return ErrorPage.new404Error();
+        if(inscription == null)
             return ErrorPage.new404Error();
 
         // Attributes

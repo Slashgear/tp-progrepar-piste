@@ -19,4 +19,7 @@ public interface InscriptionDAO extends JpaRepository<Inscription, Integer> {
     @Modifying
     @Query("delete from Inscription i where i.apprenantByNumapprenant.numapprenant = :idApprenant")
     void deleteByNumapprenant(@Param("idApprenant") Integer idApprenant);
+
+    @Query("from Inscription where apprenantByNumapprenant.numapprenant=:idApprenant and jeuByNumjeu.numjeu=:idJeu")
+    Inscription findInscriptionByNumapprenantAndNumjeu(@Param(value="idApprenant") Integer idApprenant, @Param(value="idJeu") Integer idJeu);
 }
