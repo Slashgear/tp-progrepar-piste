@@ -17,11 +17,6 @@ public interface InscriptionDAO extends JpaRepository<Inscription, Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "insert into Inscription values(:idApprenant,:idJeu)", nativeQuery = true)
-    void insertInscription(@Param("idJeu") Integer idJeu, @Param("idApprenant") Integer idApprenant);
-
-    @Transactional
-    @Modifying
     @Query("delete from Inscription i where i.apprenantByNumapprenant.numapprenant = :idApprenant")
     void deleteByNumapprenant(@Param("idApprenant") Integer idApprenant);
 }

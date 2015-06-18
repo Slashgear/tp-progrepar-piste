@@ -1,6 +1,7 @@
 package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Apprenant;
+import com.polytech4a.piste.beans.Inscription;
 import com.polytech4a.piste.beans.Jeu;
 import com.polytech4a.piste.controller.components.ErrorPage;
 import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
@@ -192,7 +193,12 @@ public class ApprenantController {
     public String submitinscrireForm(final ModelMap pModel,
                                      @RequestParam("idApprenant") Integer idApprenant,
                                      @RequestParam("idJeu") Integer idJeu) {
-        inscriptionDAO.insertInscription(idJeu, idApprenant);
+        Inscription inscription = new Inscription();
+        inscription.setJeuByNumjeu(jeuDAO.findOne(idJeu));
+        inscription.setApprenantByNumapprenant(apprenantDAO.findOne(idApprenant));
+        inscription.setNumjeu(idJeu);
+        inscription.setNumapprenant(idApprenant);
+        inscriptionDAO.save(inscription);
         return detailApprenant(pModel, idApprenant);
     }
 }
