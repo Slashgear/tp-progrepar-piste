@@ -164,33 +164,30 @@ public class ApprenantController {
     public String detailApprenant(final ModelMap pModel,
                                   @PathVariable(value = "id") int id) {
         Apprenant apprenant = apprenantDAO.findOne(id);
-        if (apprenant != null) {
-            // Breadcrumb set up
-            Breadcrumb breadcrumbList = new Breadcrumb(
-                    new BreadcrumbItem("Accueil", "/"),
-                    new BreadcrumbItem("Apprenants", "/apprenant"),
-                    new BreadcrumbItem(String.format("#%s", id)));
-            Breadcrumb.addToModel(pModel, breadcrumbList);
-
-            pModel.addAttribute("apprenant", apprenant);
-
-            List<Jeu> jeux = jeuDAO.findAvailableJeuForApprenant(id);
-            if (!jeux.isEmpty()) {
-                pModel.addAttribute("jeux", jeux);
-                pModel.addAttribute("showinsc", "show");
-                pModel.addAttribute("aValide", jeuService.getValideApprenant(id));
-            }
-
-            List<Jeu> jeuxinsc = jeuDAO.findSubscribedJeuForApprenant(id);
-            if (!jeuxinsc.isEmpty()) {
-                pModel.addAttribute("jeuxinsc", jeuxinsc);
-                pModel.addAttribute("showjeuinsc", "show");
-            }
-            return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
-        } else {
-            //return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", id), DIR_VIEW);
+        if (apprenant == null)
             return ErrorPage.new404Error();
+        // Breadcrumb set up
+        Breadcrumb breadcrumbList = new Breadcrumb(
+                new BreadcrumbItem("Accueil", "/"),
+                new BreadcrumbItem("Apprenants", "/apprenant"),
+                new BreadcrumbItem(String.format("#%s", id)));
+        Breadcrumb.addToModel(pModel, breadcrumbList);
+
+        pModel.addAttribute("apprenant", apprenant);
+
+        List<Jeu> jeux = jeuDAO.findAvailableJeuForApprenant(id);
+        if (!jeux.isEmpty()) {
+            pModel.addAttribute("jeux", jeux);
+            pModel.addAttribute("showinsc", "show");
         }
+
+        List<Jeu> jeuxinsc = jeuDAO.findSubscribedJeuForApprenant(id);
+        if (!jeuxinsc.isEmpty()) {
+            pModel.addAttribute("jeuxinsc", jeuxinsc);
+            pModel.addAttribute("showjeuinsc", "show");
+            pModel.addAttribute("aValide", jeuService.getValideApprenant(id));
+        }
+        return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
 
     @RequestMapping(value = "inscrire", method = RequestMethod.POST)
