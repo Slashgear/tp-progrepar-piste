@@ -103,7 +103,8 @@ public class ObtientController {
         obtient.setValeur(note);
         if (obtientDAO.save(obtient) != null) {
             pModel.addAttribute("apprenant", idApprenant);
-            return displayModifyForm(pModel, idApprenant, idAction, idJeu);
+            return String.format("redirect:/jeu/%s/apprenant/%s", idJeu, idApprenant);
+
         } else {
             pModel.addAttribute("errMessage", "Impossible d'ajouter la note pour cet apprenant.");
             return displayAddForm(pModel, idApprenant, idAction, idJeu);
@@ -125,7 +126,7 @@ public class ObtientController {
         obtient.setValeur(note);
         if (obtientDAO.save(obtient) != null) {
             pModel.addAttribute("apprenant", idApprenant);
-            return displayModifyForm(pModel, idApprenant, idAction, idJeu);
+            return String.format("redirect:/jeu/%s/apprenant/%s", idJeu, idApprenant);
         } else {
             pModel.addAttribute("errMessage", "Impossible de modifier la note pour cet apprenant.");
             return displayModifyForm(pModel, idApprenant, idAction, idJeu);
