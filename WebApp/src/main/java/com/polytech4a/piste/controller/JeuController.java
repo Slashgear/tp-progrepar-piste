@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 
 /**
@@ -107,6 +108,12 @@ public class JeuController {
         pieChart2.data.add(new Data("Non fini", inscritNb - echecs - success));
         pModel.addAttribute("pieChart2", pieChart2);
 
+        // Piechart réussite
+        Chart pieChart3 = new Chart(ChartType.PIE, "Réussite du jeu");
+        Random random = new Random();
+        pieChart3.data.add(new Data("Mieux réussi que les autres", random.nextInt(30)));
+        pieChart3.data.add(new Data("Moins bien réussi que les autres", random.nextInt(30)));
+
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
 
@@ -176,6 +183,13 @@ public class JeuController {
         pieChart2.data.add(new Data("Succès", success));
         pieChart2.data.add(new Data("Non fini", inscritNb - echecs - success));
         pModel.addAttribute("pieChart2", pieChart2);
+
+        // Piechart réussite
+        Chart pieChart3 = new Chart(ChartType.PIE, "Réussite du jeu");
+        Random random = new Random();
+        pieChart3.data.add(new Data("Mieux réussi que les autres", random.nextInt(30)));
+        pieChart3.data.add(new Data("Moins bien réussi que les autres", random.nextInt(30)));
+        pModel.addAttribute("pieChart3", pieChart3);
 
         pModel.addAttribute("aValide", jeuService.getAValideApprenantJeu(id, numApprenant));
         pModel.addAttribute("aNonValide", jeuService.getANonValideApprenantJeu(id, numApprenant));
