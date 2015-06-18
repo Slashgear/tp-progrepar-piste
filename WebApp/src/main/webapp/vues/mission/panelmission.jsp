@@ -7,10 +7,39 @@
      aria-controls="collapseMission<c:out value="${mission.nummission}"/>">
     <h3 class="panel-title">
         Mission : <c:out value="${mission.libmission}"/>
-        <c:if test="${not empty statsMissions.get(mission.nummission)}">
-            &nbsp;<span class="badge"><fmt:formatNumber type="number" minFractionDigits="2"
-                                                        maxFractionDigits="2"
-                                                        value="${statsMissions.get(mission.nummission)}"></fmt:formatNumber>/20</span>
+        <c:if test="${not empty apprenant}">
+            <c:choose>
+                <c:when test="${
+
+ not empty statsMissions.get(mission.nummission)
+ and not empty countScoreMission
+ and countScoreMission.get(mission.nummission) == mission.getFixesByNummission().size()}">&nbsp;
+                    <c:choose>
+                        <c:when test="${statsMissionsFailure.get(mission.nummission) != 0 || statsMissions.get(mission.nummission) < 10}">
+<span class="label label-danger">
+    <fmt:formatNumber type="number"
+                      minFractionDigits="2"
+                      maxFractionDigits="2"
+                      value="${statsMissions.get(mission.nummission)}"/>/20
+    : Mission non validée
+</span>
+                        </c:when>
+                        <c:otherwise>
+<span class="label label-success">
+    <fmt:formatNumber
+            type="number"
+            minFractionDigits="2"
+            maxFractionDigits="2"
+            value="${statsMissions.get(mission.nummission)}"/>/20
+    : Mission validée
+</span>
+                        </c:otherwise>
+                    </c:choose>
+                </c:when>
+                <c:otherwise>
+                    <span class="label label-info">Note(s) manquante(s)</span>
+                </c:otherwise>
+            </c:choose>
         </c:if>
         <a>
             <i class="icone-right mdi-navigation-unfold-more"></i></a>

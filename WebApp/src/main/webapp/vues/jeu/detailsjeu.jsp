@@ -6,16 +6,28 @@
 <div class="container">
     <div class="row">
         <c:choose>
-            <c:when test="${not empty aValide and aValide == true}">
-                <h1 class="text-success"><c:out value="${jeu.libellejeu}"/> : Validé</h1>
-            </c:when>
-            <c:when test="${not empty aNonValide and aNonValide == true}">
-                <h1 class="text-danger"><c:out value="${jeu.libellejeu}"/> : Non validé</h1>
+            <c:when test="${not empty apprenant}">
+                <c:choose>
+                    <c:when test="${not empty aValide and aValide == true}">
+                        <h1 class="text-success"><c:out value="${jeu.libellejeu}"/> : Validé</h1>
+
+                        <div class="well">
+                            <iframe src="http://lepetitbonhommeenmouss.eu/" style="width:100%;height: 200px;"></iframe>
+                        </div>
+                    </c:when>
+                    <c:when test="${not empty aNonValide and aNonValide == true}">
+                        <h1 class="text-danger"><c:out value="${jeu.libellejeu}"/> : Non validé</h1>
+                    </c:when>
+                    <c:otherwise>
+                        <h1><c:out value="${jeu.libellejeu}"/> : non terminé</h1>
+                    </c:otherwise>
+                </c:choose>
             </c:when>
             <c:otherwise>
-                <h1><c:out value="${jeu.libellejeu}"/> : non terminé</h1>
+                <h1><c:out value="${jeu.libellejeu}"/></h1>
             </c:otherwise>
         </c:choose>
+
 
         <div class="col-xs-12">
 
@@ -30,7 +42,7 @@
 
                 <p><strong><c:out value="${inscritNb}"/></strong> Apprenants sont inscrit à ce jeu.</p>
             </div>
-            </div>
+        </div>
         <div class="col-lg-6">
 
             <h2>Détails<c:if test="${not empty apprenant}"> pour l'apprenant : <c:out
@@ -42,8 +54,8 @@
                         <%@include file="../mission/panelmission.jsp" %>
                     </c:forEach>
                 </div>
-                </div>
             </div>
+        </div>
         <div class="col-lg-6">
             ${pieChart.getDiv()}
         </div>

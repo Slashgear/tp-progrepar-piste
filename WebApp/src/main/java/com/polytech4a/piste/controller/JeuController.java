@@ -141,10 +141,14 @@ public class JeuController {
         pModel.addAttribute("statsMissions", statsMissions);
         Map<Integer, Integer> scoresMinimum = scoreService.getScoresMinimum();
         pModel.addAttribute("scoresMinimum", scoresMinimum);
+        Map<Integer, Integer> statsMissionsFailure = scoreService.getCountScoreFailureForMissionsForApprenant(numApprenant);
+        pModel.addAttribute("statsMissionsFailure", statsMissionsFailure);
         Map<Integer, Integer> statsObjectifsFailure = scoreService.getCountScoreFailureForObjectifForApprenant(numApprenant);
         pModel.addAttribute("statsObjectifsFailure", statsObjectifsFailure);
-        Map<Integer, Integer> countScore = scoreService.getCountScoreForApprenant(numApprenant);
-        pModel.addAttribute("countScore", countScore);
+        Map<Integer, Integer> countScoreObjectif = scoreService.getCountScoreObjectifForApprenant(numApprenant);
+        pModel.addAttribute("countScoreObjectif", countScoreObjectif);
+        Map<Integer, Integer> countScoreMission = scoreService.getCountScoreMissionForApprenant(numApprenant);
+        pModel.addAttribute("countScoreMission", countScoreMission);
         Map<Integer, Integer> scoresActions = scoreService.getScoreForApprenant(numApprenant);
         pModel.addAttribute("scoresActions", scoresActions);
         Map<Integer, Integer> coefActions = scoreService.getCoefActions();
@@ -185,10 +189,14 @@ public class JeuController {
         pModel.addAttribute("pieChart2", pieChart2);
 
         // Piechart réussite
-        Chart pieChart3 = new Chart(ChartType.PIE, "Réussite du jeu");
         Random random = new Random();
-        pieChart3.data.add(new Data("Mieux réussi que les autres", random.nextInt(30)));
-        pieChart3.data.add(new Data("Moins bien réussi que les autres", random.nextInt(30)));
+        Chart pieChart3 = new Chart(
+                random.nextBoolean() ? ChartType.PIE : ChartType.COLUMN,
+                "Réussite du jeu",
+                new Data("", "Nombre d\\'apprenants"));
+        Integer random1 = random.nextInt(inscritNb), random2 = inscritNb - random1;
+        pieChart3.data.add(new Data("Mieux réussi que les autres", random1));
+        pieChart3.data.add(new Data("Moins bien réussi que les autres", random2));
         pModel.addAttribute("pieChart3", pieChart3);
 
         pModel.addAttribute("aValide", jeuService.getAValideApprenantJeu(id, numApprenant));

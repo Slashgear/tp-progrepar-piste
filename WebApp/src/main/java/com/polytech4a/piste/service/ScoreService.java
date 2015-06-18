@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author Alexandre
@@ -23,6 +24,8 @@ public class ScoreService {
     private ObtientDAO obtientDAO;
     @Autowired
     private FixeDAO fixeDAO;
+    @Autowired
+    private MissionDAO missionDAO;
 
     public Map<Integer, Integer> getScoresMinimum() {
         List<Action> actionList = actionDAO.findAll();
@@ -31,7 +34,7 @@ public class ScoreService {
         return scoresMinimum;
     }
 
-    public Map<Integer, Integer> getCountScoreForApprenant(Integer numApprenant) {
+    public Map<Integer, Integer> getCountScoreObjectifForApprenant(Integer numApprenant) {
         List<Objectif> objectifList = objectifDAO.findAll();
         Map<Integer, Integer> countScore = Collections.synchronizedMap(new HashMap<>());
         objectifList.forEach(objectif ->
@@ -171,5 +174,39 @@ public class ScoreService {
                 }
         );
         return stats;
+    }
+
+    public Map<Integer, Integer> getCountScoreFailureForMissionsForApprenant(Integer numApprenant) {
+        List<Objectif> objectifList = objectifDAO.findAll();
+        Map<Integer, Integer> countObjectifFailure = Collections.synchronizedMap(new HashMap<>());
+        objectifList.forEach(objectif -> {
+            if (!countObjectifFailure.containsKey(objectif.getNumobjectif()))
+                countObjectifFailure.put(objectif.getNumobjectif(), estAssocieDAO.getCountScoreFailureActionByObjectifAndApprenant(objectif.getNumobjectif(), numApprenant));
+        });
+        Map<Integer, Integer> countMissionFailure = Collections.synchronizedMap(new HashMap<>());
+        List<Mission> missionList = missionDAO.findAll();
+        if (missionList != null)
+            missionList.forEach(mission -> {
+                List<Integer> objectifs = fixeDAO.findFixesByNummission(mission.getNummission()).stream().map(Fixe::getNumobjectif).collect(Collectors.toList());
+                countMissionFailure.put(mission.getNummission(), countObjectifFailure.entrySet().stream().filter(integerIntegerEntry -> objectifs.contains(integerIntegerEntry.getKey())).mapToInt(value -> countObjectifFailure.get(value.getKey())).sum());
+            });
+        return countMissionFailure;
+    }
+
+    public Map<Integer, Integer> getCountScoreMissionForApprenant(Integer numApprenant) {
+        List<Objectif> objectifList = objectifDAO.findAll();
+        Map<Integer, Integer> countObjectif = Collections.synchronizedMap(new HashMap<>());
+        objectifList.forEach(objectif -> {
+            if (!countObjectif.containsKey(objectif.getNumobjectif()))
+                countObjectif.put(objectif.getNumobjectif(), estAssocieDAO.getCountScoreActionByObjectifAndApprenant(objectif.getNumobjectif(), numApprenant));
+        });
+        Map<Integer, Integer> countMission = Collections.synchronizedMap(new HashMap<>());
+        List<Mission> missionList = missionDAO.findAll();
+        if (missionList != null)
+            missionList.forEach(mission -> {
+                List<Integer> objectifs = fixeDAO.findFixesByNummission(mission.getNummission()).stream().map(Fixe::getNumobjectif).collect(Collectors.toList());
+                countMission.put(mission.getNummission(), ((Long) countObjectif.entrySet().stream().filter(integerIntegerEntry -> objectifs.contains(integerIntegerEntry.getKey())).count()).intValue());
+            });
+        return countMission;
     }
 }
