@@ -205,7 +205,14 @@ public class ScoreService {
         if (missionList != null)
             missionList.forEach(mission -> {
                 List<Integer> objectifs = fixeDAO.findFixesByNummission(mission.getNummission()).stream().map(Fixe::getNumobjectif).collect(Collectors.toList());
-                countMission.put(mission.getNummission(), ((Long) countObjectif.entrySet().stream().filter(integerIntegerEntry -> objectifs.contains(integerIntegerEntry.getKey())).count()).intValue());
+                Integer count = ((Long) countObjectif.entrySet().stream()
+                        .filter(integerIntegerEntry ->
+                                        objectifs.contains(integerIntegerEntry.getKey())
+                                                && integerIntegerEntry.getValue().equals(estAssocieDAO.findEstassociesByNumobjectif(integerIntegerEntry.getKey()).size())
+                        )
+                        .count()).intValue();
+                countMission.put(mission.getNummission(),
+                        count);
             });
         return countMission;
     }

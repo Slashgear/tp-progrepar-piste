@@ -10,10 +10,8 @@
         <c:if test="${not empty apprenant}">
             <c:choose>
                 <c:when test="${
-
  not empty statsMissions.get(mission.nummission)
- and not empty countScoreMission
- and countScoreMission.get(mission.nummission) == mission.getFixesByNummission().size()}">&nbsp;
+ and not empty countScoreMission}">&nbsp;
                     <c:choose>
                         <c:when test="${statsMissionsFailure.get(mission.nummission) != 0 || statsMissions.get(mission.nummission) < 10}">
 <span class="label label-danger">
@@ -23,6 +21,9 @@
                       value="${statsMissions.get(mission.nummission)}"/>/20
     : Mission non validée
 </span>
+                        </c:when>
+                        <c:when test="${countScoreMission.get(mission.nummission) != mission.getFixesByNummission().size()}">
+                            <span class="label label-info">Note(s) manquante(s)</span>
                         </c:when>
                         <c:otherwise>
 <span class="label label-success">

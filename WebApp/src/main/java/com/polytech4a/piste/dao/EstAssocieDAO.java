@@ -45,7 +45,7 @@ public interface EstAssocieDAO extends JpaRepository<EstAssocie, Integer> {
     Double getAvgActionByObjectifAndApprenant(@Param(value = "numObjectif") Integer numObjectif,
                                               @Param(value = "numApprenant") Integer numApprenant);
 
-    @Query("select count(o.valeur) from EstAssocie ea, " +
+    @Query("select count(distinct o.numaction) from EstAssocie ea, " +
             "Obtient o " +
             "where ea.numobjectif = :numObjectif " +
             "and ea.numaction = o.numaction ")
