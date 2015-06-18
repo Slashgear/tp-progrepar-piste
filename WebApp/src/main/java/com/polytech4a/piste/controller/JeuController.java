@@ -193,6 +193,7 @@ public class JeuController {
 
         pModel.addAttribute("aValide", jeuService.getAValideApprenantJeu(id, numApprenant));
         pModel.addAttribute("aNonValide", jeuService.getANonValideApprenantJeu(id, numApprenant));
+        pModel.addAttribute("idJeu", jeu.getNumjeu());
 
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }

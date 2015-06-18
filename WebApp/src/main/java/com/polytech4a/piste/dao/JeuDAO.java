@@ -57,4 +57,7 @@ public interface JeuDAO extends JpaRepository<Jeu, Integer> {
     @Query("select distinct i.apprenantByNumapprenant from Jeu as j inner join j.inscriptionsByNumjeu as i where j.id=:idJeu")
     List<Apprenant> getInscritByJeu(@Param("idJeu") Integer idJeu);
 
+    @Query("select j from Jeu j inner join j.missionsByNumjeu m inner join m.fixesByNummission f inner join f.objectifByNumobjectif o inner join o.estAssociesByNumobjectif ea inner join ea.actionByNumaction a where a.numaction = :idAction")
+    List<Jeu> findJeuByIdAction(@Param("idAction") Integer idAction);
+
 }

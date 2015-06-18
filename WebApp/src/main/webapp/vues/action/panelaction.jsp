@@ -9,7 +9,7 @@
             <c:when test="${not empty scoresActions.get(estAssocie.actionByNumaction.numaction)}">
                 <c:choose>
                     <c:when test="${scoresActions.get(estAssocie.actionByNumaction.numaction) < scoresMinimum.get(estAssocie.actionByNumaction.numaction)}">
-                        <a href="/obtient/${apprenant.numapprenant}/action/${estAssocie.actionByNumaction.numaction}/modifier"
+                        <a href="/obtient/${apprenant.numapprenant}/action/${estAssocie.actionByNumaction.numaction}/jeu/${idJeu}/modifier"
                            class="label label-danger pull-right" data-toggle="tooltip"
                            data-placement="right" title="Modifier la note">
                             <fmt:formatNumber
@@ -23,7 +23,7 @@
                     </c:when>
                     <c:otherwise>
                         &nbsp;
-                        <a href="/obtient/${apprenant.numapprenant}/action/${estAssocie.actionByNumaction.numaction}/modifier"
+                        <a href="/obtient/${apprenant.numapprenant}/action/${estAssocie.actionByNumaction.numaction}/jeu/${idJeu}/modifier"
                            class="label label-success pull-right" data-toggle="tooltip"
                            data-placement="right" title="Modifier la note">
                             <fmt:formatNumber
@@ -36,7 +36,7 @@
                 </c:choose>
             </c:when>
             <c:otherwise>
-                <a href="/obtient/${apprenant.numapprenant}/action/${estAssocie.actionByNumaction.numaction}/ajout"
+                <a href="/obtient/${apprenant.numapprenant}/action/${estAssocie.actionByNumaction.numaction}/jeu/${idJeu}/ajout"
                    class="label label-primary pull-right">
                     Saisir une note</a>
             </c:otherwise>
