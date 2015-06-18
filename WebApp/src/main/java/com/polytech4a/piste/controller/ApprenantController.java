@@ -113,6 +113,8 @@ public class ApprenantController {
     public String submitAddForm(final ModelMap pModel,
                                 @RequestParam("nomApprenant") String nom,
                                 @RequestParam("prenomApprenant") String prenom) {
+        prenom = prenom.length() > 25 ? prenom.substring(0, 24) : prenom;
+        nom = nom.length() > 25 ? nom.substring(0, 24) : nom;
         Apprenant apprenant = new Apprenant();
         apprenant.setNomapprenant(StringUtils.capitalize(StringUtils.lowerCase(nom)));
         apprenant.setPrenomapprenant(StringUtils.capitalize(StringUtils.lowerCase(prenom)));
@@ -129,6 +131,8 @@ public class ApprenantController {
                                    @PathVariable(value = "id") int id,
                                    @RequestParam("nomApprenant") String nom,
                                    @RequestParam("prenomApprenant") String prenom) {
+        prenom = prenom.length() > 25 ? prenom.substring(0, 24) : prenom;
+        nom = nom.length() > 25 ? nom.substring(0, 24) : nom;
         Apprenant apprenant = apprenantDAO.findOne(id);
         apprenant.setNomapprenant(StringUtils.capitalize(StringUtils.lowerCase(nom)));
         apprenant.setPrenomapprenant(StringUtils.capitalize(StringUtils.lowerCase(prenom)));

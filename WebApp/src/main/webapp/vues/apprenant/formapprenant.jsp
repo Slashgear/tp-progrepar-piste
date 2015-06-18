@@ -13,7 +13,7 @@
                     <div class="col-lg-10">
                         <input type="text" class="form-control" name="prenomApprenant" id="prenomApprenant"
                                placeholder="Prénom de l'apprenant"
-                               value="${prenomApprenant}">
+                               value="${prenomApprenant}" size="25">
                     </div>
                 </div>
                 <div class="form-group">
@@ -21,7 +21,7 @@
 
                     <div class="col-lg-10">
                         <input type="text" class="form-control" name="nomApprenant" id="nomApprenant" placeholder="Nom de l'apprenant"
-                               value="${nomApprenant}">
+                               value="${nomApprenant}" size="25">
                     </div>
                 </div>
                 <div class="form-group">

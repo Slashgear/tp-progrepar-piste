@@ -95,6 +95,8 @@ public class ObtientController {
                                @PathVariable(value = "idAction") Integer idAction,
                                @PathVariable(value = "idJeu") Integer idJeu,
                                @RequestParam("note") Integer note) {
+        note = note > 20 ? 20 : note;
+        note = note < 0 ? 0 : note;
         Obtient obtient = new Obtient();
         obtient.setActionByNumaction(actionDAO.findOne(idAction));
         obtient.setNumaction(idAction);
@@ -118,6 +120,8 @@ public class ObtientController {
                                   @PathVariable(value = "idAction") Integer idAction,
                                   @PathVariable(value = "idJeu") Integer idJeu,
                                   @RequestParam("note") Integer note) {
+        note = note > 20 ? 20 : note;
+        note = note < 0 ? 0 : note;
         Obtient obtient = obtientDAO.findByNumapprenantAndNumaction(idApprenant, idAction);
         obtient.setActionByNumaction(actionDAO.findOne(idAction));
         obtient.setNumaction(idAction);

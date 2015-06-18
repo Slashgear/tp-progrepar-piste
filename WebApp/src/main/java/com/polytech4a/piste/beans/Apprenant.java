@@ -11,6 +11,7 @@ import java.util.Collection;
  */
 @Entity
 public class Apprenant {
+
     private Integer numapprenant;
     private String nomapprenant;
     private String prenomapprenant;
@@ -19,6 +20,7 @@ public class Apprenant {
 
     @Id
     @Column(name = "NUMAPPRENANT")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Integer getNumapprenant() {
         return numapprenant;
     }
