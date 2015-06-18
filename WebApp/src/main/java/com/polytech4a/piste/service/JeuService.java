@@ -2,6 +2,7 @@ package com.polytech4a.piste.service;
 
 import com.polytech4a.piste.beans.Apprenant;
 import com.polytech4a.piste.beans.Jeu;
+import com.polytech4a.piste.beans.Mission;
 import com.polytech4a.piste.beans.Objectif;
 import com.polytech4a.piste.dao.EstAssocieDAO;
 import com.polytech4a.piste.dao.FixeDAO;
@@ -96,16 +97,11 @@ public class JeuService {
     }
 
     public Boolean getANonValideApprenantJeu(Integer numJeu, Integer numApprenant) {
-        List<Object[]> actionList = jeuDAO.getActionScoreMinByJeu(numJeu);
-        Map<Integer, Integer> actionScoreMin = Collections.synchronizedMap(new HashMap<>());
-        actionList.forEach(action1 -> actionScoreMin.put((Integer) action1[0], (Integer) action1[1]));
+        List<Mission> missionList = missionDAO.findMissionsByNumjeu(numJeu);
+        Map<Integer, Integer> missionScoreFailure = scoreService.getCountScoreFailureForMissionsForApprenant(numApprenant);
+        for (Mission mission : missionList)
+            if (missionScoreFailure.get(mission.getNummission()) != 0) return Boolean.TRUE;
 
-        Map<Integer, Integer> scoresApprenant = scoreService.getScoreForApprenant(numApprenant);
-        if (actionList.size() ==
-                scoresApprenant.entrySet().stream()
-                        .filter(integerIntegerEntry -> actionScoreMin.containsKey(integerIntegerEntry.getKey()) &&
-                                actionScoreMin.get(integerIntegerEntry.getKey()) > integerIntegerEntry.getValue()).count())
-            return Boolean.TRUE;
         return Boolean.FALSE;
     }
 
