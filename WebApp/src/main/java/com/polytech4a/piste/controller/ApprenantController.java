@@ -67,9 +67,6 @@ public class ApprenantController {
 
             pModel.addAttribute("listeApprenants", listApprenants);
             pModel.addAttribute("action", "apprenant/ajout");
-        } else {
-            //return ErrorPage.newError(pModel, "Aucun Apprenant trouvé!", DIR_VIEW);
-            return ErrorPage.new404Error();
         }
         return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
