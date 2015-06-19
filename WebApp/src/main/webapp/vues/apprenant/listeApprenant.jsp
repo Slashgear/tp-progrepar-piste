@@ -19,6 +19,8 @@
                 <strong>${success}</strong>
             </div>
         </c:if>
+    </div>
+    <div id="grid" class="row">
         <c:forEach items="${listeApprenants}" var="apprenant">
             <div class="col-md-4 col-sm-6">
                 <div class="well infobox">
@@ -57,6 +59,7 @@
         </div>
     </div>
 </div>
+<%@ include file="../common/sortable.jsp"%>
 <script type="application/javascript">
     $('#modal_confirm').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget)

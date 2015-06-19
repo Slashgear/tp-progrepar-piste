@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<link href="/resources/js/dropdown.js/jquery.dropdown.css" rel="stylesheet"/>
+<link href="/resources/lib/dropdown.js/jquery.dropdown.css" rel="stylesheet"/>
 <div class="container">
     <div class="row">
         <h1><c:out value="${apprenant.prenomapprenant}"/> <c:out value="${apprenant.nomapprenant}"/></h1>
@@ -78,7 +78,7 @@
         </c:if>
     </div>
 </div>
-<script src="/resources/js/dropdown.js/jquery.dropdown.js"></script>
+<script src="/resources/lib/dropdown.js/jquery.dropdown.js"></script>
 <script>
     $(document).ready(function () {
         $(".select").dropdown({"optionClass": "withripple"});
