@@ -15,3 +15,7 @@
     font-family: Material-Design-Icons;
     content: "\e7bd";
 }
+
+#grid div {
+    cursor: move;
+}
