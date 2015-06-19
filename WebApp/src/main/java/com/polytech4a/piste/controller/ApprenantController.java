@@ -57,17 +57,15 @@ public class ApprenantController {
     @RequestMapping(method = RequestMethod.GET)
     public String displayList(final ModelMap pModel) {
         List<Apprenant> listApprenants = apprenantDAO.findAll();
-        if (!listApprenants.isEmpty()) {
+        // Breadcrumb set up
+        Breadcrumb breadcrumbList = new Breadcrumb(
+                new BreadcrumbItem("Accueil", ""),
+                new BreadcrumbItem("Apprenants"));
+        Breadcrumb.addToModel(pModel, breadcrumbList);
 
-            // Breadcrumb set up
-            Breadcrumb breadcrumbList = new Breadcrumb(
-                    new BreadcrumbItem("Accueil", ""),
-                    new BreadcrumbItem("Apprenants"));
-            Breadcrumb.addToModel(pModel, breadcrumbList);
+        pModel.addAttribute("listeApprenants", listApprenants);
+        pModel.addAttribute("actionbutton", "apprenant/ajout");
 
-            pModel.addAttribute("listeApprenants", listApprenants);
-            pModel.addAttribute("action", "apprenant/ajout");
-        }
         return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
 
@@ -82,7 +80,7 @@ public class ApprenantController {
 
         pModel.addAttribute("legend", "Ajout d'un apprenant");
         pModel.addAttribute("confirmButtonLabel", "Ajouter");
-        pModel.addAttribute("action", "apprenant/ajout");
+        pModel.addAttribute("actionbutton", "apprenant/ajout");
         return String.format("%s/%s", DIR_VIEW, FORM_VIEW);
     }
 
@@ -102,7 +100,7 @@ public class ApprenantController {
         pModel.addAttribute("prenomApprenant", apprenant.getPrenomapprenant());
         pModel.addAttribute("legend", "Modification d'un apprenant");
         pModel.addAttribute("confirmButtonLabel", "Modifier");
-        pModel.addAttribute("action", "apprenant/modifier/" + id);
+        pModel.addAttribute("actionbutton", "apprenant/modifier/" + id);
         return String.format("%s/%s", DIR_VIEW, FORM_VIEW);
     }
 
@@ -116,7 +114,7 @@ public class ApprenantController {
         apprenant.setNomapprenant(StringUtils.capitalize(StringUtils.lowerCase(nom)));
         apprenant.setPrenomapprenant(StringUtils.capitalize(StringUtils.lowerCase(prenom)));
         if (apprenantDAO.save(apprenant) != null) {
-            pModel.addAttribute("success", "Apprenant a été créé avec succès.");
+            pModel.addAttribute("success", String.format("L'apprenant %s %s a été créé avec succès.", prenom, nom));
         } else {
             pModel.addAttribute("error", "Echec lors de la création de l'apprenant.");
         }
@@ -134,7 +132,7 @@ public class ApprenantController {
         apprenant.setNomapprenant(StringUtils.capitalize(StringUtils.lowerCase(nom)));
         apprenant.setPrenomapprenant(StringUtils.capitalize(StringUtils.lowerCase(prenom)));
         if (apprenantDAO.save(apprenant) != null) {
-            pModel.addAttribute("success", "Apprenant n°" + id + " a été modfié avec succès.");
+            pModel.addAttribute("success", String.format("L'apprenant %s %s a été modifié avec succès.", prenom, nom));
         } else {
             pModel.addAttribute("error", "Echec lors de la modification de l'apprenant.");
         }
@@ -149,7 +147,7 @@ public class ApprenantController {
             obtientDAO.findByNumapprenant(id).forEach(obtientDAO::delete);
             inscriptionDAO.deleteByNumapprenant(id);
             apprenantDAO.delete(id);
-            pModel.addAttribute("isDeleted", "Apprenant n°" + id + " a été supprimé avec succès.");
+            pModel.addAttribute("isDeleted", String.format("L'apprenant %s %s a été supprimé avec succès.", apprenant.getPrenomapprenant(), apprenant.getNomapprenant()));
             return displayList(pModel);
         } else {
             //return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", id), DIR_VIEW);

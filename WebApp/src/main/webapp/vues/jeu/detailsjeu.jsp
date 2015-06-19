@@ -45,8 +45,9 @@
         </div>
         <div class="col-lg-6">
 
-            <h2>Détails<c:if test="${not empty apprenant}"> pour l'apprenant : <c:out
-                    value="${apprenant.prenomapprenant} ${apprenant.nomapprenant}"/></c:if></h2>
+            <h2>Détails<c:if test="${not empty apprenant}"> pour l'apprenant : <a
+                    href="/apprenant/${apprenant.numapprenant}"><c:out
+                    value="${apprenant.prenomapprenant} ${apprenant.nomapprenant}"/></a></c:if></h2>
 
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                 <div class="panel panel-default">

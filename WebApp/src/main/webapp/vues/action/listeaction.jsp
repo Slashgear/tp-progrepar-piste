@@ -7,7 +7,7 @@
     <div class="row">
         <h1>Liste des actions</h1>
         <c:if test="${empty listeActions}">
-            <div class="alert alert-info">
+            <div class="alert alert-warning">
                 Aucune action trouvée.
             </div>
         </c:if>

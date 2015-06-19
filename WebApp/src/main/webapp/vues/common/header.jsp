@@ -29,6 +29,8 @@
       <a class="navbar-brand" href="/">Permis piste</a>
     </div>
     <div class="navbar-collapse collapse navbar-inverse-collapse">
+      <%@include file="navbar.jsp" %>
+      <!--
       <ul class="nav navbar-nav">
         <li class="dropdown">
           <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Apprenants <span
@@ -51,6 +53,7 @@
           </ul>
         </li>
       </ul>
+      -->
     </div>
   </div>
   <%@include file="headercomponents/breadcrumb.jsp" %>
