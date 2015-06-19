@@ -13,6 +13,8 @@
                 <h2>Résumé</h2>
             </div>
         </div>
+    </div>
+    <div id="grid" class="row">
         <c:if test="${not empty showinsc}">
             <div class="col-md-6">
                 <div class="well">
@@ -68,7 +70,10 @@
                                             </c:otherwise>
                                         </c:choose>
                                     </a>
-                                    <a href="/jeu/${jeu.numjeu}" class="btn btn-flat btn-default" data-toggle="tooltip" data-placement="top" title="" data-original-title="Informations générales du jeu"><i class="mdi-action-info-outline"></i></a>
+                                    <a href="/jeu/${jeu.numjeu}" class="btn btn-flat btn-default" data-toggle="tooltip"
+                                       data-placement="top" title=""
+                                       data-original-title="Informations générales du jeu"><i
+                                            class="mdi-action-info-outline"></i></a>
                                 </div>
                             </div>
                         </c:forEach>
@@ -78,6 +83,7 @@
         </c:if>
     </div>
 </div>
+<%@ include file="../common/sortable.jsp" %>
 <script src="/resources/lib/dropdown.js/jquery.dropdown.js"></script>
 <script>
     $(document).ready(function () {

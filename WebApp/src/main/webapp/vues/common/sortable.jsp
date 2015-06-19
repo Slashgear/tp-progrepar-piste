@@ -5,7 +5,6 @@
     $("#grid").sortable({
       tolerance: 'pointer',
       revert: 'invalid',
-      placeholder: 'col-md-4 col-sm-6',
       forceHelperSize: true
     });
   });
