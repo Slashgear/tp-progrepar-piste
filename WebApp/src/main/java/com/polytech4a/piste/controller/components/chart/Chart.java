@@ -91,6 +91,8 @@ public class Chart {
         switch (chartType) {
             case PIE:
                 return data.stream().anyMatch(data1 -> !"0".equals(data1.getValue()));
+            case COLUMN:
+                return data.stream().anyMatch(data1 -> !"0".equals(data1.getValue()));
             default:
                 return Boolean.TRUE;
         }
