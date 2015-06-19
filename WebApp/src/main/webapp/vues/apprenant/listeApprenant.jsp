@@ -6,6 +6,7 @@
 
 <div class="container">
     <div class="row">
+        <h1>Liste des apprenants<c:if test="${empty listeApprenants}"> (vide)</c:if></h1>
         <c:if test="${not empty isDeleted}">
             <div class="alert alert-dismissable alert-success">
                 <button type="button" class="close" data-dismiss="alert">×</button>
