@@ -114,7 +114,7 @@ public class ApprenantController {
         apprenant.setNomapprenant(StringUtils.capitalize(StringUtils.lowerCase(nom)));
         apprenant.setPrenomapprenant(StringUtils.capitalize(StringUtils.lowerCase(prenom)));
         if (apprenantDAO.save(apprenant) != null) {
-            pModel.addAttribute("success", "Apprenant a été créé avec succès.");
+            pModel.addAttribute("success", String.format("L'apprenant %s %s a été créé avec succès.", prenom, nom));
         } else {
             pModel.addAttribute("error", "Echec lors de la création de l'apprenant.");
         }
@@ -132,7 +132,7 @@ public class ApprenantController {
         apprenant.setNomapprenant(StringUtils.capitalize(StringUtils.lowerCase(nom)));
         apprenant.setPrenomapprenant(StringUtils.capitalize(StringUtils.lowerCase(prenom)));
         if (apprenantDAO.save(apprenant) != null) {
-            pModel.addAttribute("success", "Apprenant n°" + id + " a été modfié avec succès.");
+            pModel.addAttribute("success", String.format("L'apprenant %s %s a été modifié avec succès.", prenom, nom));
         } else {
             pModel.addAttribute("error", "Echec lors de la modification de l'apprenant.");
         }
@@ -147,7 +147,7 @@ public class ApprenantController {
             obtientDAO.findByNumapprenant(id).forEach(obtientDAO::delete);
             inscriptionDAO.deleteByNumapprenant(id);
             apprenantDAO.delete(id);
-            pModel.addAttribute("isDeleted", "Apprenant n°" + id + " a été supprimé avec succès.");
+            pModel.addAttribute("isDeleted", String.format("L'apprenant %s %s a été supprimé avec succès.", apprenant.getPrenomapprenant(), apprenant.getNomapprenant()));
             return displayList(pModel);
         } else {
             //return ErrorPage.newError(pModel, String.format("Apprenant n°%s non trouvée !", id), DIR_VIEW);
