@@ -57,17 +57,15 @@ public class ApprenantController {
     @RequestMapping(method = RequestMethod.GET)
     public String displayList(final ModelMap pModel) {
         List<Apprenant> listApprenants = apprenantDAO.findAll();
-        if (!listApprenants.isEmpty()) {
+        // Breadcrumb set up
+        Breadcrumb breadcrumbList = new Breadcrumb(
+                new BreadcrumbItem("Accueil", ""),
+                new BreadcrumbItem("Apprenants"));
+        Breadcrumb.addToModel(pModel, breadcrumbList);
 
-            // Breadcrumb set up
-            Breadcrumb breadcrumbList = new Breadcrumb(
-                    new BreadcrumbItem("Accueil", ""),
-                    new BreadcrumbItem("Apprenants"));
-            Breadcrumb.addToModel(pModel, breadcrumbList);
+        pModel.addAttribute("listeApprenants", listApprenants);
+        pModel.addAttribute("actionbutton", "apprenant/ajout");
 
-            pModel.addAttribute("listeApprenants", listApprenants);
-            pModel.addAttribute("action", "apprenant/ajout");
-        }
         return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
 
@@ -82,7 +80,7 @@ public class ApprenantController {
 
         pModel.addAttribute("legend", "Ajout d'un apprenant");
         pModel.addAttribute("confirmButtonLabel", "Ajouter");
-        pModel.addAttribute("action", "apprenant/ajout");
+        pModel.addAttribute("actionbutton", "apprenant/ajout");
         return String.format("%s/%s", DIR_VIEW, FORM_VIEW);
     }
 
@@ -102,7 +100,7 @@ public class ApprenantController {
         pModel.addAttribute("prenomApprenant", apprenant.getPrenomapprenant());
         pModel.addAttribute("legend", "Modification d'un apprenant");
         pModel.addAttribute("confirmButtonLabel", "Modifier");
-        pModel.addAttribute("action", "apprenant/modifier/" + id);
+        pModel.addAttribute("actionbutton", "apprenant/modifier/" + id);
         return String.format("%s/%s", DIR_VIEW, FORM_VIEW);
     }
 
