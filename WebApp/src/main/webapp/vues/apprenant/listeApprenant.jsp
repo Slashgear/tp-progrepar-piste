@@ -43,7 +43,7 @@
 <footer class="footer">
     <div class="container">
         <div class="pull-right">
-            <%@include file="/vues/common/floatingactionbutton.jsp"%>
+            <%@include file="../common/floatingactionbutton.jsp" %>
         </div>
     </div>
 </footer>

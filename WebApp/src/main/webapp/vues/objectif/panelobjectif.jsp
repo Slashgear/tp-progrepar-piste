@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
          pageEncoding="UTF-8" %>
-<h4><a href="action/objectif/<c:out value="${objectif.numobjectif}"/>">
+<h4><a href="objectif/<c:out value="${objectif.numobjectif}"/>">
     Objectif : <c:out value="${objectif.objectifByNumobjectif.libobectif}"/></a>
     <c:if test="${not empty apprenant}">
         <c:choose>
