@@ -18,6 +18,7 @@ import com.polytech4a.piste.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,7 +41,9 @@ public class JeuController {
 
     private static final String LIST_VIEW = "listejeu";
     private static final String DETAILS_VIEW = "detailsjeu";
-    private static final String DETAILS_FOR_APPRENANT_VIEW = "detailsjeupourapprenant";
+
+    private static final String SEARCH_URL = "jeu/rechercher";
+    private static final String SEARCH_LABEL = "Rechercher un jeu";
 
     @Autowired
     private JeuDAO jeuDAO;
@@ -117,6 +120,8 @@ public class JeuController {
         Random random = new Random();
         pieChart3.data.add(new Data("Mieux réussi que les autres", random.nextInt(30)));
         pieChart3.data.add(new Data("Moins bien réussi que les autres", random.nextInt(30)));
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
 
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
@@ -209,6 +214,8 @@ public class JeuController {
         pModel.addAttribute("aValide", jeuService.getAValideApprenantJeu(id, numApprenant));
         pModel.addAttribute("aNonValide", jeuService.getANonValideApprenantJeu(id, numApprenant));
         pModel.addAttribute("idJeu", jeu.getNumjeu());
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
 
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
@@ -225,6 +232,29 @@ public class JeuController {
                 new BreadcrumbItem("Accueil", ""),
                 new BreadcrumbItem("Jeux"));
         Breadcrumb.addToModel(pModel, breadcrumbList);
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
+
+        return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
+    }
+
+    @RequestMapping(value = "rechercher", method = RequestMethod.POST)
+    public String displaySearchResult(final ModelMap pModel, @ModelAttribute(value = "label") String label) {
+        List<Jeu> jeux = jeuDAO.findByLabel(label);
+
+        // Attributes
+        pModel.addAttribute("jeux", jeux);
+
+        // Breadcrumb set up
+        Breadcrumb breadcrumbList = new Breadcrumb(
+                new BreadcrumbItem("Accueil", ""),
+                new BreadcrumbItem("Jeux", "jeu"),
+                new BreadcrumbItem(String.format("Recherche : %s", label)));
+        Breadcrumb.addToModel(pModel, breadcrumbList);
+
+        pModel.addAttribute("label", label);
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
 
         return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }

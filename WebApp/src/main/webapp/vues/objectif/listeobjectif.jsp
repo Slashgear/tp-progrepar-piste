@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
     <div class="row">
-        <h1>Liste des objectifs</h1>
+        <h1>Liste des objectifs<c:if test="${not empty label}"> pour : <c:out value="${label}"/></c:if></h1>
         <c:if test="${empty objectifs}">
             <div class="alert alert-warning">
                 <h4><strong>Aucun objectif trouvé.</strong></h4>

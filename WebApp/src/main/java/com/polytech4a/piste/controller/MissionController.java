@@ -12,6 +12,7 @@ import com.polytech4a.piste.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +32,9 @@ public class MissionController {
 
     private static final String LIST_VIEW = "listemission";
     private static final String DETAILS_VIEW = "detailsmission";
+
+    private static final String SEARCH_URL = "mission/rechercher";
+    private static final String SEARCH_LABEL = "Rechercher une mission";
 
     @Autowired
     private MissionDAO missionDAO;
@@ -54,6 +58,8 @@ public class MissionController {
                 new BreadcrumbItem("Accueil", ""),
                 new BreadcrumbItem("Missions"));
         Breadcrumb.addToModel(pModel, breadcrumbList);
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
 
         return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
@@ -97,6 +103,30 @@ public class MissionController {
         pModel.addAttribute("actionNb", missionDAO.getNumberofActionbyMission(missionId));
         pModel.addAttribute("objectifNb", missionDAO.getNumberofObjectifByMission(missionId));
         pModel.addAttribute("apprenantNb", apprenantDAO.findAll().size());
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
+    }
+
+    @RequestMapping(value = "rechercher", method = RequestMethod.POST)
+    public String displaySearchResult(final ModelMap pModel, @ModelAttribute(value = "label") String label) {
+        List<Mission> missionList = new ArrayList<>();
+        missionList.addAll(missionDAO.findByLabel(label));
+
+        // Attributes
+        pModel.addAttribute("missions", missionList);
+
+        // Breadcrumb set up
+        Breadcrumb breadcrumbList = new Breadcrumb(
+                new BreadcrumbItem("Accueil", ""),
+                new BreadcrumbItem("Missions", "mission"),
+                new BreadcrumbItem(String.format("Recherche : %s", label)));
+        Breadcrumb.addToModel(pModel, breadcrumbList);
+
+        pModel.addAttribute("label", label);
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
+
+        return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
 }

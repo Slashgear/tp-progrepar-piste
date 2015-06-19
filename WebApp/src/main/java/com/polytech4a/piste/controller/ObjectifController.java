@@ -12,6 +12,7 @@ import com.polytech4a.piste.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -31,6 +32,9 @@ public class ObjectifController {
 
     private static final String LIST_VIEW = "listeobjectif";
     private static final String DETAILS_VIEW = "detailsobjectif";
+
+    private static final String SEARCH_URL = "objectif/rechercher";
+    private static final String SEARCH_LABEL = "Rechercher un objectif";
 
     @Autowired
     private ObjectifDAO objectifDAO;
@@ -54,6 +58,8 @@ public class ObjectifController {
                 new BreadcrumbItem("Accueil", ""),
                 new BreadcrumbItem("Objectifs"));
         Breadcrumb.addToModel(pModel, breadcrumbList);
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
 
         return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
@@ -96,6 +102,30 @@ public class ObjectifController {
 
         pModel.addAttribute("actionNb", objectifDAO.getNumberofActionbyObjectif(objectifId));
         pModel.addAttribute("apprenantNb", apprenantDAO.findAll().size());
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
+    }
+
+    @RequestMapping(value = "rechercher", method = RequestMethod.POST)
+    public String displaySearchResult(final ModelMap pModel, @ModelAttribute(value = "label") String label) {
+        List<Objectif> objectifList = new ArrayList<>();
+        objectifList.addAll(objectifDAO.findByLabel(label));
+
+        // Attributes
+        pModel.addAttribute("objectifs", objectifList);
+
+        // Breadcrumb set up
+        Breadcrumb breadcrumbList = new Breadcrumb(
+                new BreadcrumbItem("Accueil", ""),
+                new BreadcrumbItem("Objectifs", "objectif"),
+                new BreadcrumbItem(String.format("Recherche : %s", label)));
+        Breadcrumb.addToModel(pModel, breadcrumbList);
+
+        pModel.addAttribute("label", label);
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
+
+        return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
 }

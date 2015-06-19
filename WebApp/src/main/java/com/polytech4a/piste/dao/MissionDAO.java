@@ -50,4 +50,7 @@ public interface MissionDAO extends JpaRepository<Mission, Integer> {
             "inner join o.estAssociesByNumobjectif as e " +
             "inner join e.actionByNumaction a where m.nummission = :numMission")
     Integer getNumberofActionbyMission(@Param("numMission") Integer numMission);
+
+    @Query("from Mission m where m.libmission like concat('%', concat(:label, '%'))")
+    List<Mission> findByLabel(@Param("label") String label);
 }

@@ -60,4 +60,6 @@ public interface JeuDAO extends JpaRepository<Jeu, Integer> {
     @Query("select j from Jeu j inner join j.missionsByNumjeu m inner join m.fixesByNummission f inner join f.objectifByNumobjectif o inner join o.estAssociesByNumobjectif ea inner join ea.actionByNumaction a where a.numaction = :idAction")
     List<Jeu> findJeuByIdAction(@Param("idAction") Integer idAction);
 
+    @Query("from Jeu j where j.libellejeu like concat('%', concat(:label, '%'))")
+    List<Jeu> findByLabel(@Param("label") String label);
 }

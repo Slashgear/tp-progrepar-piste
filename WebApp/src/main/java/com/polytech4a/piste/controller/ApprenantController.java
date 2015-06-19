@@ -17,10 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,6 +39,9 @@ public class ApprenantController {
     private static final String LIST_VIEW = "listeApprenant";
     private static final String FORM_VIEW = "formapprenant";
     private static final String DETAILS_VIEW = "detailsapprenant";
+
+    private static final String SEARCH_URL = "apprenant/rechercher";
+    private static final String SEARCH_LABEL = "Rechercher un apprenant";
 
     @Autowired
     private ApprenantDAO apprenantDAO;
@@ -66,6 +66,9 @@ public class ApprenantController {
         pModel.addAttribute("listeApprenants", listApprenants);
         pModel.addAttribute("actionbutton", "apprenant/ajout");
 
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
+
         return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
 
@@ -81,6 +84,10 @@ public class ApprenantController {
         pModel.addAttribute("legend", "Ajout d'un apprenant");
         pModel.addAttribute("confirmButtonLabel", "Ajouter");
         pModel.addAttribute("actionbutton", "apprenant/ajout");
+
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
+
         return String.format("%s/%s", DIR_VIEW, FORM_VIEW);
     }
 
@@ -101,6 +108,10 @@ public class ApprenantController {
         pModel.addAttribute("legend", "Modification d'un apprenant");
         pModel.addAttribute("confirmButtonLabel", "Modifier");
         pModel.addAttribute("actionbutton", "apprenant/modifier/" + id);
+
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
+
         return String.format("%s/%s", DIR_VIEW, FORM_VIEW);
     }
 
@@ -113,6 +124,10 @@ public class ApprenantController {
         Apprenant apprenant = new Apprenant();
         apprenant.setNomapprenant(StringUtils.capitalize(StringUtils.lowerCase(nom)));
         apprenant.setPrenomapprenant(StringUtils.capitalize(StringUtils.lowerCase(prenom)));
+
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
+
         if (apprenantDAO.save(apprenant) != null) {
             pModel.addAttribute("success", String.format("L'apprenant %s %s a été créé avec succès.", prenom, nom));
         } else {
@@ -136,6 +151,10 @@ public class ApprenantController {
         } else {
             pModel.addAttribute("error", "Echec lors de la modification de l'apprenant.");
         }
+
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
+
         return displayList(pModel);
     }
 
@@ -143,6 +162,10 @@ public class ApprenantController {
     @Transactional
     public String supprApprenant(final ModelMap pModel, @PathVariable(value = "id") Integer id) {
         Apprenant apprenant = apprenantDAO.findOne(id);
+
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
+
         if (apprenant != null) {
             obtientDAO.findByNumapprenant(id).forEach(obtientDAO::delete);
             inscriptionDAO.deleteByNumapprenant(id);
@@ -159,6 +182,10 @@ public class ApprenantController {
     public String detailApprenant(final ModelMap pModel,
                                   @PathVariable(value = "id") int id) {
         Apprenant apprenant = apprenantDAO.findOne(id);
+
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
+
         if (apprenant == null)
             return ErrorPage.new404Error();
         // Breadcrumb set up
@@ -189,6 +216,10 @@ public class ApprenantController {
     public String submitinscrireForm(final ModelMap pModel,
                                      @RequestParam("idApprenant") Integer idApprenant,
                                      @RequestParam("idJeu") Integer idJeu) {
+
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
+
         Inscription inscription = new Inscription();
         inscription.setJeuByNumjeu(jeuDAO.findOne(idJeu));
         inscription.setApprenantByNumapprenant(apprenantDAO.findOne(idApprenant));
@@ -196,5 +227,25 @@ public class ApprenantController {
         inscription.setNumapprenant(idApprenant);
         inscriptionDAO.save(inscription);
         return detailApprenant(pModel, idApprenant);
+    }
+
+    @RequestMapping(value = "rechercher", method = RequestMethod.POST)
+    public String displaySearchResult(final ModelMap pModel, @ModelAttribute(value = "label") String label) {
+        List<Apprenant> listApprenants = apprenantDAO.findByLabel(label);
+        // Breadcrumb set up
+        Breadcrumb breadcrumbList = new Breadcrumb(
+                new BreadcrumbItem("Accueil", ""),
+                new BreadcrumbItem("Apprenants", "apprenant"),
+                new BreadcrumbItem(String.format("Recherche : %s", label)));
+        Breadcrumb.addToModel(pModel, breadcrumbList);
+
+        pModel.addAttribute("listeApprenants", listApprenants);
+        pModel.addAttribute("actionbutton", "apprenant/ajout");
+
+        pModel.addAttribute("label", label);
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
+
+        return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
 }

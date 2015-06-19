@@ -1,7 +1,6 @@
 package com.polytech4a.piste.controller;
 
 import com.polytech4a.piste.beans.Action;
-import com.polytech4a.piste.beans.EstAssocie;
 import com.polytech4a.piste.controller.components.ErrorPage;
 import com.polytech4a.piste.controller.components.ReturnButton;
 import com.polytech4a.piste.controller.components.breadcrumb.Breadcrumb;
@@ -14,6 +13,7 @@ import com.polytech4a.piste.service.ScoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * @author Alexandre
@@ -34,6 +33,9 @@ public class ActionController {
 
     private static final String LIST_VIEW = "listeaction";
     private static final String DETAILS_VIEW = "detailsaction";
+
+    private static final String SEARCH_URL = "action/rechercher";
+    private static final String SEARCH_LABEL = "Rechercher une action";
 
     @Autowired
     private ActionDAO actionDAO;
@@ -66,6 +68,9 @@ public class ActionController {
                 new BreadcrumbItem("Accueil", ""),
                 new BreadcrumbItem("Actions"));
         Breadcrumb.addToModel(pModel, breadcrumbList);
+
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
 
         return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }
@@ -132,17 +137,16 @@ public class ActionController {
 
         pModel.addAttribute("pieChart", columnChartRepartition);
 
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
+
         return String.format("%s/%s", DIR_VIEW, DETAILS_VIEW);
     }
 
-    @RequestMapping(value = "objectif/{objectifId}", method = RequestMethod.GET)
-    public String displayListForObjectif(final ModelMap pModel, @PathVariable(value = "objectifId") Integer objectifId) {
-        if (objectifDAO.findOne(objectifId) == null)
-            return ErrorPage.newError(pModel, String.format("L'objectif n°%s n'a pas été trouvé !", objectifId));
-
+    @RequestMapping(value = "rechercher", method = RequestMethod.POST)
+    public String displaySearchResult(final ModelMap pModel, @ModelAttribute(value = "label") String label) {
         List<Action> actionList = new ArrayList<>();
-        List<EstAssocie> estAssocieList = estAssocieDAO.findEstassociesByNumobjectif(objectifId);
-        actionList.addAll(estAssocieList.stream().map(EstAssocie::getActionByNumaction).collect(Collectors.toList()));
+        actionList.addAll(actionDAO.findByLabel(label));
 
         // Attributes
         pModel.addAttribute("listeActions", actionList);
@@ -155,8 +159,12 @@ public class ActionController {
         Breadcrumb breadcrumbList = new Breadcrumb(
                 new BreadcrumbItem("Accueil", ""),
                 new BreadcrumbItem("Actions", "action"),
-                new BreadcrumbItem(String.format("Objectif #%s", objectifId)));
+                new BreadcrumbItem(String.format("Recherche : %s", label)));
         Breadcrumb.addToModel(pModel, breadcrumbList);
+
+        pModel.addAttribute("label", label);
+        pModel.addAttribute("searchURL", SEARCH_URL);
+        pModel.addAttribute("searchLabel", SEARCH_LABEL);
 
         return String.format("%s/%s", DIR_VIEW, LIST_VIEW);
     }

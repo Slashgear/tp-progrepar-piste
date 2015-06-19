@@ -18,3 +18,12 @@
         </ul>
     </li>
 </ul>
+<c:if test="${not empty searchURL}">
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <form class="navbar-form" action="${searchURL}" method="post">
+                <input type="text" class="form-control col-lg-8" name="label" placeholder="${searchLabel}">
+            </form>
+        </li>
+    </ul>
+</c:if>

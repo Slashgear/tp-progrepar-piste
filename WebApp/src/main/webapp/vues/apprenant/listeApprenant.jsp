@@ -6,7 +6,12 @@
 
 <div class="container">
     <div class="row">
-        <h1>Liste des apprenants<c:if test="${empty listeApprenants}"> (vide)</c:if></h1>
+        <h1>Liste des apprenants<c:if test="${not empty label}"> pour : <c:out value="${label}"/></c:if></h1>
+        <c:if test="${empty listeApprenants}">
+            <div class="alert alert-warning">
+                <h4><strong>Aucun apprenant trouvé.</strong></h4>
+            </div>
+        </c:if>
         <c:if test="${not empty isDeleted}">
             <div class="alert alert-dismissable alert-success">
                 <button type="button" class="close" data-dismiss="alert">×</button>
@@ -62,11 +67,11 @@
 <%@ include file="../common/sortable.jsp"%>
 <script type="application/javascript">
     $('#modal_confirm').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget)
-        var apprenant = button.data('apprenant')
-        var numApprenant = button.data('id')
-        var modal = $(this)
-        modal.find('.modal-title').html('Etes-vous sur de vouloir supprimer <strong>' + apprenant + '</strong> de la liste des apprenants.')
+        var button = $(event.relatedTarget);
+        var apprenant = button.data('apprenant');
+        var numApprenant = button.data('id');
+        var modal = $(this);
+        modal.find('.modal-title').html('Etes-vous sur de vouloir supprimer <strong>' + apprenant + '</strong> de la liste des apprenants.');
         $('#ModalSuppr').attr('href', '/apprenant/suppr/' + numApprenant)
     })
 </script>

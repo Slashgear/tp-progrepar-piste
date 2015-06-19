@@ -5,10 +5,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div class="container">
     <div class="row">
-        <h1>Liste des actions</h1>
+        <h1>Liste des actions<c:if test="${not empty label}"> pour : <c:out value="${label}"/></c:if></h1>
         <c:if test="${empty listeActions}">
             <div class="alert alert-warning">
-                Aucune action trouvée.
+                <h4><strong>Aucune action trouvée.</strong></h4>
             </div>
         </c:if>
         <c:forEach items="${listeActions}" var="action">

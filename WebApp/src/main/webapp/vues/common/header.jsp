@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" isELIgnored="false"
          pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
 <html>
 <head>
@@ -30,30 +31,6 @@
     </div>
     <div class="navbar-collapse collapse navbar-inverse-collapse">
       <%@include file="navbar.jsp" %>
-      <!--
-      <ul class="nav navbar-nav">
-        <li class="dropdown">
-          <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Apprenants <span
-                  class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li class="dropdown-header">Affichages</li>
-            <li><a href="apprenant">Affichage des apprenants</a></li>
-            <li><a href="apprenant/ajout">Ajouter un apprenant</a></li>
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Statistiques <span
-                  class="caret"></span></a>
-          <ul class="dropdown-menu">
-            <li class="dropdown-header">Affichages</li>
-            <li><a href="jeu">Affichages des jeux</a></li>
-            <li><a href="mission">Affichage des missions</a></li>
-            <li><a href="objectif">Affichage des objectifs</a></li>
-            <li><a href="action">Affichage des actions</a></li>
-          </ul>
-        </li>
-      </ul>
-      -->
     </div>
   </div>
   <%@include file="headercomponents/breadcrumb.jsp" %>

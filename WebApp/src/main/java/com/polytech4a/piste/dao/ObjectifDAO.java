@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 /**
  * @author Alexandre
  *         08/06/2015
@@ -14,4 +16,7 @@ public interface ObjectifDAO extends JpaRepository<Objectif, Integer> {
             "inner join o.estAssociesByNumobjectif as e " +
             "inner join e.actionByNumaction a where o.numobjectif = :numObjectif")
     Integer getNumberofActionbyObjectif(@Param("numObjectif") Integer numObjectif);
+
+    @Query("from Objectif o where o.libobectif like concat('%', concat(:label, '%'))")
+    List<Objectif> findByLabel(@Param("label") String label);
 }

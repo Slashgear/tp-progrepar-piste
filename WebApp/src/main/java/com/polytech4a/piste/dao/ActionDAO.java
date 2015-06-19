@@ -26,4 +26,7 @@ public interface ActionDAO extends JpaRepository<Action, Integer> {
 
     @Query("from Action a where actNumaction=:idAction")
     List<Action> findByActNumaction(@Param("idAction") Integer idAction);
+
+    @Query("from Action a where a.libaction like concat('%', concat(:label, '%'))")
+    List<Action> findByLabel(@Param("label") String label);
 }
