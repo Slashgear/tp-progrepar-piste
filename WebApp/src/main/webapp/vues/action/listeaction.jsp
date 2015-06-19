@@ -15,7 +15,7 @@
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <a href=<c:out value="action/${action.numaction}"/>>
                     <div class="well">
-                        <p>#<c:out value="${action.numaction}"/> : <c:out value="${action.libaction}"/><br>
+                        #<c:out value="${action.numaction}"/> : <c:out value="${action.libaction}"/><br>
                             Coefficient : <c:out value="${coefActions.get(action.numaction)}"/><br>
                             Score minimum : <c:out value="${action.scoremin}"/><br>
                             <c:if test="${not empty scoresActions.get(action.numaction)}">
@@ -37,7 +37,7 @@
                                 </span>
                                     </c:otherwise>
                                 </c:choose>
-                            </c:if></p>
+                            </c:if>
                     </div>
                 </a>
             </div>
