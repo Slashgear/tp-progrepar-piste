@@ -10,6 +10,8 @@
                 <h4><strong>Aucun jeu trouvé.</strong></h4>
             </div>
         </c:if>
+    </div>
+    <div id="grid" class="row">
         <c:forEach items="${jeux}" var="jeu">
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <a href=<c:out value="jeu/${jeu.numjeu}"/>>
@@ -21,4 +23,5 @@
         </c:forEach>
     </div>
 </div>
+<%@ include file="../common/sortable.jsp" %>
 <%@include file="../common/footer.jsp" %>

@@ -3,7 +3,7 @@
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="container">
-    <div class="row">
+    <div id="grid" class="row">
         <h1><c:out value="${action.libaction}"/></h1>
 
         <div class="col-md-6">
@@ -87,4 +87,5 @@
     ${columnChartRepartition.getScript()}
 </c:if>
 
-<%@include file="../common/footer.jsp" %>
+<%@ include file="../common/sortable.jsp" %>
+<%@ include file="../common/footer.jsp" %>

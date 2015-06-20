@@ -10,6 +10,8 @@
                 <h4><strong>Aucun objectif trouvé.</strong></h4>
             </div>
         </c:if>
+    </div>
+    <div class="row" id="grid">
         <c:forEach items="${objectifs}" var="objectif">
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <a href=<c:out value="objectif/${objectif.numobjectif}"/>>
@@ -21,4 +23,5 @@
         </c:forEach>
     </div>
 </div>
+<%@ include file="../common/sortable.jsp" %>
 <%@include file="../common/footer.jsp" %>

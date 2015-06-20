@@ -43,6 +43,8 @@
                 <p><strong><c:out value="${inscritNb}"/></strong> Apprenants sont inscrit à ce jeu.</p>
             </div>
         </div>
+    </div>
+    <div id="grid" class="row">
         <div class="col-lg-6">
 
             <h2>Détails<c:if test="${not empty apprenant}"> pour l'apprenant : <a
@@ -74,6 +76,7 @@
         </c:if>
     </div>
 </div>
+<%@ include file="../common/sortable.jsp" %>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 ${pieChart.getScript()}
 ${pieChart2.getScript()}
