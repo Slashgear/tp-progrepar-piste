@@ -11,7 +11,7 @@
                     <label for="prenomApprenant" class="col-lg-2 control-label">Prénom</label>
 
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" name="prenomApprenant" id="prenomApprenant"
+                        <input required type="text" class="form-control" name="prenomApprenant" id="prenomApprenant"
                                placeholder="Prénom de l'apprenant"
                                value="${prenomApprenant}" size="25">
                     </div>
@@ -20,7 +20,7 @@
                     <label for="nomApprenant" class="col-lg-2 control-label">Nom</label>
 
                     <div class="col-lg-10">
-                        <input type="text" class="form-control" name="nomApprenant" id="nomApprenant" placeholder="Nom de l'apprenant"
+                        <input required type="text" class="form-control" name="nomApprenant" id="nomApprenant" placeholder="Nom de l'apprenant"
                                value="${nomApprenant}" size="25">
                     </div>
                 </div>
