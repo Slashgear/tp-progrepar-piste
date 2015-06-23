@@ -10,11 +10,11 @@ USE `permispiste`;
 -- --------------------------------------------------------
 
 --
--- Structure de la table `action`
+-- Structure de la table `Action`
 --
 
-DROP TABLE IF EXISTS `action`;
-CREATE TABLE IF NOT EXISTS `action` (
+DROP TABLE IF EXISTS `Action`;
+CREATE TABLE IF NOT EXISTS `Action` (
   `NUMACTION` int(11) NOT NULL AUTO_INCREMENT,
   `ACT_NUMACTION` int(11) DEFAULT NULL,
   `LIBACTION` char(25) DEFAULT NULL,
@@ -24,10 +24,10 @@ CREATE TABLE IF NOT EXISTS `action` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
--- Contenu de la table `action`
+-- Contenu de la table `Action`
 --
 
-INSERT INTO `action` (`NUMACTION`, `ACT_NUMACTION`, `LIBACTION`, `SCOREMIN`) VALUES
+INSERT INTO `Action` (`NUMACTION`, `ACT_NUMACTION`, `LIBACTION`, `SCOREMIN`) VALUES
   (1, NULL, 'Se mettre en tenue', 7),
   (2, 1, 'Préparation véhicule', 7),
   (3, NULL, 'Respect sécurité', 11),
@@ -51,11 +51,11 @@ INSERT INTO `action` (`NUMACTION`, `ACT_NUMACTION`, `LIBACTION`, `SCOREMIN`) VAL
 -- --------------------------------------------------------
 
 --
--- Structure de la table `appartient`
+-- Structure de la table `Appartient`
 --
 
-DROP TABLE IF EXISTS `appartient`;
-CREATE TABLE IF NOT EXISTS `appartient` (
+DROP TABLE IF EXISTS `Appartient`;
+CREATE TABLE IF NOT EXISTS `Appartient` (
   `NUMJEU` int(11) NOT NULL,
   `NUMACTION` int(11) NOT NULL,
   PRIMARY KEY (`NUMJEU`,`NUMACTION`),
@@ -66,11 +66,11 @@ CREATE TABLE IF NOT EXISTS `appartient` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `apprenant`
+-- Structure de la table `Apprenant`
 --
 
-DROP TABLE IF EXISTS `apprenant`;
-CREATE TABLE IF NOT EXISTS `apprenant` (
+DROP TABLE IF EXISTS `Apprenant`;
+CREATE TABLE IF NOT EXISTS `Apprenant` (
   `NUMAPPRENANT` int(11) NOT NULL AUTO_INCREMENT,
   `NOMAPPRENANT` char(25) DEFAULT NULL,
   `PRENOMAPPRENANT` char(25) DEFAULT NULL,
@@ -81,10 +81,10 @@ CREATE TABLE IF NOT EXISTS `apprenant` (
   AUTO_INCREMENT = 15;
 
 --
--- Contenu de la table `apprenant`
+-- Contenu de la table `Apprenant`
 --
 
-INSERT INTO `apprenant` (`NUMAPPRENANT`, `NOMAPPRENANT`, `PRENOMAPPRENANT`) VALUES
+INSERT INTO `Apprenant` (`NUMAPPRENANT`, `NOMAPPRENANT`, `PRENOMAPPRENANT`) VALUES
   (1, 'Caron', 'Antoine'),
   (2, 'Chauslende', 'Adrien'),
   (3, 'Galdeano', 'Alexandre'),
@@ -98,11 +98,11 @@ INSERT INTO `apprenant` (`NUMAPPRENANT`, `NOMAPPRENANT`, `PRENOMAPPRENANT`) VALU
 -- --------------------------------------------------------
 
 --
--- Structure de la table `est_associe`
+-- Structure de la table `Est_associe`
 --
 
-DROP TABLE IF EXISTS `est_associe`;
-CREATE TABLE IF NOT EXISTS `est_associe` (
+DROP TABLE IF EXISTS `Est_associe`;
+CREATE TABLE IF NOT EXISTS `Est_associe` (
   `NUMACTION` int(11) NOT NULL,
   `NUMOBJECTIF` int(11) NOT NULL,
   PRIMARY KEY (`NUMACTION`,`NUMOBJECTIF`),
@@ -111,10 +111,10 @@ CREATE TABLE IF NOT EXISTS `est_associe` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `est_associe`
+-- Contenu de la table `Est_associe`
 --
 
-INSERT INTO `est_associe` (`NUMACTION`, `NUMOBJECTIF`) VALUES
+INSERT INTO `Est_associe` (`NUMACTION`, `NUMOBJECTIF`) VALUES
   (1, 5),
   (2, 5),
   (3, 1),
@@ -139,11 +139,11 @@ INSERT INTO `est_associe` (`NUMACTION`, `NUMOBJECTIF`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `fixe`
+-- Structure de la table `Fixe`
 --
 
-DROP TABLE IF EXISTS `fixe`;
-CREATE TABLE IF NOT EXISTS `fixe` (
+DROP TABLE IF EXISTS `Fixe`;
+CREATE TABLE IF NOT EXISTS `Fixe` (
   `NUMMISSION` int(11) NOT NULL,
   `NUMOBJECTIF` int(11) NOT NULL,
   PRIMARY KEY (`NUMMISSION`,`NUMOBJECTIF`),
@@ -152,10 +152,10 @@ CREATE TABLE IF NOT EXISTS `fixe` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `fixe`
+-- Contenu de la table `Fixe`
 --
 
-INSERT INTO `fixe` (`NUMMISSION`, `NUMOBJECTIF`) VALUES
+INSERT INTO `Fixe` (`NUMMISSION`, `NUMOBJECTIF`) VALUES
   (1, 1),
   (1, 4),
   (1, 5),
@@ -179,11 +179,11 @@ INSERT INTO `fixe` (`NUMMISSION`, `NUMOBJECTIF`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `indicateur`
+-- Structure de la table `Indicateur`
 --
 
-DROP TABLE IF EXISTS `indicateur`;
-CREATE TABLE IF NOT EXISTS `indicateur` (
+DROP TABLE IF EXISTS `Indicateur`;
+CREATE TABLE IF NOT EXISTS `Indicateur` (
   `NUMINDIC` int(11) NOT NULL AUTO_INCREMENT,
   `NUMACTION` int(11) NOT NULL,
   `POIDS` int(11) DEFAULT NULL,
@@ -192,10 +192,10 @@ CREATE TABLE IF NOT EXISTS `indicateur` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=20 ;
 
 --
--- Contenu de la table `indicateur`
+-- Contenu de la table `Indicateur`
 --
 
-INSERT INTO `indicateur` (`NUMINDIC`, `NUMACTION`, `POIDS`) VALUES
+INSERT INTO `Indicateur` (`NUMINDIC`, `NUMACTION`, `POIDS`) VALUES
   (1, 1, 1),
   (2, 2, 2),
   (3, 3, 5),
@@ -219,11 +219,11 @@ INSERT INTO `indicateur` (`NUMINDIC`, `NUMACTION`, `POIDS`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `inscription`
+-- Structure de la table `Inscription`
 --
 
-DROP TABLE IF EXISTS `inscription`;
-CREATE TABLE IF NOT EXISTS `inscription` (
+DROP TABLE IF EXISTS `Inscription`;
+CREATE TABLE IF NOT EXISTS `Inscription` (
   `NUMAPPRENANT` INT(11) NOT NULL,
   `NUMJEU`       INT(11) NOT NULL,
   PRIMARY KEY (`NUMAPPRENANT`, `NUMJEU`),
@@ -234,10 +234,10 @@ CREATE TABLE IF NOT EXISTS `inscription` (
   DEFAULT CHARSET = utf8;
 
 --
--- Contenu de la table `inscription`
+-- Contenu de la table `Inscription`
 --
 
-INSERT INTO `inscription` (`NUMAPPRENANT`, `NUMJEU`) VALUES
+INSERT INTO `Inscription` (`NUMAPPRENANT`, `NUMJEU`) VALUES
   (3, 2),
   (12, 1),
   (12, 2),
@@ -246,32 +246,32 @@ INSERT INTO `inscription` (`NUMAPPRENANT`, `NUMJEU`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `jeu`
+-- Structure de la table `Jeu`
 --
 
-DROP TABLE IF EXISTS `jeu`;
-CREATE TABLE IF NOT EXISTS `jeu` (
+DROP TABLE IF EXISTS `Jeu`;
+CREATE TABLE IF NOT EXISTS `Jeu` (
   `NUMJEU` int(11) NOT NULL AUTO_INCREMENT,
   `LIBELLEJEU` char(25) DEFAULT NULL,
   PRIMARY KEY (`NUMJEU`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
 
 --
--- Contenu de la table `jeu`
+-- Contenu de la table `Jeu`
 --
 
-INSERT INTO `jeu` (`NUMJEU`, `LIBELLEJEU`) VALUES
+INSERT INTO `Jeu` (`NUMJEU`, `LIBELLEJEU`) VALUES
   (1, 'Jeu n°1'),
   (2, 'Jeu n°2');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `mission`
+-- Structure de la table `Mission`
 --
 
-DROP TABLE IF EXISTS `mission`;
-CREATE TABLE IF NOT EXISTS `mission` (
+DROP TABLE IF EXISTS `Mission`;
+CREATE TABLE IF NOT EXISTS `Mission` (
   `NUMMISSION` int(11) NOT NULL AUTO_INCREMENT,
   `NUMJEU` int(11) NOT NULL,
   `LIBMISSION` char(25) DEFAULT NULL,
@@ -283,10 +283,10 @@ CREATE TABLE IF NOT EXISTS `mission` (
   AUTO_INCREMENT = 9;
 
 --
--- Contenu de la table `mission`
+-- Contenu de la table `Mission`
 --
 
-INSERT INTO `mission` (`NUMMISSION`, `NUMJEU`, `LIBMISSION`) VALUES
+INSERT INTO `Mission` (`NUMMISSION`, `NUMJEU`, `LIBMISSION`) VALUES
   (1, 1, 'Mission A'),
   (2, 1, 'Mission B'),
   (3, 1, 'Mission C'),
@@ -299,21 +299,21 @@ INSERT INTO `mission` (`NUMMISSION`, `NUMJEU`, `LIBMISSION`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `objectif`
+-- Structure de la table `Objectif`
 --
 
-DROP TABLE IF EXISTS `objectif`;
-CREATE TABLE IF NOT EXISTS `objectif` (
+DROP TABLE IF EXISTS `Objectif`;
+CREATE TABLE IF NOT EXISTS `Objectif` (
   `NUMOBJECTIF` int(11) NOT NULL AUTO_INCREMENT,
   `LIBOBECTIF` char(25) DEFAULT NULL,
   PRIMARY KEY (`NUMOBJECTIF`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9 ;
 
 --
--- Contenu de la table `objectif`
+-- Contenu de la table `Objectif`
 --
 
-INSERT INTO `objectif` (`NUMOBJECTIF`, `LIBOBECTIF`) VALUES
+INSERT INTO `Objectif` (`NUMOBJECTIF`, `LIBOBECTIF`) VALUES
   (1, 'Réussir manoeuvre'),
   (2, 'Analyse des problèmes'),
   (3, 'Vérifier mécanique'),
@@ -326,11 +326,11 @@ INSERT INTO `objectif` (`NUMOBJECTIF`, `LIBOBECTIF`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `obtient`
+-- Structure de la table `Obtient`
 --
 
-DROP TABLE IF EXISTS `obtient`;
-CREATE TABLE IF NOT EXISTS `obtient` (
+DROP TABLE IF EXISTS `Obtient`;
+CREATE TABLE IF NOT EXISTS `Obtient` (
   `NUMAPPRENANT` int(11) NOT NULL,
   `NUMACTION` int(11) NOT NULL,
   `VALEUR` INT(11) DEFAULT NULL,
@@ -340,10 +340,10 @@ CREATE TABLE IF NOT EXISTS `obtient` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `obtient`
+-- Contenu de la table `Obtient`
 --
 
-INSERT INTO `obtient` (`NUMAPPRENANT`, `NUMACTION`, `VALEUR`) VALUES
+INSERT INTO `Obtient` (`NUMAPPRENANT`, `NUMACTION`, `VALEUR`) VALUES
   (3, 3, 12),
   (3, 4, 8),
   (12, 3, 12),
@@ -358,55 +358,55 @@ INSERT INTO `obtient` (`NUMAPPRENANT`, `NUMACTION`, `VALEUR`) VALUES
 --
 
 --
--- Contraintes pour la table `action`
+-- Contraintes pour la table `Action`
 --
-ALTER TABLE `action`
-ADD CONSTRAINT `FK_ACTION_A_POUR_SU_ACTION` FOREIGN KEY (`ACT_NUMACTION`) REFERENCES `action` (`NUMACTION`);
+ALTER TABLE `Action`
+ADD CONSTRAINT `FK_ACTION_A_POUR_SU_ACTION` FOREIGN KEY (`ACT_NUMACTION`) REFERENCES `Action` (`NUMACTION`);
 
 --
--- Contraintes pour la table `appartient`
+-- Contraintes pour la table `Appartient`
 --
-ALTER TABLE `appartient`
-ADD CONSTRAINT `FK_APPARTIE_APPARTIEN_ACTION` FOREIGN KEY (`NUMACTION`) REFERENCES `action` (`NUMACTION`),
-ADD CONSTRAINT `FK_APPARTIE_APPARTIEN_JEU` FOREIGN KEY (`NUMJEU`) REFERENCES `jeu` (`NUMJEU`);
+ALTER TABLE `Appartient`
+ADD CONSTRAINT `FK_APPARTIE_APPARTIEN_ACTION` FOREIGN KEY (`NUMACTION`) REFERENCES `Action` (`NUMACTION`),
+ADD CONSTRAINT `FK_APPARTIE_APPARTIEN_JEU` FOREIGN KEY (`NUMJEU`) REFERENCES `Jeu` (`NUMJEU`);
 
 --
--- Contraintes pour la table `est_associe`
+-- Contraintes pour la table `Est_associe`
 --
-ALTER TABLE `est_associe`
-ADD CONSTRAINT `FK_EST_ASSO_EST_ASSOC_ACTION` FOREIGN KEY (`NUMACTION`) REFERENCES `action` (`NUMACTION`),
-ADD CONSTRAINT `FK_EST_ASSO_EST_ASSOC_OBJECTIF` FOREIGN KEY (`NUMOBJECTIF`) REFERENCES `objectif` (`NUMOBJECTIF`);
+ALTER TABLE `Est_associe`
+ADD CONSTRAINT `FK_EST_ASSO_EST_ASSOC_ACTION` FOREIGN KEY (`NUMACTION`) REFERENCES `Action` (`NUMACTION`),
+ADD CONSTRAINT `FK_EST_ASSO_EST_ASSOC_OBJECTIF` FOREIGN KEY (`NUMOBJECTIF`) REFERENCES `Objectif` (`NUMOBJECTIF`);
 
 --
--- Contraintes pour la table `fixe`
+-- Contraintes pour la table `Fixe`
 --
-ALTER TABLE `fixe`
-ADD CONSTRAINT `FK_FIXE_FIXE2_OBJECTIF` FOREIGN KEY (`NUMOBJECTIF`) REFERENCES `objectif` (`NUMOBJECTIF`),
-ADD CONSTRAINT `FK_FIXE_FIXE_MISSION` FOREIGN KEY (`NUMMISSION`) REFERENCES `mission` (`NUMMISSION`);
+ALTER TABLE `Fixe`
+ADD CONSTRAINT `FK_FIXE_FIXE2_OBJECTIF` FOREIGN KEY (`NUMOBJECTIF`) REFERENCES `Objectif` (`NUMOBJECTIF`),
+ADD CONSTRAINT `FK_FIXE_FIXE_MISSION` FOREIGN KEY (`NUMMISSION`) REFERENCES `Mission` (`NUMMISSION`);
 
 --
--- Contraintes pour la table `indicateur`
+-- Contraintes pour la table `Indicateur`
 --
-ALTER TABLE `indicateur`
-ADD CONSTRAINT `FK_INDICATE_EST_VALOR_ACTION` FOREIGN KEY (`NUMACTION`) REFERENCES `action` (`NUMACTION`);
+ALTER TABLE `Indicateur`
+ADD CONSTRAINT `FK_INDICATE_EST_VALOR_ACTION` FOREIGN KEY (`NUMACTION`) REFERENCES `Action` (`NUMACTION`);
 
 --
--- Contraintes pour la table `inscription`
+-- Contraintes pour la table `Inscription`
 --
-ALTER TABLE `inscription`
-ADD CONSTRAINT `inscription_ibfk_1` FOREIGN KEY (`NUMAPPRENANT`) REFERENCES `apprenant` (`NUMAPPRENANT`),
-ADD CONSTRAINT `inscription_ibfk_2` FOREIGN KEY (`NUMJEU`) REFERENCES `jeu` (`NUMJEU`);
+ALTER TABLE `Inscription`
+ADD CONSTRAINT `inscription_ibfk_1` FOREIGN KEY (`NUMAPPRENANT`) REFERENCES `Apprenant` (`NUMAPPRENANT`),
+ADD CONSTRAINT `inscription_ibfk_2` FOREIGN KEY (`NUMJEU`) REFERENCES `Jeu` (`NUMJEU`);
 
 --
--- Contraintes pour la table `mission`
+-- Contraintes pour la table `Mission`
 --
-ALTER TABLE `mission`
-ADD CONSTRAINT `FK_MISSION_SE_COMPOS_JEU` FOREIGN KEY (`NUMJEU`) REFERENCES `jeu` (`NUMJEU`);
+ALTER TABLE `Mission`
+ADD CONSTRAINT `FK_MISSION_SE_COMPOS_JEU` FOREIGN KEY (`NUMJEU`) REFERENCES `Jeu` (`NUMJEU`);
 
 --
--- Contraintes pour la table `obtient`
+-- Contraintes pour la table `Obtient`
 --
-ALTER TABLE `obtient`
-ADD CONSTRAINT `FK_OBTIENT_OBTIENT3_ACTION` FOREIGN KEY (`NUMACTION`) REFERENCES `action` (`NUMACTION`),
-ADD CONSTRAINT `FK_OBTIENT_OBTIENT_APPRENAN` FOREIGN KEY (`NUMAPPRENANT`) REFERENCES `apprenant` (`NUMAPPRENANT`);
+ALTER TABLE `Obtient`
+ADD CONSTRAINT `FK_OBTIENT_OBTIENT3_ACTION` FOREIGN KEY (`NUMACTION`) REFERENCES `Action` (`NUMACTION`),
+ADD CONSTRAINT `FK_OBTIENT_OBTIENT_APPRENAN` FOREIGN KEY (`NUMAPPRENANT`) REFERENCES `Apprenant` (`NUMAPPRENANT`);
 
