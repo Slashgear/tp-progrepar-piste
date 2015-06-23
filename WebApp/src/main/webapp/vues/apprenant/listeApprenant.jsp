@@ -49,6 +49,7 @@
             </div>
         </c:forEach>
     </div>
+    <%@include file="../common/floatingactionbutton.jsp" %>
 </div>
 <div id="modal_confirm" class="modal">
     <div class="modal-dialog">
@@ -75,11 +76,4 @@
         $('#ModalSuppr').attr('href', '/apprenant/suppr/' + numApprenant)
     })
 </script>
-<footer class="footer">
-    <div class="container">
-        <div class="pull-right">
-            <%@include file="../common/floatingactionbutton.jsp" %>
-        </div>
-    </div>
-</footer>
 <%@include file="../common/footer.jsp" %>
