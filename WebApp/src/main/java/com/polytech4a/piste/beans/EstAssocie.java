@@ -9,7 +9,7 @@ import javax.persistence.*;
  * @version 1.0
  */
 @Entity
-@Table(name = "est_associe", schema = "", catalog = "permispiste")
+@Table(name = "Est_associe", schema = "", catalog = "permispiste")
 @IdClass(EstAssociePK.class)
 public class EstAssocie {
     private Integer numaction;
@@ -45,9 +45,8 @@ public class EstAssocie {
         EstAssocie that = (EstAssocie) o;
 
         if (numaction != null ? !numaction.equals(that.numaction) : that.numaction != null) return false;
-        if (numobjectif != null ? !numobjectif.equals(that.numobjectif) : that.numobjectif != null) return false;
+        return !(numobjectif != null ? !numobjectif.equals(that.numobjectif) : that.numobjectif != null);
 
-        return true;
     }
 
     @Override
