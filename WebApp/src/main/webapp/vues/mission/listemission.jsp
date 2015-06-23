@@ -10,6 +10,8 @@
                 <h4><strong>Aucune mission trouvée.</strong></h4>
             </div>
         </c:if>
+    </div>
+    <div class="row" id="grid">
         <c:forEach items="${missions}" var="mission">
             <div class="col-lg-3 col-md-4 col-sm-6">
                 <a href=<c:out value="mission/${mission.nummission}"/>>
@@ -21,4 +23,5 @@
         </c:forEach>
     </div>
 </div>
+<%@ include file="../common/sortable.jsp" %>
 <%@include file="../common/footer.jsp" %>

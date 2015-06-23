@@ -10,4 +10,4 @@
     </div>
 </div>
 
-<script src="<c:url value="/resources/js/floatingactionbutton.js"/>"/>
+<script src="<c:url value="/resources/js/floatingactionbutton.js"/>"></script>
