@@ -5,6 +5,8 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <base href="/">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -19,7 +21,7 @@
   <title>Simulateur de Piste</title>
 </head>
 <body>
-<div class="header">
+<header>
   <div class="navbar navbar-inverse">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
@@ -34,4 +36,4 @@
     </div>
   </div>
   <%@include file="headercomponents/breadcrumb.jsp" %>
-</div>
+</header>
